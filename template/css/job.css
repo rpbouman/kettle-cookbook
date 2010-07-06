@@ -1,0 +1,127 @@
+.entry-hops {
+    display:none;
+}
+
+.entry-icon {
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(125,125,125);
+    height: 32px;
+    width: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    z-index:100;
+}
+
+.entry-label {
+    margin-top:2px;
+    font-size: 8pt !important;
+    white-space: nowrap;
+    position: absolute;
+    z-index:100;
+    background-color:white;
+}
+
+.entry-hop {
+    background-color: black;
+}
+
+.entry-hop-unconditional {
+    background-color: black;
+}
+.entry-hop-true {
+    background-color: green;
+}
+.entry-hop-false {
+    background-color: red;
+}
+
+/*
+    Utility entries
+*/
+.entry-icon-ABORT {
+    background-image: url(../images/ABR.png);
+}
+
+.entry-icon-MSGBOX_INFO {
+    background-image: url(../images/INF.png);
+}
+
+.entry-icon-PING {
+    background-image: url(../images/PNG.png);
+}
+
+.entry-icon-SYSLOG{
+    background-image: url(../images/SYL.png);
+}
+
+.entry-icon-SNMP_TRAP{
+    background-image: url(../images/SNMP.png);
+}
+
+.entry-icon-TRUNCATE_TABLES{
+    background-image: url(../images/TRT.png);
+}
+
+.entry-icon-WAIT_FOR_SQL{
+    background-image: url(../images/WSQL.png);
+}
+
+.entry-icon-WRITE_TO_LOG{
+    background-image: url(../images/WTL.png);
+}
+
+/*
+    General entries
+*/
+.entry-icon-START {
+    background-image: url(../images/STR.png);    
+}
+
+.entry-icon-DUMMY {
+    background-image: url(../images/DUM.png);
+}
+
+.entry-icon-DUMMY {
+    background-image: url(../images/DUM.png);
+}
+
+.entry-icon-JOB {
+    background-image: url(../images/JOB.png);
+}
+
+.entry-icon-SET_VARIABLES {
+    background-image: url(../images/SVA.png);
+}
+
+.entry-icon-SUCCESS {
+    background-image: url(../images/SUC.png);
+}
+
+.entry-icon-TRANS {
+    background-image: url(../images/TRN.png);
+}
+
+/*
+    Mail entries
+*/
+.entry-icon-GET_POP {
+    background-image: url(../images/GETPOP.png);
+}
+
+.entry-icon-MAIL {
+    background-image: url(../images/MAIL.png);
+}
+
+.entry-icon-JobCategory.Category.Mail_VALIDATOR {
+    background-image: url(../images/MAV.png);
+}
+
+
+/*
+    File Management Entries
+*/
+
+
