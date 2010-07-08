@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>document-all</name>
-    <description/>
+    <description>This is the main job of the kettle-cookbook project. The kettle-cookbook project provides open source auto-documentation tooling for Pentaho Data Integration (a.k.a. Kettle) ETL jobs and transformations.</description>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
@@ -13,12 +13,12 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\kettle book</default_value>
+            <default_value>D:\Projects\kettle-cookbook\pdi</default_value>
             <description>The full path of a directory that contains the Kettle solution. (Subdirectories are scanned)</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
-            <default_value>D:\Projects\kettle-doc\output</default_value>
+            <default_value>D:\Projects\kettle-cookbook\doc</default_value>
             <description>A full path to an existing directory that is to contain the documentation.</description>
         </parameter>
     </parameters>
@@ -317,8 +317,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>512</xloc>
-      <yloc>531</yloc>
+      <xloc>754</xloc>
+      <yloc>431</yloc>
       </entry>
   </entries>
   <hops>
