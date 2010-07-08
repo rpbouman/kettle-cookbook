@@ -119,9 +119,121 @@
     background-image: url(../images/MAV.png);
 }
 
-
 /*
     File Management Entries
 */
+.entry-icon-ADD_RESULT_FILENAMES {
+    background-image: url(../images/AFN.png);
+}
 
+.entry-icon-FOLDERS_COMPARE {
+    background-image: url(../images/FCP.png);
+}
 
+.entry-icon-COPY_FILES {
+    background-image: url(../images/CPY.png);
+}
+
+.entry-icon-COPY_MOVE_RESULT_FILENAMES {
+    background-image: url(../images/CMR.png);
+}
+
+.entry-icon-CREATE_FOLDER {
+    background-image: url(../images/CRF.png);
+}
+
+.entry-icon-FOLDERS_COMPARE {
+    background-image: url(../images/FCP.png);
+}
+
+.entry-icon-CREATE_FILE {
+    background-image: url(../images/CFJ.png);
+}
+
+.entry-icon-DELETE_FILE {
+    background-image: url(../images/DFJ.png);
+}
+
+.entry-icon-DELETE_RESULT_FILENAMES {
+    background-image: url(../images/DFN.png);
+}
+
+.entry-icon-DELETE_FILES {
+    background-image: url(../images/DFS.png);
+}
+
+.entry-icon-DELETE_FOLDERS{
+    background-image: url(../images/DSF.png);
+}
+
+.entry-icon-FILE_COMPARE{
+    background-image: url(../images/BFC.png);
+}
+
+.entry-icon-HTTP {
+    background-image: url(../images/WEB.png);
+}
+
+.entry-icon-MOVE_FILES {
+    background-image: url(../images/MVF.png);
+}
+
+.entry-icon-UNZIP{
+    background-image: url(../images/UZP.png);
+}
+
+.entry-icon-WAIT_FOR_FILE{
+    background-image: url(../images/WFF.png);
+}
+
+.entry-icon-ZIP{
+    background-image: url(../images/ZIP.png);
+}
+
+/*
+    Conditions
+*/
+
+.entry-icon-CHECK_DB_CONNECTIONS {
+    background-image: url(../images/);
+}
+
+.entry-icon-CHECK_FILES_LOCKED {
+    background-image: url(../images/);
+}
+
+.entry-icon-FOLDER_IS_EMPTY {
+    background-image: url(../images/);
+}
+
+.entry-icon-WEBSERVICE_AVAILABLE {
+    background-image: url(../images/);
+}
+
+.entry-icon-FILES_EXIST {
+    background-image: url(../images/);
+}
+
+.entry-icon-COLUMNS_EXIST {
+    background-image: url(../images/);
+}
+
+.entry-icon-EVAL_FILES_METRICS{
+    background-image: url(../images/);
+}
+
+.entry-icon-EVAL_TABLE_CONTENT{
+    background-image: url(../images/);
+}
+
+.entry-icon-FILE_EXISTS{
+    background-image: url(../images/);
+}
+
+.entry-icon-SIMPLE_EVAL{
+    background-image: url(../images/);
+}
+
+.entry-icon-TABLE_EXISTS{
+    background-image: url(../images/);
+}
