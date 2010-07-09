@@ -195,45 +195,115 @@
 */
 
 .entry-icon-CHECK_DB_CONNECTIONS {
-    background-image: url(../images/);
+    background-image: url(../images/CDBC.png);
 }
 
 .entry-icon-CHECK_FILES_LOCKED {
-    background-image: url(../images/);
+    background-image: url(../images/CFL.png);
 }
 
 .entry-icon-FOLDER_IS_EMPTY {
-    background-image: url(../images/);
+    background-image: url(../images/EFO.png);
 }
 
 .entry-icon-WEBSERVICE_AVAILABLE {
-    background-image: url(../images/);
+    background-image: url(../images/WSA.png);
 }
 
 .entry-icon-FILES_EXIST {
-    background-image: url(../images/);
+    background-image: url(../images/LFE.png);
 }
 
 .entry-icon-COLUMNS_EXIST {
-    background-image: url(../images/);
+    /* TODO */
+    background-image: url(../images/CEX.png);
 }
 
 .entry-icon-EVAL_FILES_METRICS{
-    background-image: url(../images/);
+    background-image: url(../images/CFS.png);
 }
 
 .entry-icon-EVAL_TABLE_CONTENT{
-    background-image: url(../images/);
+    background-image: url(../images/ETC.png);
 }
 
 .entry-icon-FILE_EXISTS{
-    background-image: url(../images/);
+    background-image: url(../images/FEX.png);
 }
 
 .entry-icon-SIMPLE_EVAL{
-    background-image: url(../images/);
+    background-image: url(../images/SEV.png);
 }
 
 .entry-icon-TABLE_EXISTS{
-    background-image: url(../images/);
+    background-image: url(../images/TEX.png);
 }
+/*
+    scripting
+*/
+.entry-icon-JavaScript{
+    background-image: url(../images/SCR.png);
+}
+
+.entry-icon-SHELL{
+    background-image: url(../images/SHL.png);
+}
+
+.entry-icon-SQL{
+    background-image: url(../images/SQL.png);
+}
+
+/*
+    bulk loading
+*/
+.entry-icon-MYSQL_BULK_FILE{
+    background-image: url(../images/MBF.png);
+}
+
+.entry-icon-MSSQL_BULK_LOAD{
+    background-image: url(../images/MBL.png);
+}
+
+.entry-icon-MYSQL_BULK_LOAD{
+    background-image: url(../images/MBL.png);
+}
+
+.entry-icon-MS_ACCESS_BULK_LOAD{
+    background-image: url(../images/MBL.png);
+}
+
+/*
+    XML
+*/
+
+.entry-icon-JobCategory.Category.XML_WELL_FORMED{
+    background-image: url(../images/XFC.png);
+}
+
+.entry-icon-DTD_VALIDATOR{
+    background-image: url(../images/DTD.png);
+}
+
+.entry-icon-XSD_VALIDATOR{
+    background-image: url(../images/XSD.png);
+}
+
+.entry-icon-XSLT{
+    background-image: url(../images/XSLT.png);
+}
+
+/*
+    Repository
+*/
+
+.entry-icon-CONNECTED_TO_REPOSITORY{
+    background-image: url(../images/CREP.png);
+}
+
+.entry-icon-EXPORT_REPOSITORY{
+    background-image: url(../images/EREP.png);
+}
+
+/*
+    Repository
+*/
