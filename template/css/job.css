@@ -238,10 +238,15 @@
 .entry-icon-TABLE_EXISTS{
     background-image: url(../images/TEX.png);
 }
+
+.entry-icon-DELAY{
+    background-image: url(../images/DLT.png);
+}
+
 /*
     scripting
 */
-.entry-icon-JavaScript{
+.entry-icon-EVAL{
     background-image: url(../images/SCR.png);
 }
 
@@ -305,5 +310,42 @@
 }
 
 /*
-    Repository
+    File transfer
 */
+.entry-icon-FTP_DELETE{
+    background-image: url(../images/FTPD.png);
+}
+
+.entry-icon-FTP{
+    background-image: url(../images/FTP.png);
+}
+
+.entry-icon-FTP_PUT{
+    background-image: url(../images/PFP.png);
+}
+
+.entry-icon-FTPS_GET{
+    background-image: url(../images/FTPG.png);
+}
+
+.entry-icon-SFTP{
+    background-image: url(../images/SFT.png);
+}
+
+.entry-icon-FTPS_PUT{
+    background-image: url(../images/PFP.png);
+}
+
+.entry-icon-SFTPPUT{
+    background-image: url(../images/SFP.png);
+}
+
+.entry-icon-SSH2_GET{
+    background-image: url(../images/SHG.png);
+}
+
+.entry-icon-SSH2_PUT{
+    background-image: url(../images/SHP.png);
+}
+
+

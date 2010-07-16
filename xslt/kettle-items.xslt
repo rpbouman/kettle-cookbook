@@ -68,11 +68,17 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template match="item">
+    <xsl:variable name="relative-path">
+        <xsl:choose>
+            <xsl:when test="relative-path[text()]">/<xsl:value-of select="relative-path/text()"/></xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <li>
         <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
         <a target="main">
             <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
-            <xsl:attribute name="href"><xsl:value-of select="concat('html/', relative-path, '/', short_filename, '.html')"/></xsl:attribute>
+            <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '/', short_filename, '.html')"/></xsl:attribute>
             <xsl:value-of select="short_filename"/>
         </a>
     </li>

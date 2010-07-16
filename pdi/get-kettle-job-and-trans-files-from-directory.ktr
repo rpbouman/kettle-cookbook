@@ -483,7 +483,7 @@
 <replace_field/>
 </formula>
        <formula><field_name>output-path</field_name>
-<formula_string>[output-dir] &amp;  [file-separator] &amp; &quot;html&quot;  &amp; [file-separator] &amp; [relative-path]</formula_string>
+<formula_string>[output-dir] &amp;  [file-separator] &amp; &quot;html&quot;  &amp; IF([relative-path]=&quot;&quot;;&quot;&quot;;[file-separator] &amp; [relative-path])</formula_string>
 <value_type>String</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>

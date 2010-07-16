@@ -283,14 +283,20 @@ Boston, MA 02111-1307 USA
 ========================================================================== -->
 <xsl:template name="get-variables">
     <xsl:param name="text"/>
-    <xsl:param name="variables" select="''"/>
+    <xsl:param name="variables" select="','"/>
     <xsl:choose>
         <xsl:when test="contains($text, '${')">
             <xsl:variable name="after" select="substring-after($text, '${')"/>
             <xsl:variable name="var" select="substring-before($after, '}')"/>
+            <xsl:variable name="vars">
+                <xsl:choose>
+                    <xsl:when test="contains($variables, concat(',', $var, ','))"><xsl:value-of select="$variables"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="concat($variables, $var, ',')"/></xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <xsl:call-template name="get-variables">
                 <xsl:with-param name="text" select="substring-after($after, '}')"/>
-                <xsl:with-param name="variables" select="concat($variables, ',', $var)"/>
+                <xsl:with-param name="variables" select="$vars"/>
             </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
@@ -302,13 +308,12 @@ Boston, MA 02111-1307 USA
 <xsl:template name="variables">
     <xsl:variable name="nodes-using-variables" select="$document//*[contains(text(), '${')]"/>
     <xsl:variable name="list">
-        <xsl:for-each select="nodes-using-variables">
+        <xsl:for-each select="$nodes-using-variables">
             <xsl:call-template name="get-variables">
                 <xsl:with-param name="text" select="text()"/>
             </xsl:call-template>
         </xsl:for-each>
-    </xsl:variable>
-    vars:
+    </xsl:variable>    
     <xsl:value-of select="$list"/>
 </xsl:template>
 
