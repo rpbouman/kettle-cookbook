@@ -63,6 +63,8 @@ Boston, MA 02111-1307 USA
     "
 />
 
+<xsl:variable name="item-type" select="local-name($document/*[1])"/>
+
 <xsl:variable name="documentation-root"><xsl:call-template name="get-documentation-root"/></xsl:variable>
 
 <xsl:variable name="quick-links">
@@ -149,9 +151,7 @@ Boston, MA 02111-1307 USA
     </head>
     <body class="kettle-file" onload="drawHops()">
         <xsl:copy-of select="$quick-links"/>
-        
-        <xsl:call-template name="variables"/>
-        
+                
         <xsl:for-each select="$document">
             <xsl:apply-templates/>
         </xsl:for-each>
@@ -175,7 +175,7 @@ Boston, MA 02111-1307 USA
     <xsl:choose>
         <xsl:when test="parameter">
             <p>
-                This <xsl:value-of select="local-name(..)"/> defines <xsl:value-of select="count(parameter)"/> parameters.
+                This <xsl:value-of select="$item-type"/> defines <xsl:value-of select="count(parameter)"/> parameters.
             </p>
             <table>
                 <thead>
@@ -210,7 +210,7 @@ Boston, MA 02111-1307 USA
         </xsl:when>
         <xsl:otherwise>
             <p>
-                This <xsl:value-of select="local-name(..)"/> does not define any parameters.
+                This <xsl:value-of select="$item-type"/> does not define any parameters.
             </p>
         </xsl:otherwise>
     </xsl:choose>
@@ -225,7 +225,7 @@ Boston, MA 02111-1307 USA
                     <xsl:value-of select="description"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    This <xsl:value-of select="local-name(..)"/> does not have a description.
+                    This <xsl:value-of select="$item-type"/> does not have a description.
                 </xsl:otherwise>
             </xsl:choose>
         </p>
@@ -280,14 +280,14 @@ Boston, MA 02111-1307 USA
 ========================================================================== -->
 <xsl:template name="get-variables">
     <xsl:param name="text"/>
-    <xsl:param name="variables" select="','"/>
+    <xsl:param name="variables" select="''"/>
     <xsl:choose>
         <xsl:when test="contains($text, '${')">
             <xsl:variable name="after" select="substring-after($text, '${')"/>
             <xsl:variable name="var" select="substring-before($after, '}')"/>
             <xsl:variable name="vars">
                 <xsl:choose>
-                    <xsl:when test="contains($variables, concat(',', $var, ','))"><xsl:value-of select="$variables"/></xsl:when>
+                    <xsl:when test="contains(concat(',', $variables), concat(',', $var, ','))"><xsl:value-of select="$variables"/></xsl:when>
                     <xsl:otherwise><xsl:value-of select="concat($variables, $var, ',')"/></xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -302,7 +302,7 @@ Boston, MA 02111-1307 USA
     </xsl:choose>
 </xsl:template>
 
-<xsl:template name="variables">
+<xsl:template name="variable-list">
     <xsl:variable name="nodes-using-variables" select="$document//*[contains(text(), '${')]"/>
     <xsl:variable name="list">
         <xsl:for-each select="$nodes-using-variables">
@@ -312,6 +312,58 @@ Boston, MA 02111-1307 USA
         </xsl:for-each>
     </xsl:variable>    
     <xsl:value-of select="$list"/>
+</xsl:template>
+
+<xsl:template name="unique-variables">
+    <xsl:param name="before" select="''"/>
+    <xsl:param name="after">
+        <xsl:call-template name="variables"/>
+    </xsl:param>
+    <xsl:variable name="var" select="substring-before($after, ',')"/>
+    <xsl:if test="not(contains(concat(',', $before, ','), concat(',',$var,',')))">
+        <tr>
+            <th>
+                <xsl:value-of select="$var"/>
+            </th>
+            <td>
+            </td>
+        </tr>
+    </xsl:if>
+    <xsl:if test="string-length($var)!=0">
+        <xsl:call-template name="unique-variables">
+            <xsl:with-param name="before" select="concat($before, ',', $var)"/>
+            <xsl:with-param name="after" select="substring-after($after, ',')"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template name="variables">
+    <xsl:variable name="variables-list">
+        <xsl:call-template name="variable-list"/>
+    </xsl:variable>
+    <h2>
+        <a name="variables">Variables</a>
+    </h2>
+    <xsl:choose>
+        <xsl:when test="string-length($variables-list)=0">
+            This <xsl:value-of select="$item-type"/> does not read any variables.
+        </xsl:when>
+        <xsl:otherwise>
+            This <xsl:value-of select="$item-type"/> reads the following variables:
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Used in</th>
+                </thead>
+                <tbody>
+                    <xsl:call-template name="unique-variables">
+                        <xsl:with-param name="after" select="$variables-list"/>
+                    </xsl:call-template>
+                </tbody>
+            </table>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 <!-- =========================================================================
@@ -504,6 +556,7 @@ Boston, MA 02111-1307 USA
     <xsl:apply-templates select="info"/>
 
     <xsl:apply-templates select="parameters"/>
+    <xsl:call-template name="variables"/>
     <xsl:call-template name="transformation-diagram"/>
     
     <h2><a name="connections">Database Connections</a></h2>    
@@ -568,10 +621,6 @@ Boston, MA 02111-1307 USA
         </xsl:otherwise>
     </xsl:choose>
 
-    <h2>Variables</h2>
-    <p>
-        t.b.d.
-    </p>
     <h2>Flat Files</h2>
     <p>
         t.b.d.
@@ -651,7 +700,7 @@ Boston, MA 02111-1307 USA
     </table>
     <xsl:call-template name="description"/>
     <xsl:apply-templates select="parameters"/>
-    
+    <xsl:call-template name="variables"/>
     <xsl:call-template name="job-diagram"/>
 </xsl:template>
 
