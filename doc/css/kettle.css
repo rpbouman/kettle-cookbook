@@ -4,10 +4,12 @@
 
 thread tr th {
     text-align: center;    
+    font-weight:bold;
 }
 
 tbody tr th {
     text-align: left;
+    font-weight:normal;
 }
 
 th {

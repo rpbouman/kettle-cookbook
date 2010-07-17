@@ -352,9 +352,11 @@ Boston, MA 02111-1307 USA
             This <xsl:value-of select="$item-type"/> reads the following variables:
             <table>
                 <thead>
-                    <th>Name</th>
-                    <th>Value</th>
-                    <th>Used in</th>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Used in</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <xsl:call-template name="unique-variables">
