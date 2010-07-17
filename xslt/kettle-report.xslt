@@ -3,7 +3,7 @@
 
 kettle-report.xslt - an XSLT transformation that generates HTML documentation
 from a Kettle (aka Pentaho Data Integration) transformation or job file.
-This is part of kettle-doc, a kettle documentation generation framework.
+This is part of kettle-cookbook, a kettle documentation generation framework.
 
 Copyright (C) 2010 Roland Bouman
 
@@ -115,8 +115,7 @@ Boston, MA 02111-1307 USA
                 <xsl:value-of 
                     select="
                         concat(
-                            '../'
-                        ,   $documentation-root
+                            $documentation-root
                         ,   '/images/spoon.png'
                         )
                     "
@@ -128,8 +127,7 @@ Boston, MA 02111-1307 USA
                 <xsl:value-of 
                     select="
                         concat(
-                            '../'
-                        ,   $documentation-root
+                            $documentation-root
                         ,   '/css/kettle.css'
                         )
                     "
@@ -141,8 +139,7 @@ Boston, MA 02111-1307 USA
                 <xsl:value-of 
                     select="
                         concat(
-                            '../'
-                        ,   $documentation-root
+                            $documentation-root
                         ,   '/css/', local-name($document/*),'.css'
                         )
                     "
@@ -161,12 +158,12 @@ Boston, MA 02111-1307 USA
         
         <script type="text/javascript">
             <xsl:attribute name="src">
-                <xsl:value-of select="concat('../', $documentation-root, '/js/wz_jsgraphics.js')"/>
+                <xsl:value-of select="concat($documentation-root, '/js/wz_jsgraphics.js')"/>
             </xsl:attribute>
         </script>
         <script>
             <xsl:attribute name="src">
-                <xsl:value-of select="concat('../', $documentation-root, '/js/kettle.js')"/>
+                <xsl:value-of select="concat($documentation-root, '/js/kettle.js')"/>
             </xsl:attribute>
         </script>
     </body>
@@ -361,7 +358,8 @@ Boston, MA 02111-1307 USA
             <xsl:variable name="name" select="name/text()"/>
             <xsl:variable name="xloc" select="GUI/xloc - $min-xloc"/>
             <xsl:variable name="yloc" select="GUI/yloc - $min-yloc"/>
-            <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
+            <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
+            <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
             <div>
                 <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="class">
@@ -369,6 +367,9 @@ Boston, MA 02111-1307 USA
                     step-icon-<xsl:value-of select="type"/>
                     <xsl:if test="$error-handlers[target_step/text() = $name]">
                         step-error
+                    </xsl:if>                                        
+                    <xsl:if test="$hide">
+                        step-hidden
                     </xsl:if>
                 </xsl:attribute>                
                 <xsl:attribute name="style">
@@ -398,12 +399,18 @@ Boston, MA 02111-1307 USA
                     </xsl:for-each>
                 </div>
             </div>
-            <a class="step-label">
+            <a>
+                <xsl:attribute name="class">
+                    step-label
+                    <xsl:if test="$hide">
+                        step-label-hidden
+                    </xsl:if>
+                </xsl:attribute>
                 <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="style">
                     top:<xsl:value-of select="$yloc + 32"/>px;
-                    left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
-                </xsl:attribute>
+                    left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
+                    </xsl:attribute>
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>

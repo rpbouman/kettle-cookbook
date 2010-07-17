@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!--
 
-kettle-trans-report.xslt - an XSLT transformation that generates HTML 
-documentation from a Kettle (aka Pentaho Data Integration) transformation file.
+kettle-items.xslt - an XSLT transformation that generates the table of contents
+for Kettle (aka Pentaho Data Integration) documentation.
+This is part of kettle-cookbook, a kettle documentation generation framework.
 
 Copyright (C) 2010 Roland Bouman
 
@@ -30,6 +31,8 @@ Boston, MA 02111-1307 USA
     encoding="UTF-8"
     omit-xml-declaration="yes"
     media-type="text/html"
+    doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+    doctype-system="http://www.w3.org/TR/html4/loose.dtd"    
 />
 
 <xsl:template match="/">

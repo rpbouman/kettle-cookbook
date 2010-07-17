@@ -2,6 +2,10 @@
     display:none;
 }
 
+.step-hidden , .step-label-hidden{
+    display:none;
+}
+
 .step-icon {
     position: absolute;
     border-style: solid;
