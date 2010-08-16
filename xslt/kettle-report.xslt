@@ -468,6 +468,7 @@ Boston, MA 02111-1307 USA
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>
+		<xsl:apply-templates select="//notepads"/>
     </div>
 </xsl:template>
 
@@ -549,7 +550,33 @@ Boston, MA 02111-1307 USA
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>
+		<xsl:apply-templates select="//notepad"/>
     </div>
+</xsl:template>
+
+<xsl:template match="notepad">
+	<div class="note">
+		<xsl:attribute name="style">
+			left: <xsl:value-of select="xloc"/>px;
+			top: <xsl:value-of select="yloc"/>px;
+			width: <xsl:value-of select="width"/>px;
+			height: <xsl:value-of select="height"/>px;
+			font-family: <xsl:value-of select="fontname"/>;
+			font-size: <xsl:value-of select="fontsize"/>;
+			<xsl:if test="fontbold/text()='Y'">font-weight: bold;</xsl:if>
+			<xsl:if test="fontitalic/text()='Y'">font-style: italic;</xsl:if>
+			color: rgb(<xsl:value-of select="fontcolorred"/>
+					,<xsl:value-of select="fontcolorgreen"/>
+					,<xsl:value-of select="fontcolorblue"/>);
+			background-color: rgb(<xsl:value-of select="backgroundcolorred"/>
+					,<xsl:value-of select="backgroundcolorgreen"/>
+					,<xsl:value-of select="backgroundcolorblue"/>);
+			border-color: rgb(<xsl:value-of select="bordercolorred"/>
+					,<xsl:value-of select="bordercolorgreen"/>
+					,<xsl:value-of select="bordercolorblue"/>);
+		</xsl:attribute>
+		<xsl:value-of select="note"/>
+	</div>
 </xsl:template>
 <!-- =========================================================================
     KETTLE TRANSFORMATION

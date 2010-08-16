@@ -65,6 +65,30 @@
   <modified_date>2010&#47;07&#47;04 01:20:00.523</modified_date>
   </info>
   <notepads>
+    <notepad>
+      <note>This transformation gathers a list of all .ktr and .kjb files in the INPUT_DIR.
+
+The list of files is then stored in index.xml, which is used later on to generate most of the HTML files using XSLT.
+Additionally, a transform script is generated containing commands to execute per-job and per transformation html files</note>
+      <xloc>181</xloc>
+      <yloc>346</yloc>
+      <width>581</width>
+      <heigth>60</heigth>
+      <fontname>Microsoft Sans Serif</fontname>
+      <fontsize>8</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>255</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
   <hop> <from>Get Variables</from><to>Join Rows (cartesian product)</to><enabled>Y</enabled> </hop>  <hop> <from>Join Rows (cartesian product)</from><to>Get relative Path</to><enabled>Y</enabled> </hop>  <hop> <from>Get .ktr files from input dir</from><to>Is File?</to><enabled>Y</enabled> </hop>  <hop> <from>Is File?</from><to>Join Rows (cartesian product)</to><enabled>Y</enabled> </hop>  <hop> <from>Is File?</from><to>Not a file</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>  <hop> <from>Get relative Path</from><to>&lt;item&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;index&gt;</from><to>XML Join</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;item&gt;</from><to>XML Join</to><enabled>Y</enabled> </hop>  <hop> <from>Get relative Path</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>XML Join</from><to>write index.xml</to><enabled>Y</enabled> </hop>  <hop> <from>Get relative Path</from><to>transform script</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Join Rows (cartesian product) 2</from><to>&lt;index&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Date&#47;Time</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  </order>

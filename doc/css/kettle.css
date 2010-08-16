@@ -54,3 +54,9 @@ li.item-kjb {
 .kettle-hop {
     z-index:0;
 }
+
+.note{
+	position:absolute;
+	border-style:solid;
+	border-width: 2px;
+}

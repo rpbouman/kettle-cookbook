@@ -17,6 +17,7 @@ function drawHops(){
         from = childNodes.item(i);
         if (from.nodeType !== 1
         ||  from.tagName  !== "DIV"
+		||	from.className==="note"
         ) {
             continue;
         }
