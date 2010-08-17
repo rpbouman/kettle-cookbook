@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <!--
+This is kettle-report.xslt. This is part of kettle-cookbook.
+Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
 kettle-report.xslt - an XSLT transformation that generates HTML documentation
 from a Kettle (aka Pentaho Data Integration) transformation or job file.
 This is part of kettle-cookbook, a kettle documentation generation framework.
 
-Copyright (C) 2010 Roland Bouman
+Copyright (C) 2010 Roland Bouman 
+Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
 
 This library is free software; you can redistribute it and/or modify it under 
 the terms of the GNU Lesser General Public License as published by the 
@@ -239,6 +242,82 @@ Boston, MA 02111-1307 USA
 <!-- =========================================================================
     Utils
 ========================================================================== -->
+<xsl:template name="replace">
+	<xsl:param name="text"/>
+	<xsl:param name="search"/>
+	<xsl:param name="replace"/>
+	<xsl:choose>
+		<xsl:when test="contains($text, $search)">
+			<xsl:call-template name="replace">
+				<xsl:with-param 
+					name="text" 
+					select="
+						concat(
+							substring-before($text, $search)
+						,	$replace
+						,	substring-after($text, $search)
+						)
+					"
+				/>
+				<xsl:with-param name="search" select="$search"/>
+				<xsl:with-param name="replace" select="$replace"/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:template name="replace-backslashes-with-slash">
+	<xsl:param name="text"/>
+	<xsl:call-template name="replace">
+		<xsl:with-param name="text" select="$text"/>
+		<xsl:with-param name="search" select="'\'"/>
+		<xsl:with-param name="replace" select="'/'"/>
+	</xsl:call-template>
+</xsl:template>
+
+<xsl:template name="replace-dir-variables-with-doc-dir">
+	<xsl:param name="text"/>
+	<xsl:param name="var-ref"/>
+	<xsl:variable name="backslashes-replaced">
+		<xsl:call-template name="replace-backslashes-with-slash"> 
+			<xsl:with-param name="text" select="$text"/>
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="compare-var-ref" select="concat($var-ref, '/')"/>
+	<xsl:choose>
+		<xsl:when test="contains($backslashes-replaced, $compare-var-ref)">
+			<xsl:call-template name="replace-dir-variables-with-doc-dir">
+				<xsl:with-param 
+					name="text" 
+					select="
+						concat(
+							substring-before($text, $compare-var-ref)
+						,	$relative-path
+						,	substring-after($text, $compare-var-ref)
+						)
+					"
+				/>
+				<xsl:with-param name="var-ref" select="$compare-var-ref"/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:template name="get-doc-uri-for-filename">
+	<xsl:param name="step-or-job-entry"/>
+	<xsl:variable name="type" select="local-name($step-or-job-entry)"/>
+	<xsl:variable name="filename" select="concat($step-or-job-entry/filename/text(), '.html')"/>
+	<xsl:call-template name="replace-dir-variables-with-doc-dir">
+		<xsl:with-param name="text" select="$filename"/>
+		<xsl:with-param name="var-ref">${<xsl:choose>
+				<xsl:when test="$type='entry'">Internal.Job.Filename.Directory</xsl:when>
+				<xsl:when test="$type='step'">Internal.Transformation.Filename.Directory</xsl:when>
+			</xsl:choose>}</xsl:with-param>
+	</xsl:call-template>	
+</xsl:template>
+
 <xsl:template name="get-documentation-root">
     <xsl:param name="path" select="$normalized_relative-path"/>
     <xsl:param name="documentation-root" select="'..'"/>
@@ -409,6 +488,7 @@ Boston, MA 02111-1307 USA
             height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
         </xsl:attribute>
         <xsl:for-each select="$steps">
+            <xsl:variable name="type" select="type/text()"/>
             <xsl:variable name="name" select="name/text()"/>
             <xsl:variable name="xloc" select="GUI/xloc - $min-xloc"/>
             <xsl:variable name="yloc" select="GUI/yloc - $min-yloc"/>
@@ -418,7 +498,7 @@ Boston, MA 02111-1307 USA
                 <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="class">
                     step-icon
-                    step-icon-<xsl:value-of select="type"/>
+                    step-icon-<xsl:value-of select="$type"/>
                     <xsl:if test="$error-handlers[target_step/text() = $name]">
                         step-error
                     </xsl:if>                                        
@@ -464,7 +544,7 @@ Boston, MA 02111-1307 USA
                 <xsl:attribute name="style">
                     top:<xsl:value-of select="$yloc + 32"/>px;
                     left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
-                    </xsl:attribute>
+                </xsl:attribute>
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>
@@ -508,6 +588,7 @@ Boston, MA 02111-1307 USA
             height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
         </xsl:attribute>
         <xsl:for-each select="$entries">
+            <xsl:variable name="type" select="type/text()"/>
             <xsl:variable name="name" select="name/text()"/>
             <xsl:variable name="xloc" select="xloc - $min-xloc"/>
             <xsl:variable name="yloc" select="yloc - $min-yloc"/>
@@ -517,8 +598,8 @@ Boston, MA 02111-1307 USA
                 <xsl:attribute name="class">
                     entry-icon
                     entry-icon-<xsl:choose>
-                        <xsl:when test="type/text()='SPECIAL'"><xsl:value-of select="name"/></xsl:when>
-                        <xsl:otherwise><xsl:value-of select="type"/></xsl:otherwise>
+                        <xsl:when test="$type='SPECIAL'"><xsl:value-of select="name"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
                     </xsl:choose>
                 </xsl:attribute>                
                 <xsl:attribute name="style">
@@ -547,6 +628,20 @@ Boston, MA 02111-1307 USA
                     top:<xsl:value-of select="$yloc + 32"/>px;
                     left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
                 </xsl:attribute>
+				<xsl:choose>
+					<xsl:when 
+						test="
+							$type = 'JOB'
+						or	$type = 'TRANS'
+						"
+					>
+						<xsl:attribute name="href">
+							<xsl:call-template name="get-doc-uri-for-filename">
+								<xsl:with-param name="step-or-job-entry" select="."/>
+							</xsl:call-template>
+						</xsl:attribute>
+					</xsl:when>
+				</xsl:choose>
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>

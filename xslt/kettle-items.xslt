@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 <!--
 
+This is kettle-items.xslt. This is part of kettle-cookbook.
+Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
+
 kettle-items.xslt - an XSLT transformation that generates the table of contents
 for Kettle (aka Pentaho Data Integration) documentation.
 This is part of kettle-cookbook, a kettle documentation generation framework.
 
 Copyright (C) 2010 Roland Bouman
+Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
 
 This library is free software; you can redistribute it and/or modify it under 
 the terms of the GNU Lesser General Public License as published by the 
