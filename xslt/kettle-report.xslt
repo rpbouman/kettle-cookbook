@@ -67,12 +67,24 @@ Boston, MA 02111-1307 USA
 />
 
 <xsl:variable name="item-type" select="local-name($document/*[1])"/>
+<xsl:variable name="steps-or-job-entries">
+	<xsl:choose>
+		<xsl:when test="$item-type = 'job'">Job Entries</xsl:when>
+		<xsl:when test="$item-type = 'transformation'">Steps</xsl:when>
+		<xsl:otherwise>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:variable>
 
 <xsl:variable name="documentation-root">../<xsl:call-template name="get-documentation-root"/></xsl:variable>
 
 <xsl:variable name="quick-links">
     <div class="quicklinks">
         <a href="#diagram">Diagram</a>
+    |   <a>
+			<xsl:attribute name="href">#<xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+			<xsl:value-of select="$steps-or-job-entries"/>
+		</a>
     |   <a href="#parameters">Parameters</a>
     |   <a href="#connections">Database Connections</a>
     |   <a href="#files">Flat Files</a>
@@ -96,6 +108,7 @@ Boston, MA 02111-1307 USA
 <html>    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="Generator" content="kettle-cookbook - see http://code.google.com/p/kettle-cookbook/" />
         <xsl:comment>
             Debugging info. Ugly, huh? 
         
@@ -151,6 +164,18 @@ Boston, MA 02111-1307 USA
                 />
             </xsl:attribute>
         </link>
+        <link rel="stylesheet" type="text/css">
+            <xsl:attribute name="href">
+                <xsl:value-of 
+                    select="
+                        concat(
+                            $documentation-root
+                        ,   '/css/shCoreDefault.css'
+                        )
+                    "
+                />
+            </xsl:attribute>
+        </link>
     </head>
     <body class="kettle-file" onload="drawHops()">
         <xsl:copy-of select="$quick-links"/>
@@ -168,6 +193,40 @@ Boston, MA 02111-1307 USA
             <xsl:attribute name="src">
                 <xsl:value-of select="concat($documentation-root, '/js/kettle.js')"/>
             </xsl:attribute>
+        </script>
+
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shCore.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shBrushBash.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shBrushJava.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shBrushJScript.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shBrushSql.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($documentation-root, '/js/shBrushXml.js')"/>
+            </xsl:attribute>
+        </script>
+        <script type="text/javascript">
+            SyntaxHighlighter.all();
         </script>
     </body>
 </html>
@@ -258,7 +317,7 @@ Boston, MA 02111-1307 USA
 <xsl:template name="replace">
 	<xsl:param name="text"/>
 	<xsl:param name="search"/>
-	<xsl:param name="replace"/>
+	<xsl:param name="replace" select="''"/>
 	<xsl:choose>
 		<xsl:when test="contains($text, $search)">
 			<xsl:call-template name="replace">
@@ -290,32 +349,19 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template name="replace-dir-variables-with-doc-dir">
-	<xsl:param name="text"/>
-	<xsl:param name="var-ref"/>
-	<xsl:variable name="backslashes-replaced">
-		<xsl:call-template name="replace-backslashes-with-slash"> 
+	<xsl:param name="text"/>	
+	<xsl:call-template name="replace">
+		<xsl:with-param name="text"><xsl:call-template 
+			name="replace-backslashes-with-slash"
+		>
 			<xsl:with-param name="text" select="$text"/>
-		</xsl:call-template>
-	</xsl:variable>
-	<xsl:variable name="compare-var-ref" select="concat($var-ref, '/')"/>
-	<xsl:choose>
-		<xsl:when test="contains($backslashes-replaced, $compare-var-ref)">
-			<xsl:call-template name="replace-dir-variables-with-doc-dir">
-				<xsl:with-param 
-					name="text" 
-					select="
-						concat(
-							substring-before($text, $compare-var-ref)
-						,	$relative-path
-						,	substring-after($text, $compare-var-ref)
-						)
-					"
-				/>
-				<xsl:with-param name="var-ref" select="$compare-var-ref"/>
-			</xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
-	</xsl:choose>
+		</xsl:call-template></xsl:with-param>
+		<xsl:with-param name="search">${<xsl:choose>
+			<xsl:when test="$item-type='job'">Internal.Job.Filename.Directory</xsl:when>
+			<xsl:when test="$item-type='transformation'">Internal.Transformation.Filename.Directory</xsl:when>
+		</xsl:choose>}/</xsl:with-param>
+		<xsl:with-param name="replace" select="''"/>
+	</xsl:call-template>
 </xsl:template>
 
 <xsl:template name="get-doc-uri-for-filename">
@@ -365,6 +411,135 @@ Boston, MA 02111-1307 USA
           <xsl:value-of select="."/>
         </xsl:if>
     </xsl:for-each>
+</xsl:template>
+
+<!-- =========================================================================
+    Database connections
+========================================================================== -->
+
+<xsl:template name="database-connections">
+    <h2><a name="connections">Database Connections</a></h2>    
+    <xsl:choose>
+        <xsl:when test="connection">
+            <p>This <xsl:value-of select="$item-type"/> defines <xsl:value-of select="count(connection)"/> database connections.</p>
+            <h3>Database Connection Summary</h3>
+            <table>
+                <thead>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Access
+                    </th>
+                    <th>
+                        Host
+                    </th>
+                    <th>
+                        Port
+                    </th>
+                    <th>
+                        User
+                    </th>
+					<th>
+						Used in <xsl:value-of select="$steps-or-job-entries"/>
+					</th>
+                </thead>
+                <tbody>
+                    <xsl:for-each select="/*/connection">
+						<xsl:variable name="name" select="name/text()"/>
+                        <tr>
+                            <th>
+                                <a>
+                                    <xsl:attribute name="href">#connection.<xsl:value-of select="$name"/></xsl:attribute>
+                                    <xsl:value-of select="$name"/>
+                                </a>
+                            </th>
+                            <td>
+                                <xsl:value-of select="type"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="access"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="server"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="port"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="username"/>
+                            </td>
+							<td>
+								<xsl:choose>
+									<xsl:when test="$item-type='transformation'">
+										<xsl:for-each select="/*/step[connection/text()=$name]">
+											<xsl:if test="position()&gt;1">, </xsl:if><a>
+												<xsl:attribute name="href">#<xsl:value-of select="$name"/></xsl:attribute>
+												<xsl:value-of select="name/text()"/>
+											</a>
+										</xsl:for-each>
+									</xsl:when>
+									<xsl:when test="$item-type='job'">
+										<xsl:for-each select="/*/entries/entry[connection/text()=$name]">
+											<xsl:if test="position()&gt;1">, </xsl:if><a>
+												<xsl:attribute name="href">#<xsl:value-of select="$name"/></xsl:attribute>
+												<xsl:value-of select="name/text()"/>
+											</a>
+										</xsl:for-each>
+									</xsl:when>
+								</xsl:choose>
+							</td>
+                        </tr>
+                    </xsl:for-each>
+                </tbody>
+            </table>
+            <h3>Database Connection Details</h3>
+            <xsl:apply-templates select="connection"/>
+        </xsl:when>
+        <xsl:otherwise>
+			<p>This <xsl:value-of select="$item-type"/> does not define any database connections.</p>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template match="/*/connection">
+    <h4>
+        <a>
+            <xsl:attribute name="name">connection.<xsl:value-of select="name"/></xsl:attribute>
+            <xsl:value-of select="name"/>
+        </a>
+    </h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <xsl:apply-templates select="*"/>
+        </tbody>
+    </table>
+</xsl:template>
+
+<xsl:template match="/*/connection/*[node()]">
+    <xsl:variable name="tag" select="local-name()"/>
+    <tr>
+        <td><xsl:value-of select="$tag"/></td>
+        <td>
+            <xsl:choose>
+                <xsl:when test="$tag = 'attributes'">
+                    
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>            
+        </td>
+    </tr>
 </xsl:template>
 
 <!-- =========================================================================
@@ -466,10 +641,10 @@ Boston, MA 02111-1307 USA
     </h2>
     <xsl:choose>
         <xsl:when test="string-length($variables-list)=0">
-            This <xsl:value-of select="$item-type"/> does not read any variables.
+            <p>This <xsl:value-of select="$item-type"/> does not read any variables.</p>
         </xsl:when>
         <xsl:otherwise>
-            This <xsl:value-of select="$item-type"/> reads the following variables:
+            <p>This <xsl:value-of select="$item-type"/> reads the following variables:</p>
             <table>
                 <thead>
                     <tr>
@@ -477,16 +652,7 @@ Boston, MA 02111-1307 USA
                         <th>Value</th>
                         <th>Connections</th>
                         <th>
-							<xsl:choose>
-								<xsl:when test="$item-type = 'job'">
-									Job Entries
-								</xsl:when>
-								<xsl:when test="$item-type = 'transformation'">
-									Steps
-								</xsl:when>
-								<xsl:otherwise>
-								</xsl:otherwise>
-							</xsl:choose>
+							<xsl:value-of select="$steps-or-job-entries"/>
 						</th>
                     </tr>
                 </thead>
@@ -503,6 +669,98 @@ Boston, MA 02111-1307 USA
 <!-- =========================================================================
     DIAGRAM
 ========================================================================== -->
+
+<xsl:template match="notepad">
+	<div class="note">
+		<xsl:attribute name="style">
+			left: <xsl:value-of select="xloc"/>px;
+			top: <xsl:value-of select="yloc"/>px;
+			width: <xsl:value-of select="width"/>px;
+			height: <xsl:value-of select="height"/>px;
+			font-family: <xsl:value-of select="fontname"/>;
+			font-size: <xsl:value-of select="fontsize"/>;
+			<xsl:if test="fontbold/text()='Y'">font-weight: bold;</xsl:if>
+			<xsl:if test="fontitalic/text()='Y'">font-style: italic;</xsl:if>
+			color: rgb(<xsl:value-of select="fontcolorred"/>
+					,<xsl:value-of select="fontcolorgreen"/>
+					,<xsl:value-of select="fontcolorblue"/>);
+			background-color: rgb(<xsl:value-of select="backgroundcolorred"/>
+					,<xsl:value-of select="backgroundcolorgreen"/>
+					,<xsl:value-of select="backgroundcolorblue"/>);
+			border-color: rgb(<xsl:value-of select="bordercolorred"/>
+					,<xsl:value-of select="bordercolorgreen"/>
+					,<xsl:value-of select="bordercolorblue"/>);
+		</xsl:attribute>
+		<xsl:value-of select="note"/>
+	</div>
+</xsl:template>
+<!-- =========================================================================
+    Code
+========================================================================== -->
+<xsl:template match="sql[text()]">
+	<h4>SQL</h4>
+	<pre class="brush: sql;"><xsl:value-of select="text()"/></pre>
+</xsl:template>
+
+<xsl:template match="jsScripts">
+	<xsl:apply-templates select="jsScript"/>
+</xsl:template>
+
+<xsl:template match="jsScript">
+	<h5><xsl:value-of select="jsScript_name"/></h5>
+	<pre class="brush: js;"><xsl:value-of select="jsScript_script/text()"/></pre>
+</xsl:template>
+
+<xsl:template match="definitions[../type='UserDefinedJavaClass']">
+	<h4>Java Class Source Code</h4>
+	<xsl:apply-templates select="definition"/>
+</xsl:template>
+
+<xsl:template match="step[type='UserDefinedJavaClass']/definitions/definition">
+	<h5><xsl:value-of select="class_name"/></h5>
+	<pre class="brush: java;"><xsl:value-of select="class_source/text()"/></pre>
+</xsl:template>
+
+<!-- =========================================================================
+    KETTLE TRANSFORMATION
+========================================================================== -->
+<xsl:template match="transformation">
+    <xsl:apply-templates select="info"/>
+
+    <xsl:apply-templates select="parameters"/>
+    <xsl:call-template name="transformation-diagram"/>    
+    <xsl:call-template name="variables"/>
+	<xsl:call-template name="database-connections"/>
+    <h2>Flat Files</h2>
+    <p>
+        t.b.d.
+    </p>
+	<xsl:call-template name="transformation-steps"/>
+</xsl:template>
+
+<xsl:template match="transformation/info">
+    <h1>Transformation: "<xsl:value-of select="name"/>"</h1>
+    <xsl:call-template name="description"/>
+</xsl:template>
+
+<xsl:template name="transformation-steps">
+	<h2>
+		<a>
+			<xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+			<xsl:value-of select="$steps-or-job-entries"/>
+		</a>
+	</h2>
+	<xsl:apply-templates select="step"/>
+</xsl:template>
+
+<xsl:template match="step">
+	<xsl:variable name="name" select="name/text()"/>
+	<h3><xsl:value-of select="$name"/></h3>
+	<xsl:apply-templates select="sql"/>
+	<xsl:apply-templates select="jsScripts"/>
+	<xsl:apply-templates select="definitions"/>
+</xsl:template>
+
 <xsl:template name="transformation-diagram">
     <xsl:param name="transformation" select="$document/transformation"/>
     
@@ -603,6 +861,56 @@ Boston, MA 02111-1307 USA
         </xsl:for-each>
 		<xsl:apply-templates select="//notepads"/>
     </div>
+</xsl:template>
+<!-- =========================================================================
+    KETTLE JOB
+========================================================================== -->
+
+<xsl:template match="job">
+    <h1>Job: "<xsl:value-of select="name"/>"</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>What?</th>
+                <th>Who?</th>
+                <th>When?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Created</th>
+                <td><xsl:value-of select="created_user"/></td>
+                <td><xsl:value-of select="created_date"/></td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td><xsl:value-of select="modified_user"/></td>
+                <td><xsl:value-of select="modified_date"/></td>
+            </tr>
+        </tbody>
+    </table>
+    <xsl:call-template name="description"/>
+    <xsl:apply-templates select="parameters"/>
+    <xsl:call-template name="job-diagram"/>
+    <xsl:call-template name="variables"/>
+	<xsl:call-template name="database-connections"/>
+	<xsl:call-template name="job-entries"/>
+</xsl:template>
+
+<xsl:template name="job-entries">
+	<h2>
+		<a>
+			<xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+			<xsl:value-of select="$steps-or-job-entries"/>
+		</a>
+	</h2>
+	<xsl:apply-templates select="entries/entry"/>
+</xsl:template>
+
+<xsl:template match="entry">
+	<xsl:variable name="name" select="name/text()"/>
+	<h3><xsl:value-of select="$name"/></h3>
+	<xsl:apply-templates select="sql"/>
 </xsl:template>
 
 <xsl:template name="job-diagram">
@@ -712,185 +1020,6 @@ Boston, MA 02111-1307 USA
         </xsl:for-each>
 		<xsl:apply-templates select="//notepad"/>
     </div>
-</xsl:template>
-
-<xsl:template match="notepad">
-	<div class="note">
-		<xsl:attribute name="style">
-			left: <xsl:value-of select="xloc"/>px;
-			top: <xsl:value-of select="yloc"/>px;
-			width: <xsl:value-of select="width"/>px;
-			height: <xsl:value-of select="height"/>px;
-			font-family: <xsl:value-of select="fontname"/>;
-			font-size: <xsl:value-of select="fontsize"/>;
-			<xsl:if test="fontbold/text()='Y'">font-weight: bold;</xsl:if>
-			<xsl:if test="fontitalic/text()='Y'">font-style: italic;</xsl:if>
-			color: rgb(<xsl:value-of select="fontcolorred"/>
-					,<xsl:value-of select="fontcolorgreen"/>
-					,<xsl:value-of select="fontcolorblue"/>);
-			background-color: rgb(<xsl:value-of select="backgroundcolorred"/>
-					,<xsl:value-of select="backgroundcolorgreen"/>
-					,<xsl:value-of select="backgroundcolorblue"/>);
-			border-color: rgb(<xsl:value-of select="bordercolorred"/>
-					,<xsl:value-of select="bordercolorgreen"/>
-					,<xsl:value-of select="bordercolorblue"/>);
-		</xsl:attribute>
-		<xsl:value-of select="note"/>
-	</div>
-</xsl:template>
-<!-- =========================================================================
-    KETTLE TRANSFORMATION
-========================================================================== -->
-<xsl:template match="transformation">
-    <xsl:apply-templates select="info"/>
-
-    <xsl:apply-templates select="parameters"/>
-    <xsl:call-template name="variables"/>
-    <xsl:call-template name="transformation-diagram"/>
-    
-    <h2><a name="connections">Database Connections</a></h2>    
-    <xsl:choose>
-        <xsl:when test="connection">
-            This transformation defines <xsl:value-of select="count(connection)"/> database connections.
-            <h3>Database Connection Summary</h3>
-            <table>
-                <thead>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Access
-                    </th>
-                    <th>
-                        Host
-                    </th>
-                    <th>
-                        Port
-                    </th>
-                    <th>
-                        User
-                    </th>
-                </thead>
-                <tbody>
-                    <xsl:for-each select="connection">
-                        <tr>
-                            <th>
-                                <a>
-                                    <xsl:attribute name="href">#connection.<xsl:value-of select="name"/></xsl:attribute>
-                                    <xsl:value-of select="name"/>
-                                </a>
-                            </th>
-                            <td>
-                                <xsl:value-of select="type"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="access"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="server"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="port"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="username"/>
-                            </td>
-                        </tr>
-                    </xsl:for-each>
-                </tbody>
-            </table>
-            <h3>Database Connection Details</h3>
-            <xsl:apply-templates select="connection"/>
-        </xsl:when>
-        <xsl:otherwise>
-            This transformation does no define any database connections.
-        </xsl:otherwise>
-    </xsl:choose>
-
-    <h2>Flat Files</h2>
-    <p>
-        t.b.d.
-    </p>
-</xsl:template>
-
-
-
-<xsl:template match="transformation/info">
-    <h1>Transformation: "<xsl:value-of select="name"/>"</h1>
-    <xsl:call-template name="description"/>
-</xsl:template>
-
-<xsl:template match="transformation/connection">
-    <h4>
-        <a>
-            <xsl:attribute name="name">connection.<xsl:value-of select="name"/></xsl:attribute>
-            <xsl:value-of select="name"/>
-        </a>
-    </h4>
-    <table>
-        <thead>
-            <tr>
-                <th>Property</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <xsl:apply-templates select="*"/>
-        </tbody>
-    </table>
-</xsl:template>
-
-<xsl:template match="transformation/connection/*[node()]">
-    <xsl:variable name="tag" select="local-name()"/>
-    <tr>
-        <td><xsl:value-of select="$tag"/></td>
-        <td>
-            <xsl:choose>
-                <xsl:when test="$tag = 'attributes'">
-                    
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="."/>
-                </xsl:otherwise>
-            </xsl:choose>            
-        </td>
-    </tr>
-</xsl:template>
-
-<!-- =========================================================================
-    KETTLE JOB
-========================================================================== -->
-
-<xsl:template match="job">
-    <h1>Job: "<xsl:value-of select="name"/>"</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>What?</th>
-                <th>Who?</th>
-                <th>When?</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>Created</th>
-                <td><xsl:value-of select="created_user"/></td>
-                <td><xsl:value-of select="created_date"/></td>
-            </tr>
-            <tr>
-                <th>Modified</th>
-                <td><xsl:value-of select="modified_user"/></td>
-                <td><xsl:value-of select="modified_date"/></td>
-            </tr>
-        </tbody>
-    </table>
-    <xsl:call-template name="description"/>
-    <xsl:apply-templates select="parameters"/>
-    <xsl:call-template name="variables"/>
-    <xsl:call-template name="job-diagram"/>
 </xsl:template>
 
 </xsl:stylesheet>
