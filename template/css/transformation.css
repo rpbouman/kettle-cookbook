@@ -6,6 +6,12 @@
     display:none;
 }
 
+.step-heading {
+	background-repeat: no-repeat;
+	text-indent: 38px;
+	height: 40px;
+}
+
 .step-icon {
     position: absolute;
     border-style: solid;

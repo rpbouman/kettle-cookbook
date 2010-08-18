@@ -76,6 +76,15 @@ Boston, MA 02111-1307 USA
 	</xsl:choose>
 </xsl:variable>
 
+<xsl:variable name="step-or-job-entry">
+	<xsl:choose>
+		<xsl:when test="$item-type = 'job'">job entry</xsl:when>
+		<xsl:when test="$item-type = 'transformation'">step</xsl:when>
+		<xsl:otherwise>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:variable>
+
 <xsl:variable name="documentation-root">../<xsl:call-template name="get-documentation-root"/></xsl:variable>
 
 <xsl:variable name="quick-links">
@@ -280,6 +289,7 @@ Boston, MA 02111-1307 USA
 
 <xsl:template name="description">
     <xsl:param name="node" select="."/>
+    <xsl:param name="type" select="$item-type"/>
     <xsl:for-each select="$node">
         <p>
             <xsl:choose>
@@ -287,7 +297,7 @@ Boston, MA 02111-1307 USA
                     <xsl:value-of select="description"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    This <xsl:value-of select="$item-type"/> does not have a description.
+                    This <xsl:value-of select="$type"/> does not have a description.
                 </xsl:otherwise>
             </xsl:choose>
         </p>
@@ -755,7 +765,18 @@ Boston, MA 02111-1307 USA
 
 <xsl:template match="step">
 	<xsl:variable name="name" select="name/text()"/>
-	<h3><xsl:value-of select="$name"/></h3>
+	<div>
+		<xsl:attribute name="class">
+			step-icon
+			step-icon-<xsl:value-of select="type"/>
+		</xsl:attribute>
+	</div>
+	<h3 class="step-heading">
+		<xsl:value-of select="$name"/>
+	</h3>
+	<xsl:call-template name="description">
+		<xsl:with-param name="type" select="$step-or-job-entry"/>
+	</xsl:call-template>
 	<xsl:apply-templates select="sql"/>
 	<xsl:apply-templates select="jsScripts"/>
 	<xsl:apply-templates select="definitions"/>
