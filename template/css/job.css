@@ -24,6 +24,14 @@
     background-color:white;
 }
 
+.entry-hidden {
+	display: none;
+}
+
+.entry-label-hidden {
+	display: none;
+}
+
 .entry-hop {
     background-color: black;
 }

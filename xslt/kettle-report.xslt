@@ -68,7 +68,7 @@ Boston, MA 02111-1307 USA
 
 <xsl:variable name="item-type" select="local-name($document/*[1])"/>
 
-<xsl:variable name="documentation-root"><xsl:call-template name="get-documentation-root"/></xsl:variable>
+<xsl:variable name="documentation-root">../<xsl:call-template name="get-documentation-root"/></xsl:variable>
 
 <xsl:variable name="quick-links">
     <div class="quicklinks">
@@ -242,6 +242,19 @@ Boston, MA 02111-1307 USA
 <!-- =========================================================================
     Utils
 ========================================================================== -->
+<xsl:variable name="lower-case-alphabet" select="'abcdefghijklmnopqrstuvwxyz'"/>
+<xsl:variable name="upper-case-alphabet" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+
+<xsl:template name="lower-case">
+	<xsl:param name="text"/>
+	<xsl:value-of select="translate($text, $upper-case-alphabet, $lower-case-alphabet)"/>
+</xsl:template>
+
+<xsl:template name="upper-case">
+	<xsl:param name="text"/>
+	<xsl:value-of select="translate($text, $lower-case-alphabet, $upper-case-alphabet)"/>
+</xsl:template>
+
 <xsl:template name="replace">
 	<xsl:param name="text"/>
 	<xsl:param name="search"/>
@@ -633,14 +646,20 @@ Boston, MA 02111-1307 USA
             <xsl:variable name="xloc" select="xloc - $min-xloc"/>
             <xsl:variable name="yloc" select="yloc - $min-yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
+            <xsl:variable name="hide" select="draw/text()='N'"/>
             <div>
                 <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="class">
-                    entry-icon
+					entry-icon
                     entry-icon-<xsl:choose>
-                        <xsl:when test="$type='SPECIAL'"><xsl:value-of select="name"/></xsl:when>
+                        <xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
+							<xsl:with-param name="text" select="$name"/>							
+						</xsl:call-template></xsl:when>
                         <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
                     </xsl:choose>
+                    <xsl:if test="$hide">
+                        entry-hidden
+                    </xsl:if>
                 </xsl:attribute>                
                 <xsl:attribute name="style">
                     left:<xsl:value-of select="$xloc"/>px;
@@ -662,7 +681,13 @@ Boston, MA 02111-1307 USA
                     </xsl:for-each>
                 </div>
             </div>
-            <a class="entry-label">
+            <a>
+				<xsl:attribute name="class">
+					entry-label
+                    <xsl:if test="$hide">
+                        entry-label-hidden
+                    </xsl:if>
+				</xsl:attribute>
                 <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="style">
                     top:<xsl:value-of select="$yloc + 32"/>px;

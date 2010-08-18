@@ -59,4 +59,7 @@ li.item-kjb {
 	position:absolute;
 	border-style:solid;
 	border-width: 2px;
+	background-color: yellow;
+	font-family: sans-serif;
+	font-size: 8pt;
 }
