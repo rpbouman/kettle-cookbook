@@ -406,6 +406,34 @@ Boston, MA 02111-1307 USA
             </th>
             <td>
             </td>
+			<td>
+				<xsl:for-each select="/*/connection//*[contains(text(),concat('${',$var,'}'))]">
+					<xsl:if test="position()&gt;1">, </xsl:if>
+					<xsl:value-of select="name"/>
+				</xsl:for-each>
+			</td>
+			<td>
+				<xsl:choose>
+					<xsl:when test="$item-type = 'job'">
+						<xsl:for-each select="/*/entries/entry[.//*[contains(text(), concat('${', $var, '}'))]]">
+							<xsl:if test="position()&gt;1">, </xsl:if>
+							<a>
+								<xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
+								<xsl:value-of select="name"/>
+							</a>
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:when test="$item-type = 'transformation'">
+						<xsl:for-each select="/*/step[.//*[contains(text(), concat('${', $var, '}'))]]">
+							<xsl:if test="position()&gt;1">, </xsl:if>
+							<a>
+								<xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
+								<xsl:value-of select="name"/>
+							</a>
+						</xsl:for-each>
+					</xsl:when>
+				</xsl:choose>
+			</td>
         </tr>
     </xsl:if>
     <xsl:if test="string-length($var)!=0">
@@ -434,7 +462,19 @@ Boston, MA 02111-1307 USA
                     <tr>
                         <th>Name</th>
                         <th>Value</th>
-                        <th>Used in</th>
+                        <th>Connections</th>
+                        <th>
+							<xsl:choose>
+								<xsl:when test="$item-type = 'job'">
+									Job Entries
+								</xsl:when>
+								<xsl:when test="$item-type = 'transformation'">
+									Steps
+								</xsl:when>
+								<xsl:otherwise>
+								</xsl:otherwise>
+							</xsl:choose>
+						</th>
                     </tr>
                 </thead>
                 <tbody>
