@@ -41,7 +41,7 @@ function drawHops(){
 			x2 = parseInt(to.style.left, 10) + offset;
 			y2 = parseInt(to.style.top, 10) + offset;
             jsg.setClassNames(hop.getAttribute("class"));
-            //jsg.drawLine(x1, y1, x2, y2);
+            jsg.drawLine(x1, y1, x2, y2);
 			
             //jsg.drawLine(x1 + (x2 - x1), y1 + 5, x2, y2);
         }

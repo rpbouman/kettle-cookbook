@@ -13,7 +13,7 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\tmp\kettle-cookbook-test</default_value>
+            <default_value>D:\Projects\pentaho-book\chapters</default_value>
             <description>The full path of a directory that contains the Kettle solution. (Subdirectories are scanned)</description>
         </parameter>
         <parameter>

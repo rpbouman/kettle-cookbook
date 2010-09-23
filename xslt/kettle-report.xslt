@@ -781,7 +781,11 @@ Boston, MA 02111-1307 USA
 		</xsl:attribute>
 	</div>
 	<h3 class="step-heading">
-		<xsl:value-of select="$name"/>
+        <a>
+            <xsl:attribute name="name"><xsl:value-of select="$name"/>-text</xsl:attribute>
+            <xsl:attribute name="href">#<xsl:value-of select="$name"/>-icon</xsl:attribute>
+            <xsl:value-of select="$name"/>
+        </a>
 	</h3>
 	<xsl:call-template name="description">
 		<xsl:with-param name="type" select="$step-or-job-entry"/>
@@ -835,6 +839,9 @@ Boston, MA 02111-1307 USA
             <xsl:variable name="yloc" select="GUI/yloc - $min-yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
             <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
+            <a>
+                <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
+            </a>
             <div>
                 <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="class">
@@ -881,7 +888,7 @@ Boston, MA 02111-1307 USA
                         step-label-hidden
                     </xsl:if>
                 </xsl:attribute>
-                <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
+                <xsl:attribute name="href">#<xsl:value-of select="$name"/>-text</xsl:attribute>
                 <xsl:attribute name="style">
                     top:<xsl:value-of select="$yloc + 32"/>px;
                     left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
@@ -951,7 +958,13 @@ Boston, MA 02111-1307 USA
 			</xsl:choose>
 		</xsl:attribute>
 	</div>
-	<h3 class="entry-heading"><xsl:value-of select="$name"/></h3>
+	<h3 class="entry-heading">
+        <a>
+            <xsl:attribute name="name"><xsl:value-of select="$name"/>-text</xsl:attribute>
+            <xsl:attribute name="href">#<xsl:value-of select="$name"/>-icon</xsl:attribute>
+            <xsl:value-of select="$name"/>
+        </a>
+    </h3>
 	<xsl:apply-templates select="sql"/>
 </xsl:template>
 
@@ -997,6 +1010,9 @@ Boston, MA 02111-1307 USA
             <xsl:variable name="yloc" select="yloc - $min-yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
             <xsl:variable name="hide" select="draw/text()='N'"/>
+            <a>
+                <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
+            </a>
             <div>
                 <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="class">
@@ -1038,25 +1054,25 @@ Boston, MA 02111-1307 USA
                         entry-label-hidden
                     </xsl:if>
 				</xsl:attribute>
-                <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
                 <xsl:attribute name="style">
                     top:<xsl:value-of select="$yloc + 32"/>px;
                     left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
                 </xsl:attribute>
-				<xsl:choose>
-					<xsl:when 
-						test="
-							$type = 'JOB'
-						or	$type = 'TRANS'
-						"
-					>
-						<xsl:attribute name="href">
-							<xsl:call-template name="get-doc-uri-for-filename">
-								<xsl:with-param name="step-or-job-entry" select="."/>
-							</xsl:call-template>
-						</xsl:attribute>
-					</xsl:when>
-				</xsl:choose>
+                <xsl:attribute name="href">
+                    <xsl:choose>
+                        <xsl:when 
+                            test="
+                                $type = 'JOB'
+                            or	$type = 'TRANS'
+                            "
+                        >
+                            <xsl:call-template name="get-doc-uri-for-filename">
+                                <xsl:with-param name="step-or-job-entry" select="."/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>#<xsl:value-of select="$name"/>-text</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
                 <xsl:value-of select="$name"/>
             </a>
         </xsl:for-each>

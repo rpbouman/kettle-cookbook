@@ -54,24 +54,40 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template match="/index">
-    <h3>Connections</h3>
-    t.b.d.
-    <h3>Files</h3>    
-    t.b.d.
+    <div>
+        <!--
+        
+            TODO: toolbar to switch between categorical and hierarchical view
+            
+        -->
+    </div>
+    <div id="toc-by-category">
+        <h3>Connections</h3>
+        t.b.d.
+        <h3>Files</h3>    
+        t.b.d.
 
-    <xsl:if test="item[extension[text()='kjb']]">
-        <h3>Jobs</h3>
-        <ul>
-            <xsl:apply-templates select="item[extension[text()='kjb']]"/>
-        </ul>
-    </xsl:if>
+        <xsl:if test="item[extension[text()='kjb']]">
+            <h3>Jobs</h3>
+            <ul>
+                <xsl:apply-templates select="item[extension[text()='kjb']]"/>
+            </ul>
+        </xsl:if>
 
-    <xsl:if test="item[extension[text()='ktr']]">
-        <h3>Transformations</h3>
-        <ul>
-            <xsl:apply-templates select="item[extension[text()='ktr']]"/>
-        </ul>
-    </xsl:if>
+        <xsl:if test="item[extension[text()='ktr']]">
+            <h3>Transformations</h3>
+            <ul>
+                <xsl:apply-templates select="item[extension[text()='ktr']]"/>
+            </ul>
+        </xsl:if>
+    </div>
+    <div id="toc-by-path">
+        <!--
+        
+            TODO: treeview by directory
+        
+        -->
+    </div>
 </xsl:template>
 
 <xsl:template match="item">

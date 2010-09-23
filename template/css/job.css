@@ -2,6 +2,16 @@
     display:none;
 }
 
+.entry-hidden , .entry-label-hidden{
+    display:none;
+}
+
+.entry-heading {
+	background-repeat: no-repeat;
+	text-indent: 38px;
+	height: 40px;
+}
+
 .entry-icon {
     position: absolute;
     border-style: solid;
