@@ -13,12 +13,12 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Applications\pentaho\pdi-ce-4.0.0-stable\samples</default_value>
+            <default_value>D:\tmp\kettle-cookbook-test</default_value>
             <description>The full path of a directory that contains the Kettle solution. (Subdirectories are scanned)</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
-            <default_value>D:\tmp\kettle-cookbook</default_value>
+            <default_value>D:\tmp\kettle-cookbook-test-doc</default_value>
             <description>A full path to an existing directory that is to contain the documentation.</description>
         </parameter>
     </parameters>

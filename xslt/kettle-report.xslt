@@ -85,7 +85,28 @@ Boston, MA 02111-1307 USA
 	</xsl:choose>
 </xsl:variable>
 
-<xsl:variable name="documentation-root">../<xsl:call-template name="get-documentation-root"/></xsl:variable>
+<xsl:template name="get-documentation-root">
+    <xsl:param name="path">
+        <xsl:choose>
+            <xsl:when test="$normalized_relative-path=''"></xsl:when>
+            <xsl:otherwise><xsl:value-of select="concat('.', $file-separator, $normalized_relative-path)"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:param>
+    <xsl:param name="documentation-root" select="'..'"/>
+    <xsl:choose>
+        <xsl:when test="contains($path, $file-separator)">
+            <xsl:call-template name="get-documentation-root">
+                <xsl:with-param name="path" select="substring-after($path, $file-separator)"/>
+                <xsl:with-param name="documentation-root" select="concat($documentation-root, '/..')"/>
+            </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$documentation-root"/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:variable name="documentation-root"><xsl:call-template name="get-documentation-root"/></xsl:variable>
 
 <xsl:variable name="quick-links">
     <div class="quicklinks">
@@ -121,6 +142,8 @@ Boston, MA 02111-1307 USA
         <xsl:comment>
             Debugging info. Ugly, huh? 
         
+            $normalized_relative-path: "<xsl:value-of select="$normalized_relative-path"/>"
+            $documentation-root: "<xsl:value-of select="$documentation-root"/>"
             count(/index): <xsl:value-of select="count(/index)"/>
             count(/index/item): <xsl:value-of select="count(/index/item)"/>
             count(/index/item[short_filename/text()=$normalized_short_filename]): <xsl:value-of select="count(/index/item[short_filename/text()=$normalized_short_filename])"/>
@@ -387,22 +410,6 @@ Boston, MA 02111-1307 USA
 	</xsl:call-template>	
 </xsl:template>
 
-<xsl:template name="get-documentation-root">
-    <xsl:param name="path" select="$normalized_relative-path"/>
-    <xsl:param name="documentation-root" select="'..'"/>
-    <xsl:choose>
-        <xsl:when test="contains($path, $file-separator)">
-            <xsl:call-template name="get-documentation-root">
-                <xsl:with-param name="path" select="substring-after($path, $file-separator)"/>
-                <xsl:with-param name="documentation-root" select="concat($documentation-root, '/..')"/>
-            </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:value-of select="$documentation-root"/>
-        </xsl:otherwise>
-    </xsl:choose>
-</xsl:template>
-
 <xsl:template name="max">
     <xsl:param name="values"/>
     <xsl:for-each select="$values">
@@ -435,27 +442,29 @@ Boston, MA 02111-1307 USA
             <h3>Database Connection Summary</h3>
             <table>
                 <thead>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Access
-                    </th>
-                    <th>
-                        Host
-                    </th>
-                    <th>
-                        Port
-                    </th>
-                    <th>
-                        User
-                    </th>
-					<th>
-						Used in <xsl:value-of select="$steps-or-job-entries"/>
-					</th>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Type
+						</th>
+						<th>
+							Access
+						</th>
+						<th>
+							Host
+						</th>
+						<th>
+							Port
+						</th>
+						<th>
+							User
+						</th>
+						<th>
+							Used in <xsl:value-of select="$steps-or-job-entries"/>
+						</th>
+					</tr>
                 </thead>
                 <tbody>
                     <xsl:for-each select="/*/connection">
@@ -763,7 +772,7 @@ Boston, MA 02111-1307 USA
 	<xsl:apply-templates select="step"/>
 </xsl:template>
 
-<xsl:template match="step">
+<xsl:template match="step[GUI/draw/text()!='N']">
 	<xsl:variable name="name" select="name/text()"/>
 	<div>
 		<xsl:attribute name="class">
@@ -928,9 +937,21 @@ Boston, MA 02111-1307 USA
 	<xsl:apply-templates select="entries/entry"/>
 </xsl:template>
 
-<xsl:template match="entry">
+<xsl:template match="entry[draw!='N']">
 	<xsl:variable name="name" select="name/text()"/>
-	<h3><xsl:value-of select="$name"/></h3>
+	<xsl:variable name="type" select="type/text()"/>
+	<div>
+		<xsl:attribute name="class">
+			entry-icon
+			entry-icon-<xsl:choose>
+				<xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
+					<xsl:with-param name="text" select="$name"/>							
+				</xsl:call-template></xsl:when>
+				<xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+	</div>
+	<h3 class="entry-heading"><xsl:value-of select="$name"/></h3>
 	<xsl:apply-templates select="sql"/>
 </xsl:template>
 
