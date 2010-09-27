@@ -116,9 +116,9 @@ Boston, MA 02111-1307 USA
 			<xsl:value-of select="$steps-or-job-entries"/>
 		</a>
     |   <a href="#parameters">Parameters</a>
+    |   <a href="#variables">Variables</a>
     |   <a href="#connections">Database Connections</a>
     |   <a href="#files">Flat Files</a>
-    |   <a href="#files">Variables</a>
     </div>
 </xsl:variable>
 <!-- =========================================================================
@@ -316,17 +316,17 @@ Boston, MA 02111-1307 USA
     <xsl:for-each select="$node">
         <p>
             <xsl:choose>
-                <xsl:when test="description[text()]">
-                    <xsl:value-of select="description"/>
+                <xsl:when test="$node/description[text()]">
+                    <xsl:value-of select="$node/description"/>
                 </xsl:when>
                 <xsl:otherwise>
                     This <xsl:value-of select="$type"/> does not have a description.
                 </xsl:otherwise>
             </xsl:choose>
         </p>
-        <xsl:if test="extended_description[text()]">
+        <xsl:if test="$node/extended_description[text()]">
             <p>
-                <xsl:value-of select="extended_description"/>
+                <xsl:value-of select="$node/extended_description"/>
             </p>
         </xsl:if>
     </xsl:for-each>
@@ -747,6 +747,7 @@ Boston, MA 02111-1307 USA
     <xsl:apply-templates select="info"/>
 
     <xsl:apply-templates select="parameters"/>
+    <xsl:call-template name="high-level-data-flow-diagram"/>    
     <xsl:call-template name="transformation-diagram"/>    
     <xsl:call-template name="variables"/>
 	<xsl:call-template name="database-connections"/>
@@ -755,6 +756,117 @@ Boston, MA 02111-1307 USA
         t.b.d.
     </p>
 	<xsl:call-template name="transformation-steps"/>
+</xsl:template>
+
+<xsl:template name="fields-overview">
+    <xsl:variable name="all-fields" select="$document/transformation/step/fields/field"/> 
+    
+    <h2>Fields</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Format</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        </tbody>
+    </table>
+</xsl:template>
+
+<xsl:template name="high-level-data-flow-diagram">
+    <xsl:variable name="steps" select="$document/transformation/step[GUI/draw/text()!='N']"/>
+    <xsl:variable 
+        name="input-steps" 
+        select="
+            $steps[
+                type = 'AccessInput'
+            or  type = 'CsvInput'
+            or  type = 'DataGrid'
+            or  type = 'CubeInput'
+            or  type = 'ShapeFileReader'
+            or  type = 'ExcelInput'
+            or  type = 'FixedInput'
+            or  type = 'RandomValue'
+            or  type = 'RowGenerator'
+            or  type = 'getXMLData'
+            or  type = 'GetFileNames'
+            or  type = 'GetFilesRowsCount'
+            or  type = 'GetSubFolders'
+            or  type = 'SystemInfo'
+            or  type = 'LDAPInput'
+            or  type = 'LDIFInput'
+            or  type = 'LoadFileInput'
+            or  type = 'MondrianInput'
+            or  type = 'OlapInput'
+            or  type = 'PaloCellInput'
+            or  type = 'PaloDimInput'
+            or  type = 'PropertyInput'
+            or  type = 'RssInput'
+            or  type = 'S3CSVINPUT'
+            or  type = 'SalesforceInput'
+            or  type = 'SapInput'
+            or  type = 'TableInput'
+            or  type = 'TextFileInput'
+            or  type = 'XBaseInput'
+            ]
+        "
+    />
+
+    <xsl:variable 
+        name="output-steps" 
+        select="
+            $steps[
+                type = 'AccessOutput'
+            or  type = 'Delete'
+            or  type = 'ExcelOutput'
+            or  type = 'InsertUpdate'
+            or  type = 'PaloCellOutput'
+            or  type = 'PaloDimOutput'
+            or  type = 'PropertyOutput'
+            or  type = 'RssOutput'
+            or  type = 'SalesforceDelete'
+            or  type = 'SalesforceInsert'
+            or  type = 'SalesforceUpdate'
+            or  type = 'SalesforceUpsert'
+            or  type = 'CubeOutput'
+            or  type = 'SQLFileOutput'
+            or  type = 'SynchronizeAfterMerge'
+            or  type = 'TableOutput'
+            or  type = 'TextFileOutput'
+            or  type = 'Update'
+            or  type = 'XMLOutput'
+            ]
+        "
+    />
+    <h2>High Level Data Flow Diagram</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Input (<xsl:value-of select="count($input-steps)"/>)</th>
+                <th>Transform</th>
+                <th>Output (<xsl:value-of select="count($output-steps)"/>)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <xsl:for-each select="$input-steps">
+                        <div><xsl:value-of select="name"/></div>
+                    </xsl:for-each>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <xsl:for-each select="$output-steps">
+                        <div><xsl:value-of select="name"/></div>
+                    </xsl:for-each>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </xsl:template>
 
 <xsl:template match="transformation/info">
@@ -769,11 +881,12 @@ Boston, MA 02111-1307 USA
 			<xsl:value-of select="$steps-or-job-entries"/>
 		</a>
 	</h2>
-	<xsl:apply-templates select="step"/>
+	<xsl:apply-templates select="step[GUI/draw/text()!='N']"/>
 </xsl:template>
 
 <xsl:template match="step[GUI/draw/text()!='N']">
 	<xsl:variable name="name" select="name/text()"/>
+    <br/>
 	<div>
 		<xsl:attribute name="class">
 			step-icon
@@ -793,6 +906,35 @@ Boston, MA 02111-1307 USA
 	<xsl:apply-templates select="sql"/>
 	<xsl:apply-templates select="jsScripts"/>
 	<xsl:apply-templates select="definitions"/>
+    <xsl:apply-templates select="fields"/>
+</xsl:template>
+
+<xsl:template match="fields[field]">
+    <h4>Fields</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Position</th>
+                <xsl:for-each select="field[1]/*">
+                    <th>
+                        <xsl:value-of select="local-name()"/>
+                    </th>
+                </xsl:for-each>
+            </tr>
+        </thead>
+        <tbody>
+            <xsl:for-each select="field"> 
+                <tr>
+                    <th>
+                        <xsl:value-of select="position()"/>
+                    </th>
+                    <xsl:for-each select="*">
+                        <td><xsl:value-of select="."/></td>
+                    </xsl:for-each>
+                </tr>
+            </xsl:for-each>
+        </tbody>
+    </table>
 </xsl:template>
 
 <xsl:template name="transformation-diagram">
@@ -965,6 +1107,9 @@ Boston, MA 02111-1307 USA
             <xsl:value-of select="$name"/>
         </a>
     </h3>
+	<xsl:call-template name="description">
+		<xsl:with-param name="type" select="'job entry'"/>
+	</xsl:call-template>
 	<xsl:apply-templates select="sql"/>
 </xsl:template>
 

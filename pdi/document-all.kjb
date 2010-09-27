@@ -13,12 +13,12 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Projects\pentaho-book\chapters</default_value>
+            <default_value>D:\Projects\kettle-cookbook</default_value>
             <description>The full path of a directory that contains the Kettle solution. (Subdirectories are scanned)</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
-            <default_value>D:\tmp\kettle-cookbook-test-doc</default_value>
+            <default_value>D:\tmp\kettle-cookbook</default_value>
             <description>A full path to an existing directory that is to contain the documentation.</description>
         </parameter>
     </parameters>
@@ -46,7 +46,7 @@
   <entries>
     <entry>
       <name>START</name>
-      <description/>
+      <description>Entry point of the job.</description>
       <type>SPECIAL</type>
       <start>Y</start>
       <dummy>N</dummy>
@@ -66,7 +66,9 @@
       </entry>
     <entry>
       <name>get-kettle-job-and-trans-files-from-directory.ktr </name>
-      <description/>
+      <description>This transformation scans the input dir (and its subdirectories)  for .ktr and .kjb files. 
+It stores the names and paths of the files in the index.xml file. 
+This index.xml file is used later on as input document for XSLT transformations to generate the table of contents as well as the per-job and per-transformation HTML documents.</description>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
@@ -98,7 +100,8 @@
       </entry>
     <entry>
       <name>create-destination-dir.kjb</name>
-      <description/>
+      <description>The directory structure inside the input dir is mirrored in the output dir. 
+This job creates subdirectories in the output dir as needed.</description>
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
@@ -131,7 +134,8 @@
       </entry>
     <entry>
       <name>Copy Template</name>
-      <description/>
+      <description>This job entry copies the static resources such as css and javascript files and images to the output directory.
+These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;img&gt; tags in the generated HTML documentation.</description>
       <type>COPY_FILES</type>
       <copy_empty_folders>Y</copy_empty_folders>
       <arg_from_previous>N</arg_from_previous>
@@ -176,7 +180,7 @@
       </entry>
     <entry>
       <name>Transform index.xml to all-items.html</name>
-      <description/>
+      <description>This XSLT transformation generates the table of contents HTML document.</description>
       <type>XSLT</type>
       <xmlfilename>${OUTPUT_DIR}${file.separator}index.xml</xmlfilename>
       <xslfilename>${Internal.Job.Filename.Directory}${file.separator}..${file.separator}xslt${file.separator}kettle-items.xslt</xslfilename>
@@ -193,7 +197,8 @@
       </entry>
     <entry>
       <name>get-saxon-command.ktr</name>
-      <description/>
+      <description>Transformation that constructs a command line to invoke the saxon XSLT parser that ships with Kettle.
+The command line is stored in a variable, and used to generate the shell commands to transform the kettle job and transformation files to human-readable HTML files.</description>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
@@ -225,7 +230,8 @@
       </entry>
     <entry>
       <name>run transform script and create html file for each job&#47;transformation</name>
-      <description/>
+      <description>This job entry executes the script file to run all the saxon command lines. 
+Each command generates a HTML document for one of the job or transformation files.</description>
       <type>SHELL</type>
       <filename>${OUTPUT_DIR}${file.separator}transform.${SCRIPT-EXTENSION}</filename>
       <work_directory/>
@@ -248,7 +254,7 @@
       </entry>
     <entry>
       <name>Transform index.xml to main.html</name>
-      <description/>
+      <description>This XSLT transformation generates the frontpage HTML document.</description>
       <type>XSLT</type>
       <xmlfilename>${OUTPUT_DIR}${file.separator}index.xml</xmlfilename>
       <xslfilename>${Internal.Job.Filename.Directory}${file.separator}..${file.separator}xslt${file.separator}kettle-main.xslt</xslfilename>
@@ -265,7 +271,7 @@
       </entry>
     <entry>
       <name>Make script executable</name>
-      <description/>
+      <description>This job entry runs on UNIX-based systems and makes the XSLT script file executable.</description>
       <type>SHELL</type>
       <filename>&#47;bin&#47;chmod</filename>
       <work_directory/>
@@ -290,7 +296,8 @@
       </entry>
     <entry>
       <name>Is *NIX?</name>
-      <description/>
+      <description>This entry determines whether we&apos;re running on a UNIX-based system, or a Windows system.
+If we&apos;re on a UNIX based system, we need to make the XSLT script file executable.</description>
       <type>SIMPLE_EVAL</type>
       <valuetype>variable</valuetype>
       <fieldname/>
@@ -312,7 +319,7 @@
       </entry>
     <entry>
       <name>Success</name>
-      <description/>
+      <description>This job entry is here to allow the job to finish successfully.</description>
       <type>SUCCESS</type>
       <parallel>N</parallel>
       <draw>Y</draw>
