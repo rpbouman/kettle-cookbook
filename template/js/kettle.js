@@ -24,10 +24,11 @@
 *   Boston, MA 02111-1307 USA
 *   
 */
-var regexpStepHopCopyData = /\bstep-hop-copy-data\b/g,              //used for steps that copy data
-    regexpStepHopDistributeData = /\bstep-hop-distribute-data\b/g,  //used for steps that distribute data
-    regexpStepHopTrue = /\bstep-hop-true\b/g,                       //used for hops that route "true" data
-    regexpStepHopFalse = /\bstep-hop-false\b/g                      //used for hops that route "false" data
+var regexpStepHopCopyData = /\bstep-hop-copy-data\b/,               //used for steps that copy data
+    regexpStepHopDistributeData = /\bstep-hop-distribute-data\b/,   //used for steps that distribute data
+    regexpStepHopTrue = /\b(step|entry)-hop-true\b/,         //used for hops that route "true" data
+    regexpStepHopFalse = /\b(step|entry)-hop-false\b/,              //used for hops that route "false" data
+    regexpEntryHopUnconditional = /\bentry-hop-unconditional\b/     //used for unconditional job entry hops.
 ;
 
 function alignTowardsLine(array_x, array_y, origin_x, origin_y, line_x1, line_y1, line_x2, line_y2){
@@ -109,7 +110,6 @@ function drawHops(){
         numHops = hops.length;
         for (j = 0; j < numHops; j++){
             hop = hops.item(j);
-            className = hop.className;
             
             to = hop.getAttribute("href");
             to = to.substring(1);
@@ -143,12 +143,17 @@ function drawHops(){
 			var aligned = alignTowardsLine(polygon_x, polygon_y, xMid, yMid, x1, y1, x2, y2);
 			jsg.fillPolygon(aligned.array_x, aligned.array_y);
     
+            className = hop.className;
             if (regexpStepHopTrue.test(className) ) {
-                hopIcon = "step-hop-true-icon";
+                hopIcon = "hop-true-icon";
             }
             else
             if (regexpStepHopFalse.test(className) ) {
-                hopIcon = "step-hop-false-icon";
+                hopIcon = "hop-false-icon";
+            }
+            else
+            if (regexpEntryHopUnconditional.test(className) ) {
+                hopIcon = "entry-hop-unconditional-icon";
             }
             else
             if (regexpStepHopCopyData.test(className) ) {
@@ -158,7 +163,6 @@ function drawHops(){
                 hopIcon = false;
             }
             
-    
             if (hopIcon) {
                 hopIconEl = document.createElement("DIV");
                 hopIconEl.className = hopIcon;

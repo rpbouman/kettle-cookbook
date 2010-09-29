@@ -97,23 +97,9 @@
 .step-hop-true  {
     background-color: green;
 }
-.step-hop-true-icon {
-    position:absolute;
-    width: 16px;
-    height: 16px;
-    background-image: url(../images/true.png);
-    z-index:500 !important;
-}
 
 .step-hop-false  {
     background-color: red;
-}
-.step-hop-false-icon {
-    position:absolute;
-    width: 16px;
-    height: 16px;
-    background-image: url(../images/false.png);
-    z-index:500 !important;
 }
 
 /*

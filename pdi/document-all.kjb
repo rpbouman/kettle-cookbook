@@ -408,7 +408,7 @@ If we&apos;re on a UNIX based system, we need to make the XSLT script file execu
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Is *NIX?</from>

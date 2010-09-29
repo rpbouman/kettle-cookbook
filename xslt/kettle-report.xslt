@@ -1036,7 +1036,7 @@
                                     <xsl:when test="$send-false-to = $to">step-hop-false</xsl:when>
                                     <xsl:when test="$distribute">step-hop-distribute-data</xsl:when>
                                     <xsl:otherwise>step-hop-copy-data</xsl:otherwise>
-                                </xsl:choose>
+                                </xsl:choose><xsl:text> </xsl:text>
                             </xsl:attribute>
                             <xsl:attribute name="href"><xsl:value-of select="concat('#', $to)"/></xsl:attribute>
                         </a>

@@ -74,6 +74,15 @@
 .entry-hop-unconditional {
     background-color: black;
 }
+
+.entry-hop-unconditional-icon {
+    position:absolute;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/unconditional-hop.png);
+    z-index:500 !important;
+}
+
 .entry-hop-true {
     background-color: green;
 }
