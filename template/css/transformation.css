@@ -60,17 +60,60 @@
     background-color:white;
 }
 
+.step-hop {
+}
+
+.step-hop-enabled {
+    background-color: black;
+}
+
+.step-hop-disabled {
+    background-color: rgb(200,200,200);
+}
+
 .step-error {
     background-color: red;
     border-color: red !important;
 }
 
-.step-hop {
-    background-color: black;
-}
-
 .step-hop-error {
     background-color: red!important;
+}
+
+.step-hop-copy-data-icon {
+    position:absolute;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/copy-hop.png);
+    z-index:500 !important;
+}
+
+.step-hop-distribute-data {
+}
+
+.step-hop-copy-data {
+}
+
+.step-hop-true  {
+    background-color: green;
+}
+.step-hop-true-icon {
+    position:absolute;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/true.png);
+    z-index:500 !important;
+}
+
+.step-hop-false  {
+    background-color: red;
+}
+.step-hop-false-icon {
+    position:absolute;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/false.png);
+    z-index:500 !important;
 }
 
 /*

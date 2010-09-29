@@ -1,29 +1,30 @@
 <?xml version="1.0"?>
 <!--
-This is kettle-report.xslt. This is part of kettle-cookbook.
-Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
-kettle-report.xslt - an XSLT transformation that generates HTML documentation
-from a Kettle (aka Pentaho Data Integration) transformation or job file.
-This is part of kettle-cookbook, a kettle documentation generation framework.
+    This is kettle-report.xslt. This is part of kettle-cookbook.
+    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
-Copyright (C) 2010 Roland Bouman 
-Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
+    kettle-report.xslt - an XSLT transformation that generates HTML documentation
+    from a Kettle (aka Pentaho Data Integration) transformation or job file.
+    This is part of kettle-cookbook, a kettle documentation generation framework.
 
-This library is free software; you can redistribute it and/or modify it under 
-the terms of the GNU Lesser General Public License as published by the 
-Free Software Foundation; either version 2.1 of the License, or (at your option)
-any later version.
+    Copyright (C) 2010 Roland Bouman 
+    Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
 
-This library is distributed in the hope that it will be useful, but WITHOUT ANY 
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+    This library is free software; you can redistribute it and/or modify it under 
+    the terms of the GNU Lesser General Public License as published by the 
+    Free Software Foundation; either version 2.1 of the License, or (at your option)
+    any later version.
 
-You should have received a copy of the GNU Lesser General Public License along 
-with this library; if not, write to 
-the Free Software Foundation, Inc., 
-59 Temple Place, Suite 330, 
-Boston, MA 02111-1307 USA
+    This library is distributed in the hope that it will be useful, but WITHOUT ANY 
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License along 
+    with this library; if not, write to 
+    the Free Software Foundation, Inc., 
+    59 Temple Place, Suite 330, 
+    Boston, MA 02111-1307 USA
 
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -981,6 +982,10 @@ Boston, MA 02111-1307 USA
             <xsl:variable name="yloc" select="GUI/yloc - $min-yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
             <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
+            <xsl:variable name="copies" select="copies/text()"/>
+            <xsl:variable name="send-true-to" select="send_true_to/text()"/>
+            <xsl:variable name="send-false-to" select="send_false_to/text()"/>
+            <xsl:variable name="distribute" select="distribute/text() = 'Y'"/>
             <a>
                 <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
             </a>
@@ -1004,6 +1009,7 @@ Boston, MA 02111-1307 USA
                     <xsl:for-each select="$hops[from/text()=$name]">
                         <xsl:variable name="from" select="from/text()"/>
                         <xsl:variable name="to" select="to/text()"/>
+                        <xsl:variable name="enabled" select="enabled/text() = 'Y'"/>
                         <a>
                             <xsl:attribute name="class">
                                 step-hop
@@ -1017,6 +1023,20 @@ Boston, MA 02111-1307 USA
                                 >
                                 step-hop-error
                                 </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="$enabled">
+                                    step-hop-enabled
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                    step-hop-disabled
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$send-true-to = $to">step-hop-true</xsl:when>
+                                    <xsl:when test="$send-false-to = $to">step-hop-false</xsl:when>
+                                    <xsl:when test="$distribute">step-hop-distribute-data</xsl:when>
+                                    <xsl:otherwise>step-hop-copy-data</xsl:otherwise>
+                                </xsl:choose>
                             </xsl:attribute>
                             <xsl:attribute name="href"><xsl:value-of select="concat('#', $to)"/></xsl:attribute>
                         </a>

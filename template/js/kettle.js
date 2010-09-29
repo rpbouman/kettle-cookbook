@@ -24,6 +24,12 @@
 *   Boston, MA 02111-1307 USA
 *   
 */
+var regexpStepHopCopyData = /\bstep-hop-copy-data\b/g,              //used for steps that copy data
+    regexpStepHopDistributeData = /\bstep-hop-distribute-data\b/g,  //used for steps that distribute data
+    regexpStepHopTrue = /\bstep-hop-true\b/g,                       //used for hops that route "true" data
+    regexpStepHopFalse = /\bstep-hop-false\b/g                      //used for hops that route "false" data
+;
+
 function alignTowardsLine(array_x, array_y, origin_x, origin_y, line_x1, line_y1, line_x2, line_y2){
 	
 	// line vector
@@ -78,22 +84,24 @@ function drawHops(){
         to,
 		offset = 16,
 		x1, y1, x2, y2,
-		x, y,
+		xDiff, yDiff,
 		m = Math, pi2 = 2 * m.PI,
 		angle,
 		arrowWidth = 10,
 		arrowHeight = 20,
-		arrowPos = 0.59
+		arrowPos = 0.59,
+        className, copyData
     ;
     jsg.setClassNames("kettle-hop");
     for (i = 0; i<numChildNodes; i++) {
         from = childNodes.item(i);
-        if (from.nodeType !== 1
+        if (from.nodeType !== 1         //element node
         ||  from.tagName  !== "DIV"
-		||	from.className==="note"
+        ||  from.className==="note"
         ) {
             continue;
         }
+        
 		x1 = parseInt(from.style.left, 10) + offset;
 		y1 = parseInt(from.style.top, 10)  + offset;
         hops = from.getElementsByTagName("DIV").item(0);
@@ -101,17 +109,23 @@ function drawHops(){
         numHops = hops.length;
         for (j = 0; j < numHops; j++){
             hop = hops.item(j);
+            className = hop.className;
+            
             to = hop.getAttribute("href");
             to = to.substring(1);
             to = document.getElementById(to);
+
 			x2 = parseInt(to.style.left, 10) + offset;
+            xDiff = x2 - x1;
 			y2 = parseInt(to.style.top, 10) + offset;
+            yDiff = y2 - y1;
+
             jsg.setClassNames(hop.getAttribute("class"));
             jsg.drawLine(x1, y1, x2, y2);
 			
 			// calculate placement the way from source to target
-			var xMid = x1 + arrowPos*(x2-x1);
-			var yMid = y1 + arrowPos*(y2-y1);
+			var xMid = x1 + arrowPos * xDiff;
+			var yMid = y1 + arrowPos * yDiff;
 			
 			// place a triangle there
 			var xLeft = xMid - arrowWidth/2;
@@ -128,8 +142,30 @@ function drawHops(){
 			
 			var aligned = alignTowardsLine(polygon_x, polygon_y, xMid, yMid, x1, y1, x2, y2);
 			jsg.fillPolygon(aligned.array_x, aligned.array_y);
-			
-            //jsg.drawLine(x1 + (x2 - x1), y1 + 5, x2, y2);
+    
+            if (regexpStepHopTrue.test(className) ) {
+                hopIcon = "step-hop-true-icon";
+            }
+            else
+            if (regexpStepHopFalse.test(className) ) {
+                hopIcon = "step-hop-false-icon";
+            }
+            else
+            if (regexpStepHopCopyData.test(className) ) {
+                hopIcon = "step-hop-copy-data-icon";
+            }
+            else {
+                hopIcon = false;
+            }
+            
+    
+            if (hopIcon) {
+                hopIconEl = document.createElement("DIV");
+                hopIconEl.className = hopIcon;
+                hopIconEl.style.left = x1 + (xDiff * .33) - 8 + "px";
+                hopIconEl.style.top = y1 + (yDiff * .33) - 8 + "px";
+                diagram.appendChild(hopIconEl);
+            }
         }
     }
     jsg.paint();
