@@ -112,7 +112,7 @@ function drawHops(){
             hop = hops.item(j);
             
             to = hop.getAttribute("href");
-            to = to.substring(1);
+            to = decodeURIComponent(to.substring(1));
             to = document.getElementById(to);
 
 			x2 = parseInt(to.style.left, 10) + offset;
