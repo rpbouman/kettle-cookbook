@@ -64,7 +64,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>Get ${INPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>output foldername</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input foldername</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>${INPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>${INPUT_DIR} -&gt; folderName</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>${OUTPUT_DIR} -&gt; folderName</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input wildcard</from><to>relative input path</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>Input Files</to><enabled>Y</enabled> </hop>  <hop> <from>output wildcard</from><to>relative output path</to><enabled>Y</enabled> </hop>  <hop> <from>relative output path</from><to>Output Files</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>input target file</to><enabled>Y</enabled> </hop>  <hop> <from>input target file</from><to>sort input</to><enabled>Y</enabled> </hop>  <hop> <from>Output Files</from><to>output target file</to><enabled>Y</enabled> </hop>  <hop> <from>output target file</from><to>sort output</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff)</from><to>Switch &#47; Case</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>lookup deleted file</from><to>Delete files</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>Not updated</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>lookup input</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>lookup output</from><to>input updated?</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;folder&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;index&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; folder</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>&lt;folder&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>del timestamp</to><enabled>Y</enabled> </hop>  <hop> <from>del timestamp</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>lookup new file</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>Join Streams</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Get ${INPUT_DIR} and ${OUTPUT_DIR}</to><enabled>Y</enabled> </hop>  <hop> <from>Combine</from><to>xslt-output-file</to><enabled>Y</enabled> </hop>  <hop> <from>xslt-output-file</from><to>transform_script</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>Hidden?</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>input foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${OUTPUT_DIR} SubFolders</from><to>Hidden? 2</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>output foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>output dirs</to><enabled>Y</enabled> </hop>  <hop> <from>output dirs</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; file</from><to>index.xml</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>system date</to><enabled>Y</enabled> </hop>  <hop> <from>system date</from><to>&lt;index&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>html path</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>Get ${OUTPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>${OUTPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>transform script</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>Get ${INPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>output foldername</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input foldername</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>${INPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>${INPUT_DIR} -&gt; folderName</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>${OUTPUT_DIR} -&gt; folderName</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input wildcard</from><to>relative input path</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>Input Files</to><enabled>Y</enabled> </hop>  <hop> <from>output wildcard</from><to>relative output path</to><enabled>Y</enabled> </hop>  <hop> <from>relative output path</from><to>Output Files</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>input target file</to><enabled>Y</enabled> </hop>  <hop> <from>input target file</from><to>sort input</to><enabled>Y</enabled> </hop>  <hop> <from>Output Files</from><to>output target file</to><enabled>Y</enabled> </hop>  <hop> <from>output target file</from><to>sort output</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff)</from><to>Switch &#47; Case</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>lookup deleted file</from><to>Delete files</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>Not updated</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>lookup input</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>lookup output</from><to>input updated?</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;folder&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;index&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; folder</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>&lt;folder&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>del timestamp</to><enabled>Y</enabled> </hop>  <hop> <from>del timestamp</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>lookup new file</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>Join Streams</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Get ${INPUT_DIR} and ${OUTPUT_DIR}</to><enabled>Y</enabled> </hop>  <hop> <from>Combine</from><to>xslt-output-file</to><enabled>Y</enabled> </hop>  <hop> <from>xslt-output-file</from><to>transform_script</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>Hidden?</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>input foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${OUTPUT_DIR} SubFolders</from><to>Hidden? 2</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>output foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>output dirs</to><enabled>Y</enabled> </hop>  <hop> <from>output dirs</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; file</from><to>index.xml</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>system date</to><enabled>Y</enabled> </hop>  <hop> <from>system date</from><to>&lt;index&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>html path</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>Get ${OUTPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>${OUTPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>${FULL_TRANSFORM_SCRIPT}</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>${IS_WINDOWS}</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>${INPUT_DIR} -&gt; folderName</name>
     <type>SelectValues</type>
@@ -1845,7 +1845,7 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>152</xloc>
+      <xloc>136</xloc>
       <yloc>427</yloc>
       <draw>Y</draw>
       </GUI>
@@ -2539,7 +2539,7 @@
     <name>match windows</name>
     <type>RegexEval</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -2844,7 +2844,7 @@ var relative_path = folderName.substr(output_dir.length);
     </step>
 
   <step>
-    <name>transform script</name>
+    <name>${FULL_TRANSFORM_SCRIPT}</name>
     <type>SetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -2864,8 +2864,8 @@ var relative_path = folderName.substr(output_dir.length);
     <use_formatting>Y</use_formatting>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>125</xloc>
-      <yloc>22</yloc>
+      <xloc>136</xloc>
+      <yloc>28</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -3234,6 +3234,33 @@ var relative_path = folderName.substr(output_dir.length);
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>1526</xloc>
       <yloc>28</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>${IS_WINDOWS}</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>is_windows</field_name>
+        <variable_name>IS_WINDOWS</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>136</xloc>
+      <yloc>306</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

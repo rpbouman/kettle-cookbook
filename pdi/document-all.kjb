@@ -96,7 +96,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>345</xloc>
-      <yloc>64</yloc>
+      <yloc>63</yloc>
       </entry>
     <entry>
       <name>process-files.ktr</name>
@@ -153,7 +153,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>345</xloc>
-      <yloc>142</yloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>kettle-items.xslt</name>
@@ -169,7 +169,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>345</xloc>
-      <yloc>221</yloc>
+      <yloc>220</yloc>
       </entry>
     <entry>
       <name>kettle-main.xslt</name>
@@ -209,7 +209,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>100</xloc>
-      <yloc>304</yloc>
+      <yloc>305</yloc>
       </entry>
     <entry>
       <name>transform script exists?</name>
@@ -219,8 +219,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>102</xloc>
-      <yloc>399</yloc>
+      <xloc>535</xloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>Success 1</name>
@@ -229,8 +229,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>473</xloc>
-      <yloc>508</yloc>
+      <xloc>892</xloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>Execute transform script</name>
@@ -252,8 +252,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>340</xloc>
-      <yloc>401</yloc>
+      <xloc>656</xloc>
+      <yloc>220</yloc>
       </entry>
     <entry>
       <name>Delete transform script</name>
@@ -266,8 +266,51 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>472</xloc>
-      <yloc>402</yloc>
+      <xloc>788</xloc>
+      <yloc>220</yloc>
+      </entry>
+    <entry>
+      <name>is windows?</name>
+      <description>Simple evaluation</description>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>${IS_WINDOWS}</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>533</xloc>
+      <yloc>220</yloc>
+      </entry>
+    <entry>
+      <name>Make Executable</name>
+      <description>Shell</description>
+      <type>SHELL</type>
+      <filename/>
+      <work_directory/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>Y</insertScript>
+      <script>chmod ug+x ${FULL_TRANSFORM_SCRIPT}</script>
+      <loglevel>Nothing</loglevel>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>532</xloc>
+      <yloc>305</yloc>
       </entry>
   </entries>
   <hops>
@@ -353,15 +396,6 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>transform script exists?</from>
-      <to>Execute transform script</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Execute transform script</from>
       <to>Delete transform script</to>
       <from_nr>0</from_nr>
@@ -373,6 +407,42 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
     <hop>
       <from>Delete transform script</from>
       <to>Success 1</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>transform script exists?</from>
+      <to>is windows?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>is windows?</from>
+      <to>Execute transform script</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>is windows?</from>
+      <to>Make Executable</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Make Executable</from>
+      <to>Execute transform script</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
