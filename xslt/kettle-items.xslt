@@ -39,6 +39,9 @@ Boston, MA 02111-1307 USA
     doctype-system="http://www.w3.org/TR/html4/loose.dtd"    
 />
 
+<xsl:variable name="input-dir" select="/index/@input_dir"/>
+<xsl:variable name="output-dir" select="/index/@output_dir"/>
+
 <xsl:template match="/">
 <html>
     <head>
@@ -67,17 +70,17 @@ Boston, MA 02111-1307 USA
         <h3>Files</h3>    
         t.b.d.
 
-        <xsl:if test="item[extension[text()='kjb']]">
+        <xsl:if test="file[extension[text()='kjb']]">
             <h3>Jobs</h3>
             <ul>
-                <xsl:apply-templates select="item[extension[text()='kjb']]"/>
+                <xsl:apply-templates select="file[extension[text()='kjb']]"/>
             </ul>
         </xsl:if>
 
-        <xsl:if test="item[extension[text()='ktr']]">
+        <xsl:if test="file[extension[text()='ktr']]">
             <h3>Transformations</h3>
             <ul>
-                <xsl:apply-templates select="item[extension[text()='ktr']]"/>
+                <xsl:apply-templates select="file[extension[text()='ktr']]"/>
             </ul>
         </xsl:if>
     </div>
@@ -90,18 +93,13 @@ Boston, MA 02111-1307 USA
     </div>
 </xsl:template>
 
-<xsl:template match="item">
-    <xsl:variable name="relative-path">
-        <xsl:choose>
-            <xsl:when test="relative-path[text()]">/<xsl:value-of select="relative-path/text()"/></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable>
+<xsl:template match="file">
+    <xsl:variable name="relative-path" select="substring-after(filename/text(), $input-dir)"/>
     <li>
         <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
         <a target="main">
             <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
-            <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '/', short_filename, '.html')"/></xsl:attribute>
+            <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '.html')"/></xsl:attribute>
             <xsl:value-of select="short_filename"/>
         </a>
     </li>

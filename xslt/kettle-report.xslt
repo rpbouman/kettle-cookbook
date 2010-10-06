@@ -32,27 +32,17 @@
 <!-- =========================================================================
     XSLT PARAMETERS
 ========================================================================== -->
-<xsl:param name="short_filename"/>
-<xsl:param name="relative-path"/>
+<xsl:param name="param_filename"/>
 
 <!-- =========================================================================
     XSLT VARIABLES
 ========================================================================== -->
-<xsl:variable name="normalized_short_filename" select="normalize-space($short_filename)"/>
-<xsl:variable name="normalized_relative-path" select="normalize-space($relative-path)"/>
+<xsl:variable name="file-separator" select="/index/@file_separator"/>
+<xsl:variable name="input-dir" select="/index/@input_dir"/>
+<xsl:variable name="output-dir" select="/index/@output_dir"/>
 
-<xsl:variable name="file-separator" select="/index/@file-separator"/>
-
-<xsl:variable 
-    name="item" 
-    select="
-        /index/item[
-            short_filename/text() = $normalized_short_filename
-        and(relative-path/text()  = $normalized_relative-path
-        or  relative-path[count(text())=0 and string-length($normalized_relative-path)=0])
-        ]
-    "
-/>
+<xsl:variable name="file" select="/index/file[filename/text() = $param_filename]"/>
+<xsl:variable name="relative-path" select="substring-after($file/path/text(), $input-dir)"/>
 <!--
     This opens the document that is the real subject of the transformation.
     By transforming index.xml, we have the opportunity to query other docs
@@ -60,18 +50,22 @@
     Currently, we are not actually using that, but this is why it was built 
     this way.
 -->
-<xsl:variable 
-    name="document" 
-    select="
-        document($item/uri/text())
-    "
-/>
+<xsl:variable name="document" select="document($file/uri/text())"/>
+<xsl:variable name="file-type" select="$file/extension/text()"/>
 
-<xsl:variable name="item-type" select="local-name($document/*[1])"/>
+<xsl:variable name="item-type">
+	<xsl:choose>
+		<xsl:when test="$file-type = 'kjb'">job</xsl:when>
+		<xsl:when test="$file-type = 'ktr'">transformation</xsl:when>
+		<xsl:otherwise>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:variable>
+
 <xsl:variable name="steps-or-job-entries">
 	<xsl:choose>
-		<xsl:when test="$item-type = 'job'">Job Entries</xsl:when>
-		<xsl:when test="$item-type = 'transformation'">Steps</xsl:when>
+		<xsl:when test="$file-type = 'kjb'">Job Entries</xsl:when>
+		<xsl:when test="$file-type = 'ktr'">Steps</xsl:when>
 		<xsl:otherwise>
 		</xsl:otherwise>
 	</xsl:choose>
@@ -79,20 +73,15 @@
 
 <xsl:variable name="step-or-job-entry">
 	<xsl:choose>
-		<xsl:when test="$item-type = 'job'">job entry</xsl:when>
-		<xsl:when test="$item-type = 'transformation'">step</xsl:when>
+		<xsl:when test="$file-type = 'ktr'">job entry</xsl:when>
+		<xsl:when test="$file-type = 'ktr'">step</xsl:when>
 		<xsl:otherwise>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:variable>
 
 <xsl:template name="get-documentation-root">
-    <xsl:param name="path">
-        <xsl:choose>
-            <xsl:when test="$normalized_relative-path=''"></xsl:when>
-            <xsl:otherwise><xsl:value-of select="concat('.', $file-separator, $normalized_relative-path)"/></xsl:otherwise>
-        </xsl:choose>
-    </xsl:param>
+    <xsl:param name="path" select="$relative-path"/>
     <xsl:param name="documentation-root" select="'..'"/>
     <xsl:choose>
         <xsl:when test="contains($path, $file-separator)">
@@ -141,26 +130,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="Generator" content="kettle-cookbook - see http://code.google.com/p/kettle-cookbook/" />
         <xsl:comment>
-            Debugging info. Ugly, huh? 
-        
-            $normalized_relative-path: "<xsl:value-of select="$normalized_relative-path"/>"
-            $documentation-root: "<xsl:value-of select="$documentation-root"/>"
-            count(/index): <xsl:value-of select="count(/index)"/>
-            count(/index/item): <xsl:value-of select="count(/index/item)"/>
-            count(/index/item[short_filename/text()=$normalized_short_filename]): <xsl:value-of select="count(/index/item[short_filename/text()=$normalized_short_filename])"/>
-            count(/index/item[relative-path/text()=$normalized_relative-path]): <xsl:value-of select="count(/index/item[relative-path/text()=$normalized_relative-path])"/>
-            count(/index/item[relative-path/text()=$normalized_relative-path and short_filename/text()=$normalized_short_filename]): <xsl:value-of select="count(/index/item[relative-path/text()=$normalized_relative-path and short_filename/text()=$normalized_short_filename])"/>
-        
-            input-dir: '<xsl:value-of select="/index/@input-dir"/>'
-            output-dir: '<xsl:value-of select="/index/@output-dir"/>'
-            file-separator: '<xsl:value-of select="/index/@file-separator"/>'
-            
-            short_filename: '<xsl:value-of select="$normalized_short_filename"/>'
-            relative-path: '<xsl:value-of select="$normalized_relative-path"/>'
-            uri: '<xsl:value-of select="$item/uri"/>'
-            
+            Debugging info - please ignore
+            param_filename: <xsl:value-of select="$param_filename"/>
+            relative-path: <xsl:value-of select="$relative-path"/>
+            documentation-root: <xsl:value-of select="$documentation-root"/>
         </xsl:comment>
-        <title>Kettle Documentation: <xsl:value-of select="local-name($document/*)"/> "<xsl:value-of select="$document/*/name"/>"</title>
+        <title>Kettle Documentation: <xsl:value-of select="$item-type"/> "<xsl:value-of select="$document/*/name"/>"</title>
         <link rel="shortcut icon" type="image/x-icon">
             <xsl:attribute name="href">
                 <xsl:value-of 

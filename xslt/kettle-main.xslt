@@ -51,7 +51,7 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template match="/index">
-    <h1>Documentation for <xsl:value-of select="@input-dir"/></h1>
+    <h1>Documentation for <xsl:value-of select="@input_dir"/></h1>
     <p>
         This documentation was generated <xsl:value-of select="@generated"/>.
     </p>
