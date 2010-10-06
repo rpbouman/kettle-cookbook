@@ -37,11 +37,12 @@
 <!-- =========================================================================
     XSLT VARIABLES
 ========================================================================== -->
+<xsl:variable name="normalized_filename" select="normalize-space($param_filename)"/>
 <xsl:variable name="file-separator" select="/index/@file_separator"/>
 <xsl:variable name="input-dir" select="/index/@input_dir"/>
 <xsl:variable name="output-dir" select="/index/@output_dir"/>
 
-<xsl:variable name="file" select="/index/file[filename/text() = $param_filename]"/>
+<xsl:variable name="file" select="/index/file[filename/text() = $normalized_filename]"/>
 <xsl:variable name="relative-path" select="substring-after($file/path/text(), $input-dir)"/>
 <!--
     This opens the document that is the real subject of the transformation.
@@ -131,9 +132,14 @@
         <meta name="Generator" content="kettle-cookbook - see http://code.google.com/p/kettle-cookbook/" />
         <xsl:comment>
             Debugging info - please ignore
-            param_filename: <xsl:value-of select="$param_filename"/>
-            relative-path: <xsl:value-of select="$relative-path"/>
-            documentation-root: <xsl:value-of select="$documentation-root"/>
+            param_filename: "<xsl:value-of select="$param_filename"/>"
+            normalized_filename: "<xsl:value-of select="$normalized_filename"/>"
+            file: <xsl:value-of select="count($file)"/>
+            document: <xsl:value-of select="count($document)"/>
+            document-element: <xsl:value-of select="local-name($document/*)"/>
+            name: <xsl:value-of select="$document/*/name/text()"/>
+            relative-path: "<xsl:value-of select="$relative-path"/>"
+            documentation-root: "<xsl:value-of select="$documentation-root"/>"
         </xsl:comment>
         <title>Kettle Documentation: <xsl:value-of select="$item-type"/> "<xsl:value-of select="$document/*/name"/>"</title>
         <link rel="shortcut icon" type="image/x-icon">
