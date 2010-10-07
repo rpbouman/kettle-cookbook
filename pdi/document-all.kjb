@@ -13,7 +13,7 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Projects\kettle-cookbook\pdi</default_value>
+            <default_value>D:\Applications\pentaho\pdi-ce-3.2.0-stable\samples</default_value>
             <description>null</description>
         </parameter>
         <parameter>
@@ -262,6 +262,10 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <arg_from_previous>N</arg_from_previous>
       <include_subfolders>N</include_subfolders>
       <fields>
+        <field>
+          <name>${FULL_TRANSFORM_SCRIPT}</name>
+          <filemask/>
+        </field>
       </fields>
       <parallel>N</parallel>
       <draw>Y</draw>

@@ -23,6 +23,7 @@
 *   Boston, MA 02111-1307 USA
 *   
 */
+
 * {
     font-family: sans-serif;
 }
@@ -57,16 +58,27 @@ body {
     background-repeat: no-repeat;
 }
 
+ul {
+    margin-left:35px;
+    padding:0px;
+}
+
 p, ul, ol, div, table {
     font-size: 10pt;
 }
 
-li.item-ktr {
-    list-style-image:url(../images/transformation.png);
+a:link , a:visited  {
+    text-decoration: none;
+    color: black;
 }
 
-li.item-kjb {
-    list-style-image:url(../images/chefgraph.png);
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+li {
+    white-space:nowrap;
 }
 
 .diagram {
