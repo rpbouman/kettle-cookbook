@@ -923,10 +923,14 @@
     <xsl:param name="transformation" select="$document/transformation"/>
     
     <xsl:variable name="steps" select="$transformation/step"/>
+    <xsl:variable name="notepads" select="$transformation/notepads/notepad"/>
     <xsl:variable name="error-handlers" select="$transformation/step_error_handling/error"/>
 
-    <xsl:variable name="xlocs" select="$steps/GUI/xloc"/>
-    <xsl:variable name="ylocs" select="$steps/GUI/yloc"/>
+    <!-- 
+        TODO: for notepads, take the width / height into account.
+    -->
+    <xsl:variable name="xlocs" select="$steps/GUI/xloc | $notepads/xloc"/>    
+    <xsl:variable name="ylocs" select="$steps/GUI/yloc | $notepads/yloc"/>
     <xsl:variable name="hops" select="$transformation/order/hop"/>
 
     <xsl:variable name="max-xloc">
@@ -959,8 +963,8 @@
         <xsl:for-each select="$steps">
             <xsl:variable name="type" select="type/text()"/>
             <xsl:variable name="name" select="name/text()"/>
-            <xsl:variable name="xloc" select="GUI/xloc - $min-xloc"/>
-            <xsl:variable name="yloc" select="GUI/yloc - $min-yloc"/>
+            <xsl:variable name="xloc" select="GUI/xloc"/>
+            <xsl:variable name="yloc" select="GUI/yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
             <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
             <xsl:variable name="copies" select="copies/text()"/>
@@ -1118,8 +1122,12 @@
     <xsl:param name="job" select="$document/job"/>
     <xsl:variable name="entries" select="$job/entries/entry"/>
 
-    <xsl:variable name="xlocs" select="$entries/xloc"/>
-    <xsl:variable name="ylocs" select="$entries/yloc"/>
+    <xsl:variable name="notepads" select="$job/notepads/notepad"/>
+    <!-- 
+        TODO: for notepads, take the width / height into account.
+    -->
+    <xsl:variable name="xlocs" select="$entries/xloc | $notepads/xloc"/>
+    <xsl:variable name="ylocs" select="$entries/yloc | $notepads/yloc"/>
     <xsl:variable name="hops" select="$job/hops/hop"/>
 
     <xsl:variable name="max-xloc">
@@ -1152,8 +1160,8 @@
         <xsl:for-each select="$entries">
             <xsl:variable name="type" select="type/text()"/>
             <xsl:variable name="name" select="name/text()"/>
-            <xsl:variable name="xloc" select="xloc - $min-xloc"/>
-            <xsl:variable name="yloc" select="yloc - $min-yloc"/>
+            <xsl:variable name="xloc" select="xloc"/>
+            <xsl:variable name="yloc" select="yloc"/>
             <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
             <xsl:variable name="hide" select="draw/text()='N'"/>
             <a>
