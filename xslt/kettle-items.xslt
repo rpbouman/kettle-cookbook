@@ -80,14 +80,20 @@ Boston, MA 02111-1307 USA
             <xsl:if test="file[extension[text()='kjb']]">
                 <h3>Jobs</h3>
                 <ul>
-                    <xsl:apply-templates select="file[extension[text()='kjb']]"/>
+                    <xsl:for-each select="file[extension[text()='kjb']]">
+                        <xsl:sort select="short_filename/text()"/>
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
                 </ul>
             </xsl:if>
 
             <xsl:if test="file[extension[text()='ktr']]">
                 <h3>Transformations</h3>
                 <ul>
-                    <xsl:apply-templates select="file[extension[text()='ktr']]"/>
+                    <xsl:for-each select="file[extension[text()='ktr']]">
+                        <xsl:sort select="short_filename/text()"/>
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
                 </ul>
             </xsl:if>
         </div>
@@ -119,7 +125,7 @@ Boston, MA 02111-1307 USA
         <a target="main">
             <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
             <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '.html')"/></xsl:attribute>
-            <xsl:value-of select="short_filename"/>
+            <xsl:value-of select="short_filename/text()"/>
         </a>
     </li>
 </xsl:template>
@@ -133,6 +139,7 @@ Boston, MA 02111-1307 USA
     <xsl:if test="$files[path/text() = $folder]">
         <ul>
             <xsl:for-each select="$files[path/text() = $folder]">
+                <xsl:sort select="short_filename/text()"/>
                 <xsl:apply-templates select="."/>
             </xsl:for-each>
         </ul>
@@ -145,9 +152,8 @@ Boston, MA 02111-1307 USA
     <xsl:if test="$files[starts-with(path/text(), $full-name)]">    
         <div class="folder">
             <div class="folder-head">
-                <span class="folder-toggle">-</span>
+                <span class="folder-toggle" onclick="toggleTreeNode(this)">-</span>
                 <span class="folder-icon-open"></span>
-                <span class="folder-icon-closed"></span>
                 <span class="folder-label"><xsl:value-of select="$folder/@short-name"/></span>
             </div>
             <div class="folder-body">

@@ -116,6 +116,7 @@ li.item-kjb {
 #tab-spacer-right {
     left: 227px;    
     border-left-style:solid;
+    width: 100px;
 }
 
 #tab-toc-by-category {

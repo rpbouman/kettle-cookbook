@@ -51,5 +51,42 @@ function tabClicked(tabLink) {
 }
 
 function toggleTreeNode(toggle) {
-
+    var els, numEls, el, elIndex,
+        oldState, newState, oldIconClass, newIconClass, display
+    ;
+    switch (oldState = toggle.innerHTML){
+        case "+":
+            oldIconClass = "folder-icon-closed";
+            newIconClass = "folder-icon-open";
+            newState = "-";
+            display = "";
+            break;
+        case "-":
+            oldIconClass = "folder-icon-open";
+            newIconClass = "folder-icon-closed";
+            newState = "+";
+            display = "none";
+            break;
+    }
+    
+    els = toggle.parentNode.childNodes, numEls = els.length;
+    for (elIndex = 0; elIndex < numEls; elIndex++){
+        el = els.item(elIndex);
+        if  (el.nodeType!==1 || el.className!==oldIconClass) {
+            continue;
+        }
+        el.className = newIconClass;
+        break;
+    }
+    
+    els = toggle.parentNode.parentNode.childNodes, numEls = els.length;
+    for (elIndex = 0; elIndex < numEls; elIndex++){
+        el = els.item(elIndex);
+        if (el.nodeType!==1 || el.className!=="folder-body"){
+            continue;
+        }
+        el.style.display = display;
+        break;
+    }
+    toggle.innerHTML = newState;
 }
