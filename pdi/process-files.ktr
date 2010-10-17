@@ -10,7 +10,7 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Projects\kettle-cookbook\pdi</default_value>
+            <default_value>D:\Servers\biserver-ce-3.5.2.stable\biserver-ce\pentaho-solutions</default_value>
             <description>null</description>
         </parameter>
         <parameter>
@@ -29,7 +29,7 @@
       <connection/>
       <table/>
       <step_performance_table/>
-      <use_batchid>Y</use_batchid>
+      <use_batchid>N</use_batchid>
       <use_logfield>N</use_logfield>
       <size_limit_lines/>
     </log>
@@ -64,7 +64,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>Get ${INPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>output foldername</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input foldername</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>${INPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>${INPUT_DIR} -&gt; folderName</from><to>input wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>${OUTPUT_DIR} -&gt; folderName</from><to>output wildcard</to><enabled>Y</enabled> </hop>  <hop> <from>input wildcard</from><to>relative input path</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>Input Files</to><enabled>Y</enabled> </hop>  <hop> <from>output wildcard</from><to>relative output path</to><enabled>Y</enabled> </hop>  <hop> <from>relative output path</from><to>Output Files</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>input target file</to><enabled>Y</enabled> </hop>  <hop> <from>input target file</from><to>sort input</to><enabled>Y</enabled> </hop>  <hop> <from>Output Files</from><to>output target file</to><enabled>Y</enabled> </hop>  <hop> <from>output target file</from><to>sort output</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff)</from><to>Switch &#47; Case</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>lookup deleted file</from><to>Delete files</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>Not updated</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>lookup input</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>lookup output</from><to>input updated?</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;folder&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;index&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; folder</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>&lt;folder&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>del timestamp</to><enabled>Y</enabled> </hop>  <hop> <from>del timestamp</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>lookup new file</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>Join Streams</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Get ${INPUT_DIR} and ${OUTPUT_DIR}</to><enabled>Y</enabled> </hop>  <hop> <from>Combine</from><to>xslt-output-file</to><enabled>Y</enabled> </hop>  <hop> <from>xslt-output-file</from><to>transform_script</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>Hidden?</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>input foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${OUTPUT_DIR} SubFolders</from><to>Hidden? 2</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>output foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden?</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>Hidden? 2</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>output dirs</to><enabled>Y</enabled> </hop>  <hop> <from>output dirs</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; file</from><to>index.xml</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>system date</to><enabled>Y</enabled> </hop>  <hop> <from>system date</from><to>&lt;index&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>html path</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>Get ${OUTPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>html path</from><to>${OUTPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>transform_script, is_windows</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>sort input</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>input target file</to><enabled>Y</enabled> </hop>  <hop> <from>input target file</from><to>sort input</to><enabled>Y</enabled> </hop>  <hop> <from>Output Files</from><to>output target file</to><enabled>Y</enabled> </hop>  <hop> <from>output target file</from><to>sort output</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff)</from><to>Switch &#47; Case</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup deleted file</to><enabled>Y</enabled> </hop>  <hop> <from>lookup deleted file</from><to>Delete files</to><enabled>Y</enabled> </hop>  <hop> <from>sort output</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>Not updated</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>sort input</from><to>lookup new file</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>lookup input</to><enabled>Y</enabled> </hop>  <hop> <from>lookup input</from><to>lookup output</to><enabled>Y</enabled> </hop>  <hop> <from>lookup output</from><to>input updated?</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;folder&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;index&gt;</from><to>index &#47; folder</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; folder</from><to>index &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>&lt;folder&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Input Files</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>input updated?</from><to>del timestamp</to><enabled>Y</enabled> </hop>  <hop> <from>del timestamp</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>lookup new file</from><to>Join Streams</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>Combine</from><to>xslt-output-file</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} SubFolders</from><to>Input Hidden?</to><enabled>Y</enabled> </hop>  <hop> <from>Input Hidden?</from><to>input foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${OUTPUT_DIR} SubFolders</from><to>Output Hidden?</to><enabled>Y</enabled> </hop>  <hop> <from>Output Hidden?</from><to>output foldername</to><enabled>Y</enabled> </hop>  <hop> <from>Input Hidden?</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>Output Hidden?</from><to>hidden</to><enabled>Y</enabled> </hop>  <hop> <from>index &#47; file</from><to>index.xml</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>system date</to><enabled>Y</enabled> </hop>  <hop> <from>system date</from><to>&lt;index&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>Prepare Saxon&#47;Java commandline</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>transform_script, is_windows</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Get ${INPUT_DIR} and ${OUTPUT_DIR}</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>wildcards</to><enabled>Y</enabled> </hop>  <hop> <from>wildcards</from><to>Get ${INPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>wildcards</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>wildcards</from><to>Get ${OUTPUT_DIR} SubFolders</to><enabled>Y</enabled> </hop>  <hop> <from>wildcards</from><to>${INPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>wildcards</from><to>${OUTPUT_DIR} -&gt; folderName</to><enabled>Y</enabled> </hop>  <hop> <from>input foldername</from><to>relative input path</to><enabled>Y</enabled> </hop>  <hop> <from>${INPUT_DIR} -&gt; folderName</from><to>relative input path</to><enabled>Y</enabled> </hop>  <hop> <from>${OUTPUT_DIR} -&gt; folderName</from><to>relative output path</to><enabled>Y</enabled> </hop>  <hop> <from>output foldername</from><to>relative output path</to><enabled>Y</enabled> </hop>  <hop> <from>Join Streams</from><to>extension -&gt; xslt_file</to><enabled>Y</enabled> </hop>  <hop> <from>extension -&gt; xslt_file</from><to>Combine</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>Copy output dirs to result</to><enabled>Y</enabled> </hop>  <hop> <from>relative input path</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Input Files</to><enabled>Y</enabled> </hop>  <hop> <from>relative output path</from><to>Select values 2</to><enabled>Y</enabled> </hop>  <hop> <from>Select values 2</from><to>Output Files</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>toc line</to><enabled>Y</enabled> </hop>  <hop> <from>xslt-output-file</from><to>Select values 3</to><enabled>Y</enabled> </hop>  <hop> <from>Select values 3</from><to>transform_script</to><enabled>Y</enabled> </hop>  <hop> <from>toc line</from><to>transform_script</to><enabled>Y</enabled> </hop>  <hop> <from>Prepare Saxon&#47;Java commandline</from><to>frontpage line</to><enabled>Y</enabled> </hop>  <hop> <from>frontpage line</from><to>transform_script</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>${INPUT_DIR} -&gt; folderName</name>
     <type>SelectValues</type>
@@ -79,11 +79,31 @@
         <rename>folderName</rename>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>input_wildcard</name>
+        <rename>wildcard</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>input_dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>output_dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_separator</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>html_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>678</xloc>
-      <yloc>367</yloc>
+      <xloc>627</xloc>
+      <yloc>435</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -102,11 +122,19 @@
         <rename>folderName</rename>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>output_wildcard</name>
+        <rename>wildcard</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>html_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>678</xloc>
-      <yloc>489</yloc>
+      <xloc>627</xloc>
+      <yloc>557</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -136,8 +164,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>255</xloc>
-      <yloc>114</yloc>
+      <xloc>281</xloc>
+      <yloc>182</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -167,8 +195,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>387</xloc>
-      <yloc>113</yloc>
+      <xloc>408</xloc>
+      <yloc>268</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -333,8 +361,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1086</xloc>
-      <yloc>121</yloc>
+      <xloc>911</xloc>
+      <yloc>261</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -443,8 +471,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>773</xloc>
-      <yloc>122</yloc>
+      <xloc>833</xloc>
+      <yloc>262</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -525,8 +553,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>678</xloc>
-      <yloc>92</yloc>
+      <xloc>734</xloc>
+      <yloc>181</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -555,14 +583,14 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1437</xloc>
-      <yloc>27</yloc>
+      <xloc>1338</xloc>
+      <yloc>99</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Copy rows to result</name>
+    <name>Copy output dirs to result</name>
     <type>RowsToResult</type>
     <description/>
     <distribute>Y</distribute>
@@ -573,8 +601,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1613</xloc>
-      <yloc>160</yloc>
+      <xloc>842</xloc>
+      <yloc>488</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -598,8 +626,8 @@
     <simulate>N</simulate>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1345</xloc>
-      <yloc>633</yloc>
+      <xloc>1247</xloc>
+      <yloc>702</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -625,8 +653,8 @@
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>467</xloc>
-      <yloc>308</yloc>
+      <xloc>410</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -635,7 +663,7 @@
     <name>Get ${INPUT_DIR} and ${OUTPUT_DIR}</name>
     <type>GetVariable</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -717,8 +745,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>315</xloc>
-      <yloc>427</yloc>
+      <xloc>97</xloc>
+      <yloc>495</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -744,8 +772,8 @@
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>467</xloc>
-      <yloc>552</yloc>
+      <xloc>410</xloc>
+      <yloc>621</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -777,64 +805,8 @@
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>29</xloc>
-      <yloc>427</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Hidden?</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>input foldername</send_true_to>
-<send_false_to>hidden</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>ishidden</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>Boolean</type><text>N</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>586</xloc>
-      <yloc>308</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Hidden? 2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>output foldername</send_true_to>
-<send_false_to>hidden</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>ishidden</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>Boolean</type><text>N</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>586</xloc>
-      <yloc>551</yloc>
+      <xloc>97</xloc>
+      <yloc>281</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -866,8 +838,36 @@
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>951</xloc>
-      <yloc>308</yloc>
+      <xloc>913</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Input Hidden?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>input foldername</send_true_to>
+<send_false_to>hidden</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ishidden</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Boolean</type><text>N</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>537</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -884,8 +884,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1437</xloc>
-      <yloc>237</yloc>
+      <xloc>1339</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -915,8 +915,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1192</xloc>
-      <yloc>427</yloc>
+      <xloc>1071</xloc>
+      <yloc>495</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -933,8 +933,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1437</xloc>
-      <yloc>633</yloc>
+      <xloc>1339</xloc>
+      <yloc>702</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -966,8 +966,36 @@
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>951</xloc>
-      <yloc>552</yloc>
+      <xloc>913</xloc>
+      <yloc>620</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Output Hidden?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>output foldername</send_true_to>
+<send_false_to>hidden</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ishidden</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Boolean</type><text>N</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>537</xloc>
+      <yloc>620</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -982,304 +1010,10 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-       <calculation><field_name>slash</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>&#47;</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>libext</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>libext</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>xslt_dir</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>xslt</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>xslt_file</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>kettle-report.xslt</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>xslt_path</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>xslt_dir</field_a>
-<field_b>slash</field_b>
-<field_c>xslt_file</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>parent_dir</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>..</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>cookbook_home</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>transformation_dir</field_a>
-<field_b>slash</field_b>
-<field_c>parent_dir</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>binaries</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>bin</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>java</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java_binaries</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>java_home</field_a>
-<field_b>file_separator</field_b>
-<field_c>binaries</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>index.xml</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>index.xml</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java_executable</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>java_binaries</field_a>
-<field_b>file_separator</field_b>
-<field_c>java</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java_option_xms</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>-Xms256M</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java_option_xmx</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>-Xmx1024M</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>java_option_jar</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>-jar</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>saxon_option_output</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>-o</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>full_xslt</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>cookbook_home</field_a>
-<field_b>slash</field_b>
-<field_c>xslt_path</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>full_index.xml</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>output_dir</field_a>
-<field_b>file_separator</field_b>
-<field_c>index.xml</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>transform</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>transform</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>transform-file</field_name>
-<calc_type>ADD</calc_type>
-<field_a>transform</field_a>
-<field_b>extension</field_b>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
        <calculation><field_name>full_transform_script</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>output_dir</field_a>
-<field_b>file_separator</field_b>
-<field_c>transform-file</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>param_filename</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>param_filename=</field_a>
-<field_b/>
+<calc_type>ADD</calc_type>
+<field_a>transform-file</field_a>
+<field_b>extension</field_b>
 <field_c/>
 <value_type>String</value_type>
 <value_length>-1</value_length>
@@ -1292,8 +1026,70 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>315</xloc>
-      <yloc>27</yloc>
+      <xloc>408</xloc>
+      <yloc>182</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>folderName</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>wildcard</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>relative_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>838</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>folderName</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>wildcard</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>relative_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>835</xloc>
+      <yloc>619</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1323,8 +1119,8 @@
 <target_step>lookup deleted file</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1277</xloc>
-      <yloc>427</yloc>
+      <xloc>1156</xloc>
+      <yloc>495</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1822,8 +1618,47 @@
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1437</xloc>
-      <yloc>308</yloc>
+      <xloc>1339</xloc>
+      <yloc>444</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>extension -&gt; xslt_file</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <field_to_use>extension_1</field_to_use>
+    <target_field>xslt_file</target_field>
+    <non_match_default>kettle-report.xslt</non_match_default>
+    <fields>
+      <field>
+        <source_value>kjb</source_value>
+        <target_value>kettle-report.xslt</target_value>
+      </field>
+      <field>
+        <source_value>ktr</source_value>
+        <target_value>kettle-report.xslt</target_value>
+      </field>
+      <field>
+        <source_value>xaction</source_value>
+        <target_value>xaction-report.xslt</target_value>
+      </field>
+      <field>
+        <source_value>xcdf</source_value>
+        <target_value>xcdf-report.xslt</target_value>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1338</xloc>
+      <yloc>285</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1845,8 +1680,8 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>136</xloc>
-      <yloc>427</yloc>
+      <xloc>97</xloc>
+      <yloc>377</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1863,54 +1698,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>638</xloc>
-      <yloc>636</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>html path</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>N</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-       <calculation><field_name>html</field_name>
-<calc_type>CONSTANT</calc_type>
-<field_a>html</field_a>
-<field_b/>
-<field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>html_path</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>output_dir</field_a>
-<field_b>file_separator</field_b>
-<field_c>html</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>489</yloc>
+      <xloc>537</xloc>
+      <yloc>499</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1937,8 +1726,8 @@
     <omitXMLHeader>N</omitXMLHeader>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1172</xloc>
-      <yloc>92</yloc>
+      <xloc>912</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1965,8 +1754,8 @@
     <omitXMLHeader>Y</omitXMLHeader>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>855</xloc>
-      <yloc>92</yloc>
+      <xloc>834</xloc>
+      <yloc>181</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2025,8 +1814,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1612</xloc>
-      <yloc>92</yloc>
+      <xloc>1514</xloc>
+      <yloc>182</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2045,11 +1834,31 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>input_wildcard</name>
+        <rename>wildcard</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>input_dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>output_dir</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_separator</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>html_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>678</xloc>
-      <yloc>308</yloc>
+      <xloc>627</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2094,8 +1903,8 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1037</xloc>
-      <yloc>308</yloc>
+      <xloc>994</xloc>
+      <yloc>365</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2122,39 +1931,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1437</xloc>
-      <yloc>493</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>input wildcard</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>wildcard</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>.+\.k(jb|tr)</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>779</xloc>
-      <yloc>308</yloc>
+      <xloc>1339</xloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2181,8 +1959,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>315</xloc>
-      <yloc>212</yloc>
+      <xloc>281</xloc>
+      <yloc>268</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2220,8 +1998,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1345</xloc>
-      <yloc>552</yloc>
+      <xloc>1247</xloc>
+      <yloc>621</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2355,8 +2133,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1345</xloc>
-      <yloc>367</yloc>
+      <xloc>1248</xloc>
+      <yloc>444</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2490,8 +2268,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1345</xloc>
-      <yloc>308</yloc>
+      <xloc>1247</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2529,8 +2307,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1345</xloc>
-      <yloc>493</yloc>
+      <xloc>1247</xloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2539,7 +2317,7 @@
     <name>match windows</name>
     <type>RegexEval</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -2560,39 +2338,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>315</xloc>
-      <yloc>308</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>output dirs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#47;&#47;Script here
-var output_dir = getVariable(&quot;OUTPUT_DIR&quot;, &quot;&quot;) + 
-                 getVariable(&quot;file.separator&quot;, &quot;&quot;) + &quot;html&quot; +
-                 relative_path</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>output_dir</name>
-        <rename>output_dir</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>962</xloc>
-      <yloc>160</yloc>
+      <xloc>281</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2611,11 +2358,19 @@ var output_dir = getVariable(&quot;OUTPUT_DIR&quot;, &quot;&quot;) +
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>output_wildcard</name>
+        <rename>wildcard</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>html_path</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>678</xloc>
-      <yloc>552</yloc>
+      <xloc>627</xloc>
+      <yloc>620</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2646,39 +2401,8 @@ var output_dir = getVariable(&quot;OUTPUT_DIR&quot;, &quot;&quot;) +
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1035</xloc>
-      <yloc>552</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>output wildcard</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>wildcard</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>.+\.k(jb|tr)\.html</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>779</xloc>
-      <yloc>552</yloc>
+      <xloc>992</xloc>
+      <yloc>620</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2697,18 +2421,24 @@ var output_dir = getVariable(&quot;OUTPUT_DIR&quot;, &quot;&quot;) +
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>&#47;&#47;Script here
-var input_dir = getVariable(&quot;INPUT_DIR&quot;, &quot;&quot;);
-var relative_path = folderName.substr(input_dir.length);</jsScript_script>
+var relative_path = folderName.substr(input_dir.length);
+var output_subdir = html_path + relative_path;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>relative_path</name>
         <rename>relative_path</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
+      </field>      <field>        <name>output_subdir</name>
+        <rename>output_subdir</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>862</xloc>
-      <yloc>308</yloc>
+      <xloc>726</xloc>
+      <yloc>365</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2727,9 +2457,7 @@ var relative_path = folderName.substr(input_dir.length);</jsScript_script>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>&#47;&#47;Script here
-var separator = getVariable(&quot;file.separator&quot;, &quot;&quot;);
-var output_dir = getVariable(&quot;OUTPUT_DIR&quot;, &quot;&quot;) + separator + &quot;html&quot;;
-var relative_path = folderName.substr(output_dir.length);
+var relative_path = folderName.substr(html_path.length);
 </jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>relative_path</name>
         <rename>relative_path</rename>
@@ -2739,8 +2467,8 @@ var relative_path = folderName.substr(output_dir.length);
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>869</xloc>
-      <yloc>552</yloc>
+      <xloc>733</xloc>
+      <yloc>620</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2776,8 +2504,8 @@ var relative_path = folderName.substr(output_dir.length);
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1106</xloc>
-      <yloc>308</yloc>
+      <xloc>1071</xloc>
+      <yloc>365</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2813,8 +2541,8 @@ var relative_path = folderName.substr(output_dir.length);
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1106</xloc>
-      <yloc>552</yloc>
+      <xloc>1071</xloc>
+      <yloc>620</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2837,8 +2565,8 @@ var relative_path = folderName.substr(output_dir.length);
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>581</xloc>
-      <yloc>92</yloc>
+      <xloc>662</xloc>
+      <yloc>181</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -3005,8 +2733,8 @@ var relative_path = folderName.substr(output_dir.length);
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1611</xloc>
-      <yloc>28</yloc>
+      <xloc>1518</xloc>
+      <yloc>24</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -3038,23 +2766,51 @@ var relative_path = folderName.substr(output_dir.length);
     <use_formatting>Y</use_formatting>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>136</xloc>
-      <yloc>28</yloc>
+      <xloc>580</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>xslt-output-file</name>
+    <name>wildcards</name>
     <type>Calculator</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-       <calculation><field_name>html-dir</field_name>
+       <calculation><field_name>dot</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>.</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>escape</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>\</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>html</field_name>
 <calc_type>CONSTANT</calc_type>
 <field_a>html</field_a>
 <field_b/>
@@ -3062,49 +2818,357 @@ var relative_path = folderName.substr(output_dir.length);
 <value_type>String</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>
-<remove>Y</remove>
+<remove>N</remove>
 <conversion_mask/>
 <decimal_symbol/>
 <grouping_symbol/>
 <currency_symbol/>
 </calculation>
-       <calculation><field_name>html-path</field_name>
+       <calculation><field_name>html_path</field_name>
 <calc_type>ADD3</calc_type>
 <field_a>output_dir</field_a>
 <field_b>file_separator</field_b>
-<field_c>html-dir</field_c>
+<field_c>html</field_c>
 <value_type>String</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>
-<remove>Y</remove>
+<remove>N</remove>
 <conversion_mask/>
 <decimal_symbol/>
 <grouping_symbol/>
 <currency_symbol/>
 </calculation>
-       <calculation><field_name>xslt-output-path</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>html-path</field_a>
-<field_b>relative_path</field_b>
-<field_c>file_separator</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>.html</field_name>
+       <calculation><field_name>input_wildcard</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>.html</field_a>
+<field_a>.*\.(kjb|ktr|prpt|xaction|xcdf)</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>dot-html</field_name>
+<calc_type>ADD</calc_type>
+<field_a>dot</field_a>
+<field_b>html</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>output_wildcard</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>input_wildcard</field_a>
+<field_b>escape</field_b>
+<field_c>dot-html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>slash</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>&#47;</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>libext</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>libext</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>
 <remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>parent_dir</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>..</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>cookbook_home</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>transformation_dir</field_a>
+<field_b>slash</field_b>
+<field_c>parent_dir</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>xslt</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>xslt</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>dot-xslt</field_name>
+<calc_type>ADD</calc_type>
+<field_a>dot</field_a>
+<field_b>xslt</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>xslt_dir</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>cookbook_home</field_a>
+<field_b>slash</field_b>
+<field_c>xslt</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>binaries</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>bin</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>xslt_path</field_name>
+<calc_type>ADD</calc_type>
+<field_a>xslt_dir</field_a>
+<field_b>slash</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>java</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java_binaries</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>java_home</field_a>
+<field_b>file_separator</field_b>
+<field_c>binaries</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>index.xml</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>index.xml</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java_executable</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>java_binaries</field_a>
+<field_b>file_separator</field_b>
+<field_c>java</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java_option_xms</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>-Xms256M</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java_option_xmx</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>-Xmx1024M</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>java_option_jar</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>-jar</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>saxon_option_output</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>-o</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>full_index.xml</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>index.xml</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>transform</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>transform</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>param_filename</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>param_filename=</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>transform-file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>transform</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
 <conversion_mask/>
 <decimal_symbol/>
 <grouping_symbol/>
@@ -3115,48 +3179,6 @@ var relative_path = folderName.substr(output_dir.length);
 <field_a>&quot;</field_a>
 <field_b/>
 <field_c/>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>xslt-output-file</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>xslt-output-path</field_a>
-<field_b>short_filename_1</field_b>
-<field_c>.html</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>quote-filename</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>quote</field_a>
-<field_b>filename</field_b>
-<field_c>quote</field_c>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>Y</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>quote-xslt-output-file</field_name>
-<calc_type>ADD3</calc_type>
-<field_a>quote</field_a>
-<field_b>xslt-output-file</field_b>
-<field_c>quote</field_c>
 <value_type>String</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>
@@ -3208,10 +3230,252 @@ var relative_path = folderName.substr(output_dir.length);
 <grouping_symbol/>
 <currency_symbol/>
 </calculation>
-       <calculation><field_name>quote-full-xslt</field_name>
+       <calculation><field_name>toc</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>toc</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>toc-dot-html</field_name>
+<calc_type>ADD</calc_type>
+<field_a>toc</field_a>
+<field_b>dot-html</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>full-toc</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>toc-dot-html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-full-toc</field_name>
 <calc_type>ADD3</calc_type>
 <field_a>quote</field_a>
-<field_b>full_xslt</field_b>
+<field_b>full-toc</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>frontpage</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>frontpage</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>frontpage-dot-html</field_name>
+<calc_type>ADD</calc_type>
+<field_a>frontpage</field_a>
+<field_b>dot-html</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>full-frontpage</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>frontpage-dot-html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-full-frontpage</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>full-frontpage</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>empty_param_filename</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a> </field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>frontpage.xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>xslt_path</field_a>
+<field_b>frontpage</field_b>
+<field_c>dot-xslt</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-frontpage.xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>frontpage.xslt</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>toc.xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>xslt_path</field_a>
+<field_b>toc</field_b>
+<field_c>dot-xslt</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-toc.xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>toc.xslt</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>281</xloc>
+      <yloc>496</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>xslt-output-file</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>xslt-output-path</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>html_path</field_a>
+<field_b>relative_path</field_b>
+<field_c>file_separator</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>xslt-output-file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>xslt-output-path</field_a>
+<field_b>short_filename_1</field_b>
+<field_c>dot-html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-filename</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>filename</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-xslt-output-file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>xslt-output-file</field_b>
 <field_c>quote</field_c>
 <value_type>String</value_type>
 <value_length>-1</value_length>
@@ -3236,10 +3500,227 @@ var relative_path = folderName.substr(output_dir.length);
 <grouping_symbol/>
 <currency_symbol/>
 </calculation>
+       <calculation><field_name>full_xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>xslt_dir</field_a>
+<field_b>slash</field_b>
+<field_c>xslt_file</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>quote-full-xslt</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>quote</field_a>
+<field_b>full_xslt</field_b>
+<field_c>quote</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1526</xloc>
-      <yloc>28</yloc>
+      <xloc>1427</xloc>
+      <yloc>100</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>toc line</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>quote-jave-executable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xms</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xmx</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-saxon-jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>saxon_option_output</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-toc</name>
+        <rename>quote-xslt-output-file</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-index.xml</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-toc.xslt</name>
+        <rename>quote-full-xslt</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>empty_param_filename</name>
+        <rename>param_value_filename</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>full_transform_script</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>408</xloc>
+      <yloc>22</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values 3</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>quote-jave-executable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xms</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xmx</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-saxon-jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>saxon_option_output</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-xslt-output-file</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-index.xml</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-xslt</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>param_value_filename</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>full_transform_script</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1517</xloc>
+      <yloc>105</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>frontpage line</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>quote-jave-executable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xms</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_xmx</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>java_option_jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-saxon-jar</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>saxon_option_output</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-frontpage</name>
+        <rename>quote-xslt-output-file</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-full-index.xml</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>quote-frontpage.xslt</name>
+        <rename>quote-full-xslt</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>empty_param_filename</name>
+        <rename>param_value_filename</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>full_transform_script</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>474</xloc>
+      <yloc>73</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

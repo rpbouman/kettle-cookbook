@@ -1,8 +1,8 @@
 /**
-*   This is kettle.css. This is part of kettle-cookbook.
+*   This is default.css. This is part of kettle-cookbook.
 *   Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 *   
-*   kettle.css - a cascading stylesheet file that contains markup shared for all kettle docs
+*   default.css - a cascading stylesheet file that contains general markup
 *   
 *   Copyright (C) 2010 
 *   Roland Bouman Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
@@ -24,42 +24,56 @@
 *   
 */
 
-body.kettle-file {
+* {
+    font-family: sans-serif;
+}
+
+body  {
     background-image: url(../images/bg_banner.png);
+    background-repeat: no-repeat;
 }
 
-.diagram {
-    position: relative;
-    border-width: 1px;
-    margin-left: auto;
-    margin-right: auto;
+
+thread tr th {
+    text-align: center;    
+    font-weight:bold;
 }
 
-.kettle-hop {
-    z-index:0;
+tbody tr th {
+    text-align: left;
+    font-weight:normal;
 }
 
-.note{
-	position:absolute;
-	border-style:solid;
-	border-width: 1px;
-	background-color: yellow;
-	font-family: sans-serif;
-	font-size: 8pt;
-    padding: 2px;
+th {
+    background-color: orange;
 }
 
-.hop-true-icon {
-    position:absolute;
-    width: 16px;
-    height: 16px;
-    background-image: url(../images/true.png);
-    z-index:500 !important;
+body {
+    background-repeat: no-repeat;
 }
-.hop-false-icon {
-    position:absolute;
-    width: 16px;
-    height: 16px;
-    background-image: url(../images/false.png);
-    z-index:500 !important;
+
+ul {
+    margin-left:35px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding:0px;
 }
+
+p, ul, ol, div, table {
+    font-size: 10pt;
+}
+
+a:link , a:visited  {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+li {
+    white-space:nowrap;
+}
+

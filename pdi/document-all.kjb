@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>main</name>
+  <name>document-all</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -13,7 +13,7 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Applications\pentaho\pdi-ce-3.2.0-stable\samples</default_value>
+            <default_value>D:\Servers\biserver-ce-3.5.2.stable\biserver-ce\pentaho-solutions</default_value>
             <description>null</description>
         </parameter>
         <parameter>
@@ -27,9 +27,9 @@
   <logconnection/>
   <logtable/>
   <size_limit_lines/>
-   <use_batchid>Y</use_batchid>
+   <use_batchid>N</use_batchid>
    <pass_batchid>N</pass_batchid>
-   <use_logfield>Y</use_logfield>
+   <use_logfield>N</use_logfield>
    <shared_objects_file/>
   <entries>
     <entry>
@@ -50,7 +50,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>100</xloc>
-      <yloc>63</yloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
       <name>Create ${OUTPUT_DIR} and Copy Template</name>
@@ -95,8 +95,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>345</xloc>
-      <yloc>63</yloc>
+      <xloc>250</xloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
       <name>process-files.ktr</name>
@@ -123,14 +123,14 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>100</xloc>
-      <yloc>141</yloc>
+      <xloc>430</xloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
-      <name>create-output-dir</name>
+      <name>create-output-subdir</name>
       <description>Job</description>
       <type>JOB</type>
-      <filename>${Internal.Job.Filename.Directory}&#47;create-output-dir.kjb</filename>
+      <filename>${Internal.Job.Filename.Directory}&#47;create-output-subdir.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>Y</params_from_previous>
@@ -145,71 +145,15 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <parameters>        <pass_all_parameters>N</pass_all_parameters>
-            <parameter>            <name>OUTPUT_DIR</name>
-            <stream_name>output_dir</stream_name>
+            <parameter>            <name>OUTPUT_SUBDIR</name>
+            <stream_name>output_subdir</stream_name>
             <value/>
             </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>345</xloc>
-      <yloc>141</yloc>
-      </entry>
-    <entry>
-      <name>kettle-items.xslt</name>
-      <description>XSL Transformation</description>
-      <type>XSLT</type>
-      <xmlfilename>${OUTPUT_DIR}&#47;index.xml</xmlfilename>
-      <xslfilename>${Internal.Job.Filename.Directory}&#47;..&#47;xslt&#47;kettle-items.xslt</xslfilename>
-      <outputfilename>${OUTPUT_DIR}&#47;all-items.html</outputfilename>
-      <iffileexists>1</iffileexists>
-      <addfiletoresult>N</addfiletoresult>
-      <xsltfactory>SAXON</xsltfactory>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>345</xloc>
-      <yloc>220</yloc>
-      </entry>
-    <entry>
-      <name>kettle-main.xslt</name>
-      <description>XSL Transformation</description>
-      <type>XSLT</type>
-      <xmlfilename>${OUTPUT_DIR}&#47;index.xml</xmlfilename>
-      <xslfilename>${Internal.Job.Filename.Directory}&#47;..&#47;xslt&#47;kettle-main.xslt</xslfilename>
-      <outputfilename>${OUTPUT_DIR}&#47;main.html</outputfilename>
-      <iffileexists>1</iffileexists>
-      <addfiletoresult>N</addfiletoresult>
-      <xsltfactory>SAXON</xsltfactory>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>345</xloc>
-      <yloc>305</yloc>
-      </entry>
-    <entry>
-      <name>delete all-items.html</name>
-      <description>Delete file</description>
-      <type>DELETE_FILE</type>
-      <filename>${OUTPUT_DIR}&#47;all-items.html</filename>
-      <fail_if_file_not_exists>N</fail_if_file_not_exists>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>100</xloc>
-      <yloc>220</yloc>
-      </entry>
-    <entry>
-      <name>delete main.html</name>
-      <description>Delete file</description>
-      <type>DELETE_FILE</type>
-      <filename>${OUTPUT_DIR}&#47;main.html</filename>
-      <fail_if_file_not_exists>N</fail_if_file_not_exists>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>100</xloc>
-      <yloc>305</yloc>
+      <xloc>545</xloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
       <name>transform script exists?</name>
@@ -219,8 +163,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>535</xloc>
-      <yloc>141</yloc>
+      <xloc>684</xloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
       <name>Success 1</name>
@@ -229,8 +173,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>892</xloc>
-      <yloc>141</yloc>
+      <xloc>1024</xloc>
+      <yloc>59</yloc>
       </entry>
     <entry>
       <name>Execute transform script</name>
@@ -252,8 +196,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>220</yloc>
+      <xloc>805</xloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>Delete transform script</name>
@@ -270,8 +214,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>788</xloc>
-      <yloc>220</yloc>
+      <xloc>937</xloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>is windows?</name>
@@ -290,8 +234,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>533</xloc>
-      <yloc>220</yloc>
+      <xloc>682</xloc>
+      <yloc>141</yloc>
       </entry>
     <entry>
       <name>Make Executable</name>
@@ -313,8 +257,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>532</xloc>
-      <yloc>305</yloc>
+      <xloc>681</xloc>
+      <yloc>226</yloc>
       </entry>
   </entries>
   <hops>
@@ -329,43 +273,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
     </hop>
     <hop>
       <from>process-files.ktr</from>
-      <to>create-output-dir</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>create-output-dir</from>
-      <to>delete all-items.html</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>delete all-items.html</from>
-      <to>kettle-items.xslt</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>kettle-items.xslt</from>
-      <to>delete main.html</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>delete main.html</from>
-      <to>kettle-main.xslt</to>
+      <to>create-output-subdir</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -375,15 +283,6 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
     <hop>
       <from>Create ${OUTPUT_DIR} and Copy Template</from>
       <to>process-files.ktr</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>kettle-main.xslt</from>
-      <to>transform script exists?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -447,6 +346,15 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
     <hop>
       <from>Make Executable</from>
       <to>Execute transform script</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>create-output-subdir</from>
+      <to>transform script exists?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

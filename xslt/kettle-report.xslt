@@ -29,30 +29,8 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!-- =========================================================================
-    XSLT PARAMETERS
-========================================================================== -->
-<xsl:param name="param_filename"/>
-
-<!-- =========================================================================
-    XSLT VARIABLES
-========================================================================== -->
-<xsl:variable name="normalized_filename" select="normalize-space($param_filename)"/>
-<xsl:variable name="file-separator" select="/index/@file_separator"/>
-<xsl:variable name="input-dir" select="/index/@input_dir"/>
-<xsl:variable name="output-dir" select="/index/@output_dir"/>
-
-<xsl:variable name="file" select="/index/file[filename/text() = $normalized_filename]"/>
-<xsl:variable name="relative-path" select="substring-after($file/path/text(), $input-dir)"/>
-<!--
-    This opens the document that is the real subject of the transformation.
-    By transforming index.xml, we have the opportunity to query other docs
-    as well which may be useful for cross reference reports. 
-    Currently, we are not actually using that, but this is why it was built 
-    this way.
--->
-<xsl:variable name="document" select="document($file/uri/text())"/>
-<xsl:variable name="file-type" select="$file/extension/text()"/>
+<xsl:import href="shared.xslt"/>
+<xsl:import href="file.xslt"/>
 
 <xsl:variable name="item-type">
 	<xsl:choose>
@@ -81,24 +59,6 @@
 	</xsl:choose>
 </xsl:variable>
 
-<xsl:template name="get-documentation-root">
-    <xsl:param name="path" select="$relative-path"/>
-    <xsl:param name="documentation-root" select="'..'"/>
-    <xsl:choose>
-        <xsl:when test="contains($path, $file-separator)">
-            <xsl:call-template name="get-documentation-root">
-                <xsl:with-param name="path" select="substring-after($path, $file-separator)"/>
-                <xsl:with-param name="documentation-root" select="concat($documentation-root, '/..')"/>
-            </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:value-of select="$documentation-root"/>
-        </xsl:otherwise>
-    </xsl:choose>
-</xsl:template>
-
-<xsl:variable name="documentation-root"><xsl:call-template name="get-documentation-root"/></xsl:variable>
-
 <xsl:variable name="quick-links">
     <div class="quicklinks">
         <a href="#diagram">Diagram</a>
@@ -112,24 +72,13 @@
     |   <a href="#files">Flat Files</a>
     </div>
 </xsl:variable>
-<!-- =========================================================================
-    KETTLE GENERIC
-========================================================================== -->
-<xsl:output
-    method="html"
-    version="4.0"
-    encoding="UTF-8"
-    omit-xml-declaration="yes"
-    media-type="text/html"
-    doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
-    doctype-system="http://www.w3.org/TR/html4/loose.dtd"
-/>
 
 <xsl:template match="/">
 <html>    
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="Generator" content="kettle-cookbook - see http://code.google.com/p/kettle-cookbook/" />
+    
+        <xsl:copy-of select="$meta"/>
+        
         <xsl:comment>
             Debugging info - please ignore
             param_filename: "<xsl:value-of select="$param_filename"/>"
@@ -142,54 +91,24 @@
             documentation-root: "<xsl:value-of select="$documentation-root"/>"
         </xsl:comment>
         <title>Kettle Documentation: <xsl:value-of select="$item-type"/> "<xsl:value-of select="$document/*/name"/>"</title>
-        <link rel="shortcut icon" type="image/x-icon">
-            <xsl:attribute name="href">
-                <xsl:value-of 
-                    select="
-                        concat(
-                            $documentation-root
-                        ,   '/images/spoon.png'
-                        )
-                    "
-                />
-            </xsl:attribute>
-        </link>
-        <link rel="stylesheet" type="text/css">
-            <xsl:attribute name="href">
-                <xsl:value-of 
-                    select="
-                        concat(
-                            $documentation-root
-                        ,   '/css/kettle.css'
-                        )
-                    "
-                />
-            </xsl:attribute>
-        </link>
-        <link rel="stylesheet" type="text/css">
-            <xsl:attribute name="href">
-                <xsl:value-of 
-                    select="
-                        concat(
-                            $documentation-root
-                        ,   '/css/', local-name($document/*),'.css'
-                        )
-                    "
-                />
-            </xsl:attribute>
-        </link>
-        <link rel="stylesheet" type="text/css">
-            <xsl:attribute name="href">
-                <xsl:value-of 
-                    select="
-                        concat(
-                            $documentation-root
-                        ,   '/css/shCoreDefault.css'
-                        )
-                    "
-                />
-            </xsl:attribute>
-        </link>
+
+        <xsl:call-template name="favicon">
+            <xsl:with-param name="name" select="'spoon'"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'default'"/>
+        </xsl:call-template>
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'kettle'"/>
+        </xsl:call-template>
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="$item-type"/>
+        </xsl:call-template>
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'shCoreDefault'"/>
+        </xsl:call-template>
+        
     </head>
     <body class="kettle-file" onload="drawHops()">
         <xsl:copy-of select="$quick-links"/>
@@ -198,47 +117,34 @@
             <xsl:apply-templates/>
         </xsl:for-each>
         
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/wz_jsgraphics.js')"/>
-            </xsl:attribute>
-        </script>
-        <script>
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/kettle.js')"/>
-            </xsl:attribute>
-        </script>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'wz_jsgraphics'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'kettle'"/>
+        </xsl:call-template>
 
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shCore.js')"/>
-            </xsl:attribute>
-        </script>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shBrushBash.js')"/>
-            </xsl:attribute>
-        </script>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shBrushJava.js')"/>
-            </xsl:attribute>
-        </script>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shBrushJScript.js')"/>
-            </xsl:attribute>
-        </script>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shBrushSql.js')"/>
-            </xsl:attribute>
-        </script>
-        <script type="text/javascript">
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($documentation-root, '/js/shBrushXml.js')"/>
-            </xsl:attribute>
-        </script>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shCore'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushBash'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushJava'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushJScript'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushSql'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushMdx'"/>
+        </xsl:call-template>
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'shBrushXml'"/>
+        </xsl:call-template>
         <script type="text/javascript">
             SyntaxHighlighter.all();
         </script>
@@ -292,76 +198,9 @@
     </xsl:choose>
 </xsl:template>
 
-<xsl:template name="description">
-    <xsl:param name="node" select="."/>
-    <xsl:param name="type" select="$item-type"/>
-    <xsl:for-each select="$node">
-        <p>
-            <xsl:choose>
-                <xsl:when test="$node/description[text()]">
-                    <xsl:value-of select="$node/description"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    This <xsl:value-of select="$type"/> does not have a description.
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
-        <xsl:if test="$node/extended_description[text()]">
-            <p>
-                <xsl:value-of select="$node/extended_description"/>
-            </p>
-        </xsl:if>
-    </xsl:for-each>
-</xsl:template>
 <!-- =========================================================================
     Utils
 ========================================================================== -->
-<xsl:variable name="lower-case-alphabet" select="'abcdefghijklmnopqrstuvwxyz'"/>
-<xsl:variable name="upper-case-alphabet" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
-
-<xsl:template name="lower-case">
-	<xsl:param name="text"/>
-	<xsl:value-of select="translate($text, $upper-case-alphabet, $lower-case-alphabet)"/>
-</xsl:template>
-
-<xsl:template name="upper-case">
-	<xsl:param name="text"/>
-	<xsl:value-of select="translate($text, $lower-case-alphabet, $upper-case-alphabet)"/>
-</xsl:template>
-
-<xsl:template name="replace">
-	<xsl:param name="text"/>
-	<xsl:param name="search"/>
-	<xsl:param name="replace" select="''"/>
-	<xsl:choose>
-		<xsl:when test="contains($text, $search)">
-			<xsl:call-template name="replace">
-				<xsl:with-param 
-					name="text" 
-					select="
-						concat(
-							substring-before($text, $search)
-						,	$replace
-						,	substring-after($text, $search)
-						)
-					"
-				/>
-				<xsl:with-param name="search" select="$search"/>
-				<xsl:with-param name="replace" select="$replace"/>
-			</xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-
-<xsl:template name="replace-backslashes-with-slash">
-	<xsl:param name="text"/>
-	<xsl:call-template name="replace">
-		<xsl:with-param name="text" select="$text"/>
-		<xsl:with-param name="search" select="'\'"/>
-		<xsl:with-param name="replace" select="'/'"/>
-	</xsl:call-template>
-</xsl:template>
 
 <xsl:template name="replace-dir-variables-with-doc-dir">
 	<xsl:param name="text"/>	
@@ -392,25 +231,6 @@
 	</xsl:call-template>	
 </xsl:template>
 
-<xsl:template name="max">
-    <xsl:param name="values"/>
-    <xsl:for-each select="$values">
-        <xsl:sort data-type="number" order="descending"/>
-        <xsl:if test="position()=1">
-          <xsl:value-of select="."/>
-        </xsl:if>
-    </xsl:for-each>
-</xsl:template>
-
-<xsl:template name="min">
-    <xsl:param name="values"/>
-    <xsl:for-each select="$values">
-        <xsl:sort data-type="number"/>
-        <xsl:if test="position()=1">
-          <xsl:value-of select="."/>
-        </xsl:if>
-    </xsl:for-each>
-</xsl:template>
 
 <!-- =========================================================================
     Database connections
@@ -698,9 +518,14 @@
 <!-- =========================================================================
     Code
 ========================================================================== -->
-<xsl:template match="sql[text()]">
+<xsl:template match="sql[text()][../type/text()!='MondrianInput']">
 	<h4>SQL</h4>
 	<pre class="brush: sql;"><xsl:value-of select="text()"/></pre>
+</xsl:template>
+
+<xsl:template match="sql[text()][../type/text()='MondrianInput']">
+	<h4>MDX</h4>
+	<pre class="brush: mdx;"><xsl:value-of select="text()"/></pre>
 </xsl:template>
 
 <xsl:template match="jsScripts">

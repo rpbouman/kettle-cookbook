@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!--
 
-This is kettle-items.xslt. This is part of kettle-cookbook.
+This is toc.xslt. This is part of kettle-cookbook.
 Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
-kettle-items.xslt - an XSLT transformation that generates the table of contents
-for Kettle (aka Pentaho Data Integration) documentation.
-This is part of kettle-cookbook, a kettle documentation generation framework.
+toc.xslt - an XSLT transformation that generates the table of contents
+for Pentaho documentation.
+This is part of kettle-cookbook, a pentaho documentation generation framework.
 
 Copyright (C) 2010 Roland Bouman
 Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
@@ -29,31 +29,37 @@ Boston, MA 02111-1307 USA
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output
-    method="html"
-    version="4.0"
-    encoding="UTF-8"
-    omit-xml-declaration="yes"
-    media-type="text/html"
-    doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
-    doctype-system="http://www.w3.org/TR/html4/loose.dtd"    
-/>
-
-<xsl:variable name="input_dir" select="/index/@input_dir"/>
-<xsl:variable name="output_dir" select="/index/@output_dir"/>
+<xsl:variable name="item-type" select="''"/>
+<xsl:include href="shared.xslt"/>
 
 <xsl:template match="/">
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Kettle Documentation: Items</title>
-        <link rel="stylesheet" type="text/css" href="css/kettle.css"/>
-        <link rel="stylesheet" type="text/css" href="css/kettle-toc.css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="images/spoon.png" />
+
+        <xsl:copy-of select="$meta"/>
+        
+        <title>Pentaho Documentation: Table of Contents</title>
+
+        <xsl:call-template name="favicon">
+            <xsl:with-param name="name" select="'pentaho'"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'default'"/>
+        </xsl:call-template>
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'toc'"/>
+        </xsl:call-template>
+
     </head>
-    <body class="kettle-items">
+    <body class="toc">
+
         <xsl:apply-templates select="index"/>
-        <script type="text/javascript" src="js/kettle-toc.js"></script>
+
+        <xsl:call-template name="script">
+            <xsl:with-param name="name" select="'toc'"/>
+        </xsl:call-template>
+
     </body>
 </html>
 </xsl:template>
@@ -77,8 +83,28 @@ Boston, MA 02111-1307 USA
     <div id="tab-pages">
         <div id="tab-toc-by-category-page">
             <!-- <a name="toc-by-category"></a> -->
+            <xsl:if test="file[extension[text()='xaction']]">
+                <h3>Action Sequences</h3>
+                <ul>
+                    <xsl:for-each select="file[extension[text()='xaction']]">
+                        <xsl:sort select="short_filename/text()"/>
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
+
+            <xsl:if test="file[extension[text()='xcdf']]">
+                <h3>CDF Dashboards</h3>
+                <ul>
+                    <xsl:for-each select="file[extension[text()='xcdf']]">
+                        <xsl:sort select="short_filename/text()"/>
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
+
             <xsl:if test="file[extension[text()='kjb']]">
-                <h3>Jobs</h3>
+                <h3>Kettle Jobs</h3>
                 <ul>
                     <xsl:for-each select="file[extension[text()='kjb']]">
                         <xsl:sort select="short_filename/text()"/>
@@ -88,7 +114,7 @@ Boston, MA 02111-1307 USA
             </xsl:if>
 
             <xsl:if test="file[extension[text()='ktr']]">
-                <h3>Transformations</h3>
+                <h3>Kettle Transformations</h3>
                 <ul>
                     <xsl:for-each select="file[extension[text()='ktr']]">
                         <xsl:sort select="short_filename/text()"/>
@@ -96,8 +122,18 @@ Boston, MA 02111-1307 USA
                     </xsl:for-each>
                 </ul>
             </xsl:if>
+
+            <xsl:if test="file[extension[text()='prpt']]">
+                <h3>Reports</h3>
+                <ul>
+                    <xsl:for-each select="file[extension[text()='prpt']]">
+                        <xsl:sort select="short_filename/text()"/>
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
         </div>
-        <div id="tab-toc-by-path-page" style="hidden">
+        <div id="tab-toc-by-path-page" style="display: none">
             <!-- <a name="toc-by-path"></a> -->
             <br />
             <div class="folder">
@@ -105,12 +141,12 @@ Boston, MA 02111-1307 USA
                     <span class="folder-toggle">-</span>
                     <span class="folder-icon-open"></span>
                     <span class="folder-icon-closed"></span>
-                    <span class="folder-label"><xsl:value-of select="$input_dir"/></span>
+                    <span class="folder-label"><xsl:value-of select="$input-dir"/></span>
                 </div>
                 <div class="folder-body">
                     <xsl:call-template name="sub-folders"/>
                     <xsl:call-template name="folder-files">
-                        <xsl:with-param name="folder" select="$input_dir"/>
+                        <xsl:with-param name="folder" select="$input-dir"/>
                     </xsl:call-template>
                 </div>
             </div>
@@ -119,7 +155,7 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template match="file">
-    <xsl:variable name="relative-path" select="substring-after(filename/text(), $input_dir)"/>
+    <xsl:variable name="relative-path" select="substring-after(filename/text(), $input-dir)"/>
     <li>
         <xsl:attribute name="class">item-<xsl:value-of select="extension"/></xsl:attribute>
         <a target="main">
@@ -169,7 +205,7 @@ Boston, MA 02111-1307 USA
 </xsl:template>
 
 <xsl:template name="sub-folders">
-    <xsl:param name="parent-folder" select="$input_dir"/>
+    <xsl:param name="parent-folder" select="$input-dir"/>
     <xsl:for-each select="$folders[@parent-folder = $parent-folder]">
         <xsl:sort select="@short-name"/>
         <xsl:call-template name="folder">

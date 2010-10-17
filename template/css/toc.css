@@ -24,6 +24,13 @@
 *   Boston, MA 02111-1307 USA
 *   
 */
+body {
+    background-image:none;
+}
+
+li.item-xaction {
+    list-style-image:url(../images/swirl-sm.png);
+}
 
 li.item-ktr {
     list-style-image:url(../images/transformation.png);
@@ -31,6 +38,14 @@ li.item-ktr {
 
 li.item-kjb {
     list-style-image:url(../images/chefgraph.png);
+}
+
+li.item-prpt {
+    list-style-image:url(../images/prptFileType.png);
+}
+
+li.item-xcdf {
+    list-style-image:url(../images/cdfFileType.png);
 }
 
 .folder {
@@ -62,7 +77,7 @@ li.item-kjb {
 }
 
 .folder-label {
-    whitespace: no-wrap;
+    white-space: no-wrap;
     padding-left: 20px;
     font-weight: bold;
 }

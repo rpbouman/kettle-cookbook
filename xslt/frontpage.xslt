@@ -28,23 +28,25 @@ Boston, MA 02111-1307 USA
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output
-    method="html"
-    version="4.0"
-    encoding="UTF-8"
-    omit-xml-declaration="yes"
-    media-type="text/html"
-/>
+<xsl:variable name="item-type" select="''"/>
+<xsl:include href="shared.xslt"/>
 
 <xsl:template match="/">
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Kettle Documentation: Main</title>
-        <link rel="stylesheet" type="text/css" href="css/kettle.css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="images/spoon.png" />        
+        <xsl:copy-of select="$meta"/>
+        
+        <title>Pentaho Documentation: Frontpage</title>
+
+        <xsl:call-template name="favicon">
+            <xsl:with-param name="name" select="'pentaho'"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="stylesheet">
+            <xsl:with-param name="name" select="'default'"/>
+        </xsl:call-template>
     </head>
-    <body class="kettle-main">
+    <body class="frontpage">
         <xsl:apply-templates select="index"/>
     </body>
 </html>
