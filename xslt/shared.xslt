@@ -129,6 +129,11 @@
 <!--
     Generic templates
 -->
+<xsl:template name="copy-contents">
+    <xsl:param name="parent" select="."/>
+    <xsl:for-each select="$parent/node()"><xsl:copy-of select="."/></xsl:for-each>
+</xsl:template>
+
 <xsl:template name="description">
     <xsl:param name="node" select="."/>
     <xsl:param name="type" select="$item-type"/>
@@ -153,6 +158,7 @@
 
 <xsl:variable name="meta">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="Generator" content="kettle-cookbook - see http://code.google.com/p/kettle-cookbook/" />
 </xsl:variable>
 

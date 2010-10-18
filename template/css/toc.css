@@ -52,6 +52,7 @@ li.item-xcdf {
 }
 
 .folder-head {
+    white-space: nowrap;
 }
 
 .folder-toggle {
@@ -77,7 +78,7 @@ li.item-xcdf {
 }
 
 .folder-label {
-    white-space: no-wrap;
+    white-space: nowrap;
     padding-left: 20px;
     font-weight: bold;
 }

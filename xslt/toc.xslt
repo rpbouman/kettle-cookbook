@@ -64,6 +64,31 @@ Boston, MA 02111-1307 USA
 </html>
 </xsl:template>
 
+<xsl:template name="files">
+    <xsl:param name="caption" select="''"/>
+    <xsl:param name="extension"/>    
+    <xsl:param name="files" select="file[extension/text()=$extension]"/>
+    
+    <xsl:if test="$caption!=''">
+        <h3><xsl:copy-of select="$caption"/></h3>
+    </xsl:if>
+    <xsl:choose>
+        <xsl:when test="$files">
+            <ul>
+                <xsl:for-each select="$files">
+                    <xsl:sort select="translate(short_filename/text(), $upper-case-alphabet, $lower-case-alphabet)"/>
+                    <xsl:apply-templates select="."/>
+                </xsl:for-each>
+            </ul>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:if test="$caption!=''">
+                <p>None.</p>
+            </xsl:if>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
 <xsl:template match="/index">
     <div id="tab-strip">
         <!--
@@ -83,55 +108,30 @@ Boston, MA 02111-1307 USA
     <div id="tab-pages">
         <div id="tab-toc-by-category-page">
             <!-- <a name="toc-by-category"></a> -->
-            <xsl:if test="file[extension[text()='xaction']]">
-                <h3>Action Sequences</h3>
-                <ul>
-                    <xsl:for-each select="file[extension[text()='xaction']]">
-                        <xsl:sort select="short_filename/text()"/>
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
+            <xsl:call-template name="files">
+                <xsl:with-param name="caption" select="'Action Sequences'"/>
+                <xsl:with-param name="extension" select="'xaction'"/>
+            </xsl:call-template>
 
-            <xsl:if test="file[extension[text()='xcdf']]">
-                <h3>CDF Dashboards</h3>
-                <ul>
-                    <xsl:for-each select="file[extension[text()='xcdf']]">
-                        <xsl:sort select="short_filename/text()"/>
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
+            <xsl:call-template name="files">
+                <xsl:with-param name="caption" select="'CDF Dashboards'"/>
+                <xsl:with-param name="extension" select="'xcdf'"/>
+            </xsl:call-template>
 
-            <xsl:if test="file[extension[text()='kjb']]">
-                <h3>Kettle Jobs</h3>
-                <ul>
-                    <xsl:for-each select="file[extension[text()='kjb']]">
-                        <xsl:sort select="short_filename/text()"/>
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
+            <xsl:call-template name="files">
+                <xsl:with-param name="caption" select="'Kettle Jobs'"/>
+                <xsl:with-param name="extension" select="'kjb'"/>
+            </xsl:call-template>
 
-            <xsl:if test="file[extension[text()='ktr']]">
-                <h3>Kettle Transformations</h3>
-                <ul>
-                    <xsl:for-each select="file[extension[text()='ktr']]">
-                        <xsl:sort select="short_filename/text()"/>
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
+            <xsl:call-template name="files">
+                <xsl:with-param name="caption" select="'Kettle Transformations'"/>
+                <xsl:with-param name="extension" select="'ktr'"/>
+            </xsl:call-template>
 
-            <xsl:if test="file[extension[text()='prpt']]">
-                <h3>Reports</h3>
-                <ul>
-                    <xsl:for-each select="file[extension[text()='prpt']]">
-                        <xsl:sort select="short_filename/text()"/>
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
+            <xsl:call-template name="files">
+                <xsl:with-param name="caption" select="'Pentaho Reports'"/>
+                <xsl:with-param name="extension" select="'prpt'"/>
+            </xsl:call-template>
         </div>
         <div id="tab-toc-by-path-page" style="display: none">
             <!-- <a name="toc-by-path"></a> -->
@@ -172,14 +172,9 @@ Boston, MA 02111-1307 USA
 
 <xsl:template name="folder-files">
     <xsl:param name="folder"/>
-    <xsl:if test="$files[path/text() = $folder]">
-        <ul>
-            <xsl:for-each select="$files[path/text() = $folder]">
-                <xsl:sort select="short_filename/text()"/>
-                <xsl:apply-templates select="."/>
-            </xsl:for-each>
-        </ul>
-    </xsl:if>
+    <xsl:call-template name="files">
+        <xsl:with-param name="files" select="$files[path/text() = $folder]"/>
+    </xsl:call-template>
 </xsl:template>
 
 <xsl:template name="folder">
@@ -207,7 +202,7 @@ Boston, MA 02111-1307 USA
 <xsl:template name="sub-folders">
     <xsl:param name="parent-folder" select="$input-dir"/>
     <xsl:for-each select="$folders[@parent-folder = $parent-folder]">
-        <xsl:sort select="@short-name"/>
+        <xsl:sort select="translate(@short-name, $upper-case-alphabet, $lower-case-alphabet)"/>
         <xsl:call-template name="folder">
             <xsl:with-param name="folder" select="."/>
         </xsl:call-template>

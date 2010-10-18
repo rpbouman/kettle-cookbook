@@ -2,3 +2,90 @@ body {
     background-image: url(../images/solutions.png);
     background-position: right top;
 }
+
+.xaction-diagram  {
+    border-collapse: collapse;
+    font-family: arial;
+    font-size:8pt;
+}
+
+th.xaction {
+    background-color:transparent;
+    white-space: nowrap;
+}
+
+th.xaction-param  {
+    background-color:transparent;
+    border-style: dotted dotted none none !important;
+    border-width: 1px;
+    text-align: left;
+    white-space: nowrap;
+    font-weight: normal;
+    padding-left: 2px;
+}
+
+table.xaction-diagram thead td  {
+    background-color:transparent;
+    text-align: left;
+}
+
+td.xaction-diagram-padding {
+    background-color:transparent;
+    width:1em !important;
+    font-family: monospace;
+    border-style: none   dotted none dotted !important;
+    border-width: 1px;
+}
+
+div.xaction-stick {
+    margin: 0px auto 0px auto;
+    height: 20px;
+    font-size: 0pt;
+    text-align: center;
+    width:100%;
+    top: 0px !important;
+    border-style: solid;
+    border-width:1px;
+    width: 1px;
+}
+
+div.xaction-if {
+    text-align: center;
+    font-size: 8pt;
+    vertical-align: middle;
+}
+
+div.xaction-loop {
+    text-align: center;
+    font-size: 8pt;
+    vertical-align: middle;
+}
+
+div.xaction-action {
+    width: 130px;
+    height: 80px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px auto 0px auto;
+    border-style: solid;
+    border-width: 1px;
+    background-color: rgb(255,255,125);
+}
+
+div.xaction-action-type {
+    font-size:8pt;
+    white-space:nowrap;
+    height: 15px;
+    border-style: none none solid none;
+    border-width: 1px;
+    padding: 2px;
+    font-style:italics;
+}
+
+div.xaction-action-name {
+    font-size:8pt;
+    height: 65px;
+    padding: 2px;
+    font-weight: bold;
+}
+

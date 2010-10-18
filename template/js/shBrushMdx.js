@@ -21,50 +21,33 @@
 
 	function Brush()
 	{
-		var keywords =	'ABSOLUTE ACTIONPARAMETERSET ADDCALCULATEDMEMBERS AFTER AGGREGATE ' +
-                        'ALL ALLMEMBERS ANCESTOR ANCESTORS AND AS ASC ASCENDANTS AVERAGE' +
-                        'AXIS BASC BDESC BEFORE BEFORE_AND_AFTER BOTTOMCOUNT BOTTOMPERCENT ' +
-                        'BOTTOMSUM BY CACHE CALCULATE CALCULATION CALCULATIONCURRENTPASS ' +
-                        'CALCULATIONPASSVALUE CALCULATIONS CALL CELL CELLFORMULASETLIST' +
-                        'CHAPTERS CHILDREN CLEAR CLOSINGPERIOD COALESCEEMPTY COLUMN COLUMNS '+
-                        'CORRELATION COUNT COUSIN COVARIANCE COVARIANCEN CREATE CREATEPROPERTYSET ' +
-                        'CREATEVIRTUALDIMENSION CROSSJOIN CUBE CURRENT CURRENTCUBE CURRENTMEMBER ' +
-                        'DEFAULT_MEMBER DEFAULTMEMBER DESC DESCENDANTS DESCRIPTION DIMENSION ' +
-                        'DIMENSIONS DISTINCT DISTINCTCOUNT DRILLDOWNLEVEL DRILLDOWNLEVELBOTTOM ' +
-                        'DRILLDOWNLEVELTOP DRILLDOWNMEMBER DRILLDOWNMEMBERBOTTOM DRILLDOWNMEMBERTOP '+
-                        'DRILLUPLEVEL DRILLUPMEMBER DROP EMPTY END ERROR EXCEPT EXCLUDEEMPTY EXTRACT '+
-                        'FALSE FILTER FIRSTCHILD FIRSTSIBLING FOR FREEZE FROM GENERATE GLOBAL GROUP '+
-                        'GROUPING HEAD HIDDEN HIERARCHIZE HIERARCHY IGNORE IIF INCLUDEEMPTY INDEX ' +
-                        'INTERSECT IS ISANCESTOR ISEMPTY ISGENERATION ISLEAF ISSIBLING ITEM LAG ' +
-                        'LASTCHILD LASTPERIODS LASTSIBLING LEAD LEAVES LEVEL LEVELS LINKMEMBER ' +
-                        'LINREGINTERCEPT LINREGPOINT LINREGR2 LINREGSLOPE LINREGVARIANCE LOOKUPCUBE '+
-                        'MAX MEASURE MEDIAN MEMBER MEMBERS MEMBERTOSTR MIN MTD NAME NAMETOSET NEST '+
-                        'NEXTMEMBER NO_ALLOCATION NO_PROPERTIES NON NONEMPTYCROSSJOIN '+
-                        'NOT_RELATED_TO_FACTS NULL ON OPENINGPERIOD OR PAGES PARALLELPERIOD PARENT ' +
-                        'PASS PERIODSTODATE POST PREDICT PREVMEMBER PROPERTIES PROPERTY QTD RANK ' +
-                        'RECURSIVE RELATIVE ROLLUPCHILDREN ROOT ROWS SCOPE SECTIONS SELECT SELF ' +
-                        'SELF_AND_AFTER SELF_AND_BEFORE SELF_BEFORE_AFTER SESSION SET SETTOARRAY '+
-                        'SETTOSTR SORT STDDEV STDDEVP STDEV STDEVP STORAGE STRIPCALCULATEDMEMBERS '+
-                        'STRTOMEMBER STRTOSET STRTOTUPLE STRTOVAL STRTOVALUE SUBSET SUM TAIL THIS '+
-                        'TOGGLEDRILLSTATE TOPCOUNT TOPPERCENT TOPSUM TOTALS TREE TRUE TUPLETOSTR '+
-                        'TYPE UNION UNIQUE UNIQUENAME UPDATE USE USE_EQUAL_ALLOCATION '+
-                        'USE_WEIGHTED_ALLOCATION USE_WEIGHTED_INCREMENT USERNAME VALIDMEASURE '+
-                        'VALUE VAR VARIANCE VARIANCEP VARP VISUAL VISUALTOTALS WHERE WITH WTD XOR YTD'
+		var keywords =	'ABSOLUTE ACTIONPARAMETERSET AFTER ALL AND AS ASC AVERAGE BASC BDESC ' + 
+                        'BEFORE BEFORE_AND_AFTER BY CACHE CALCULATE CALCULATION CALCULATIONS ' +
+                        'CALL CELL CELLFORMULASETLIST CHAPTERS CLEAR COALESCEEMPTY COLUMN COLUMNS '+
+                        'CREATE CREATEPROPERTYSET CREATEVIRTUALDIMENSION CUBE CURRENTCUBE ' +
+                        'DEFAULT_MEMBER DESC DESCRIPTION DROP EMPTY END EXCLUDEEMPTY FALSE '+
+                        'FOR FREEZE FROM GLOBAL GROUP GROUPING HIDDEN  IGNORE INCLUDEEMPTY INDEX ' +
+                        'IS MEASURE MEMBER NEST NO_ALLOCATION NO_PROPERTIES NON NOT_RELATED_TO_FACTS '+
+                        'NULL ON OR PAGES PASS POST PROPERTY QTD RECURSIVE RELATIVE ROWS SCOPE '+
+                        'SECTIONS SELECT SELF SELF_AND_AFTER SELF_AND_BEFORE SELF_BEFORE_AFTER '+
+                        'SESSION SET SETTOARRAY SORT STORAGE STRTOVAL TOTALS TREE TRUE TYPE '+
+                        'UNIQUE UPDATE USE USE_EQUAL_ALLOCATION USE_WEIGHTED_ALLOCATION '+
+                        'USE_WEIGHTED_INCREMENT VISUAL WHERE WITH XOR'
 						;
 		var functions =	'AddCalculatedMembers Aggregate AllMembers Ancestor Ancestors Ascendants '+
                         'Avg Axis BottomCount BottomPercent BottomSum CalculationCurrentPass '+
-                        'CalculationPassValue CalculationPassValue Children ClosingPeriod '+
-                        'CoalesceEmpty CoalesceEmpty Correlation Count Count Count Count '+
+                        'CalculationPassValue Children ClosingPeriod '+
+                        'CoalesceEmpty Correlation Count '+
                         'Cousin Covariance CovarianceN Crossjoin Current CurrentMember CurrentOrdinal '+
                         'DataMember DefaultMember Descendants Dimension Dimensions Distinct DistinctCount '+
                         'DrilldownLevel DrilldownLevelBottom DrilldownLevelTop DrilldownMember '+
                         'DrilldownMemberBottom DrilldownMemberTop DrillupLevel DrillupMember Error '+
-                        'Except Exists Extract Filter FirstChild FirstSibling Generate Generate Head '
-                        'Hierarchize Hierarchy IIf IIf Intersect IsAncestor IsEmpty '+
-                        'IsGeneration IsLeaf IsSibling Item Item Lag LastChild LastPeriods LastSibling '+
+                        'Except Exists Extract Filter FirstChild FirstSibling Generate Head '
+                        'Hierarchize Hierarchy IIf Intersect IsAncestor IsEmpty '+
+                        'IsGeneration IsLeaf IsSibling Item Lag LastChild LastPeriods LastSibling '+
                         'Lead Leaves Level Levels LinkMember LinRegIntercept LinRegPoint '+
-                        'LinRegR2 LinRegSlope LinRegVariance LookupCube LookupCube Max Median Members '+
-                        'Members MemberToStr Min Mtd Name NameToSet NextMember NonEmptyCrossjoin '+
+                        'LinRegR2 LinRegSlope LinRegVariance LookupCube Max Median Members '+
+                        'MemberToStr Min Mtd Name NameToSet NextMember NonEmptyCrossjoin '+
                         'OpeningPeriod Order Ordinal ParallelPeriod Parent PeriodsToDate Predict PrevMember '+
                         'Properties Qtd Rank RollupChildren Root SetToArray SetToStr Siblings Stddev StddevP '+
                         'Stdev StdevP StripCalculatedMembers StrToMember StrToSet StrToTuple StrToValue '+
