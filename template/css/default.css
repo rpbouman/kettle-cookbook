@@ -59,6 +59,10 @@ ul {
     padding:0px;
 }
 
+code, pre {
+    font-family:monospace;
+}
+
 p, ul, ol, div, table {
     font-size: 10pt;
 }
