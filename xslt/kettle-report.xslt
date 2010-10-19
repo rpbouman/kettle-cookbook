@@ -677,7 +677,7 @@
 </xsl:template>
 
 <xsl:template match="transformation/info">
-    <h1>Transformation: "<xsl:value-of select="name"/>"</h1>
+    <h1><xsl:value-of select="name"/></h1>
     <xsl:call-template name="description"/>
 </xsl:template>
 
@@ -876,7 +876,7 @@
 ========================================================================== -->
 
 <xsl:template match="job">
-    <h1>Job: "<xsl:value-of select="name"/>"</h1>
+    <h1><xsl:value-of select="name"/></h1>
     <table>
         <thead>
             <tr>
@@ -897,6 +897,16 @@
                 <td><xsl:value-of select="modified_date"/></td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th>Version</th>
+                <td><xsl:value-of select="job_version"/></td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td><xsl:value-of select="job_status"/></td>
+            </tr>
+        </tfoot>
     </table>
     <xsl:call-template name="description"/>
     <xsl:apply-templates select="parameters"/>

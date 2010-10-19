@@ -39,6 +39,19 @@
 <xsl:variable name="actions" select="$document//action-definition"/>
 <xsl:variable name="count-actions" select="count($actions)"/>
 
+<xsl:variable name="quick-links">
+    <div class="quicklinks">
+        <a href="#diagram">Diagram</a>
+    |   <a>
+			<xsl:attribute name="href">#actions</xsl:attribute>
+			Actions
+		</a>
+    |   <a href="#inputs">Inputs</a>
+    |   <a href="#outputs">Outputs</a>
+    |   <a href="#resources">Resources</a>
+    </div>
+</xsl:variable>
+
 <xsl:template match="/">
 <html>    
     <head>
@@ -60,6 +73,8 @@
         
     </head>
     <body>
+        <xsl:copy-of select="$quick-links"/>
+    
         <xsl:for-each select="$document">
             <xsl:apply-templates select="action-sequence"/>
         </xsl:for-each>
@@ -124,6 +139,7 @@
     <xsl:apply-templates select="title"/>
     <xsl:apply-templates select="documentation"/>
     <xsl:call-template name="action-sequence-diagram"/>
+    <h2><a name="#Parameters">Parameters</a></h2>
     <xsl:apply-templates select="inputs"/>
     <xsl:apply-templates select="outputs"/>
     <xsl:apply-templates select="resources"/>
@@ -157,52 +173,38 @@
     <xsl:variable name="count-resources" select="count($resources)"/>
     <xsl:variable name="count-inputs" select="count($inputs)"/>
     <xsl:variable name="count-outputs" select="count($outputs)"/>
-    
-    <xsl:variable name="resources-and-inputs" select="$inputs | $resources"/>
-    <xsl:variable name="count-resources-and-inputs" select="count($resources-and-inputs)"/>
-    
-    <h2>Action Sequence Diagram</h2>
+            
+    <h2><a name="diagram">Action Sequence Diagram</a></h2>
     <table class="xaction-diagram" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <xsl:if test="$resources-and-inputs">
+
+                <xsl:if test="$count-inputs &gt; 0">
                     <th class="xaction">
-                        <xsl:attribute name="colspan"><xsl:value-of select="1 + $count-resources-and-inputs"/></xsl:attribute>
-                        Inputs &amp; Resources
+                        <xsl:attribute name="colspan"><xsl:value-of select="1+ $count-inputs"/></xsl:attribute>
+                        Inputs
                     </th>
                 </xsl:if>
+
+                <xsl:if test="$count-resources &gt; 0">
+                    <th class="xaction">
+                        <xsl:attribute name="colspan"><xsl:value-of select="1+ $count-resources"/></xsl:attribute>
+                        Resources
+                    </th>
+                </xsl:if>
+
                 <th class="xaction">
                     <xsl:attribute name="colspan"><xsl:value-of select="$max-action-depth"/></xsl:attribute>
                     Actions
                 </th>
-                <xsl:if test="$outputs">
+
+                <xsl:if test="$count-outputs &gt; 0">
                     <th class="xaction">
-                        <xsl:attribute name="rowspan"><xsl:value-of select="1 + $count-resources-and-inputs"/></xsl:attribute>
                         <xsl:attribute name="colspan"><xsl:value-of select="$count-outputs"/></xsl:attribute>
                         Outputs
                     </th>
                 </xsl:if>
             </tr>
-            <xsl:for-each select="$resources-and-inputs">
-                <xsl:variable name="position" select="position()"/>
-                <tr>
-                    <th class="xaction-param">
-                        <xsl:attribute name="colspan"><xsl:value-of select="2 + $count-resources-and-inputs - $position"/></xsl:attribute>
-                        <xsl:value-of select="local-name()"/>
-                        &#160;&#160;
-                    </th>
-                    <xsl:call-template name="padd-cells">
-                        <xsl:with-param name="elements" select="$resources-and-inputs"/>
-                        <xsl:with-param name="position" select="position()"/>
-                    </xsl:call-template>
-                    <xsl:if test="position()=1">
-                        <td>
-                            <xsl:attribute name="rowspan"><xsl:value-of select="$count-resources-and-inputs"/></xsl:attribute>
-                            <xsl:attribute name="colspan"><xsl:value-of select="$count-outputs"/></xsl:attribute>
-                        </td>
-                    </xsl:if>
-                </tr>
-            </xsl:for-each>
         </thead>
         <tbody>
             <xsl:for-each select="$actions">
@@ -210,15 +212,25 @@
                 <xsl:variable name="depth" select="count(ancestor::*) - 1"/>
                 <xsl:variable name="preceding-siblings" select="count(preceding-sibling::*)"/>
                 <tr>
-                    <xsl:if test="position()=1">
-                        <td class="xaction-param">
-                            <xsl:attribute name="rowspan"><xsl:value-of select="count($actions)"/></xsl:attribute>
-                        </td>
+
+                    <xsl:if test="$inputs">
+                        <td></td>
+                        <xsl:for-each select="$inputs">
+                            <td class="xaction-diagram-padding">
+                                &#160;
+                            </td>
+                        </xsl:for-each>
                     </xsl:if>
-                    <xsl:call-template name="padd-cells">
-                        <xsl:with-param name="elements" select="$resources-and-inputs"/>
-                        <xsl:with-param name="position" select="1 + $count-resources-and-inputs"/>
-                    </xsl:call-template>
+                    
+                    <xsl:if test="$resources">
+                        <td></td>
+                        <xsl:for-each select="$resources">
+                            <td class="xaction-diagram-padding">
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                    </xsl:if>
+                    
                     <xsl:if test="$depth &gt; 1">
                         <xsl:if test="$depth &gt; 2">
                             <td>
@@ -255,10 +267,20 @@
                                 <xsl:value-of select="component-name/text()"/>
                             </div>
                             <div class="xaction-action-name">
-                                <xsl:value-of select="action-type/text()"/>
+                                <xsl:call-template name="action-label"/>
                             </div>
                         </div>
                     </td>
+
+                    <xsl:if test="$outputs">
+                        <td></td>
+                        <xsl:for-each select="$outputs">
+                            <td class="xaction-diagram-padding">
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                    </xsl:if>
+
                 </tr>
             </xsl:for-each>
         </tbody>
@@ -298,7 +320,7 @@
 </xsl:template>
 
 <xsl:template match="action-sequence/actions">
-    <h2>Actions</h2>
+    <h2><a name="actions">Actions</a></h2>
     <xsl:choose>
         <xsl:when test="action-definition">
             <p>This action sequence defines the following actions:</p>
@@ -310,8 +332,24 @@
     </xsl:choose>
 </xsl:template>
 
+<xsl:template name="action-label">
+    <xsl:param name="action-definition" select="."/>    
+    <xsl:for-each select="$action-definition">
+        <xsl:choose>
+            <xsl:when test="action-type[text()]">
+                <xsl:value-of select="action-type/text()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="component-name/text()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:for-each>
+</xsl:template>
+
 <xsl:template match="action-definition">
-    <xsl:variable name="name" select="action-type/text()"/>
+    <xsl:variable name="name">
+        <xsl:call-template name="action-label"/>
+    </xsl:variable>
     <a>
         <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
     </a>
@@ -336,7 +374,7 @@
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
-
+    
 <xsl:template match="action-inputs">
     <xsl:call-template name="action-params"/>
 </xsl:template>
@@ -389,7 +427,7 @@
 </xsl:template>
 
 <xsl:template match="action-sequence/inputs">
-    <h2>Inputs</h2>
+    <h3><a name="inputs">Inputs</a></h3>
     <xsl:choose>
         <xsl:when test="*">
             <xsl:call-template name="param-table"/>
@@ -401,7 +439,7 @@
 </xsl:template>
 
 <xsl:template match="action-sequence/outputs">
-    <h2>Outputs</h2>
+    <h3><a name="outputs">Outputs</a></h3>
     <xsl:choose>
         <xsl:when test="*">
             <xsl:call-template name="param-table"/>
@@ -413,7 +451,7 @@
 </xsl:template>
 
 <xsl:template match="action-sequence/resources">
-    <h2>Resources</h2>
+    <h3><a name="resources">Resources</a></h3>
     <xsl:choose>
         <xsl:when test="*">
             <xsl:call-template name="param-table"/>
