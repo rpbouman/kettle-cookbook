@@ -235,85 +235,76 @@
 <!-- =========================================================================
     Database connections
 ========================================================================== -->
-
 <xsl:template name="database-connections">
+    <xsl:variable name="connection-usages" select="/*/step[connection[text()]] | /*/entries/entry[connection[text()]]"/>
     <h2><a name="connections">Database Connections</a></h2>    
     <xsl:choose>
-        <xsl:when test="connection">
+        <xsl:when test="count($connection-usages) &gt; 0">
             <p>This <xsl:value-of select="$item-type"/> defines <xsl:value-of select="count(connection)"/> database connections.</p>
             <h3>Database Connection Summary</h3>
             <table>
                 <thead>
-					<tr>
-						<th>
-							Name
-						</th>
-						<th>
-							Type
-						</th>
-						<th>
-							Access
-						</th>
-						<th>
-							Host
-						</th>
-						<th>
-							Port
-						</th>
-						<th>
-							User
-						</th>
-						<th>
-							Used in <xsl:value-of select="$steps-or-job-entries"/>
-						</th>
-					</tr>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Access
+                        </th>
+                        <th>
+                            Host
+                        </th>
+                        <th>
+                            Port
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Used in <xsl:value-of select="$steps-or-job-entries"/>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <xsl:for-each select="/*/connection">
-						<xsl:variable name="name" select="name/text()"/>
-                        <tr>
-                            <th>
-                                <a>
-                                    <xsl:attribute name="href">#connection.<xsl:value-of select="$name"/></xsl:attribute>
-                                    <xsl:value-of select="$name"/>
-                                </a>
-                            </th>
-                            <td>
-                                <xsl:value-of select="type"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="access"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="server"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="port"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="username"/>
-                            </td>
-							<td>
-								<xsl:choose>
-									<xsl:when test="$item-type='transformation'">
-										<xsl:for-each select="/*/step[connection/text()=$name]">
-											<xsl:if test="position()&gt;1">, </xsl:if><a>
-												<xsl:attribute name="href">#<xsl:value-of select="$name"/></xsl:attribute>
-												<xsl:value-of select="name/text()"/>
-											</a>
-										</xsl:for-each>
-									</xsl:when>
-									<xsl:when test="$item-type='job'">
-										<xsl:for-each select="/*/entries/entry[connection/text()=$name]">
-											<xsl:if test="position()&gt;1">, </xsl:if><a>
-												<xsl:attribute name="href">#<xsl:value-of select="$name"/></xsl:attribute>
-												<xsl:value-of select="name/text()"/>
-											</a>
-										</xsl:for-each>
-									</xsl:when>
-								</xsl:choose>
-							</td>
-                        </tr>
+                    <xsl:for-each select="/*/connection">                        
+                        <xsl:variable name="name" select="name/text()"/>
+                        <xsl:variable name="usages" select="$connection-usages/connection[text() = $name]"/>
+                        <xsl:if test="$usages">
+                            <tr>
+                                <th>
+                                    <a>
+                                        <xsl:attribute name="href">#connection.<xsl:value-of select="$name"/></xsl:attribute>
+                                        <xsl:value-of select="$name"/>
+                                    </a>
+                                </th>
+                                <td>
+                                    <xsl:value-of select="type"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="access"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="server"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="port"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="username"/>
+                                </td>
+                                <td>
+                                    <xsl:for-each select="$usages">
+                                        <xsl:if test="position()&gt;1">, </xsl:if><a>
+                                            <xsl:attribute name="href">#<xsl:value-of select="name/text()"/></xsl:attribute>
+                                            <xsl:value-of select="name/text()"/>
+                                        </a>
+                                    </xsl:for-each>
+                                </td>
+                            </tr>
+                        </xsl:if>
                     </xsl:for-each>
                 </tbody>
             </table>
@@ -321,7 +312,7 @@
             <xsl:apply-templates select="connection"/>
         </xsl:when>
         <xsl:otherwise>
-			<p>This <xsl:value-of select="$item-type"/> does not define any database connections.</p>
+            <p>This <xsl:value-of select="$item-type"/> does not define any database connections.</p>
         </xsl:otherwise>
     </xsl:choose>
 </xsl:template>
