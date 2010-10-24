@@ -895,7 +895,13 @@
             </tr>
             <tr>
                 <th>Status</th>
-                <td><xsl:value-of select="job_status"/></td>
+                <td>
+                    <xsl:choose>
+                        <xsl:when test="job_status/text()=1">Draft</xsl:when>
+                        <xsl:when test="job_status/text()=2">Production</xsl:when>
+                        <xsl:otherwise><xsl:value-of select="job_status/text()"/></xsl:otherwise>
+                    </xsl:choose>
+                </td>
             </tr>
         </tfoot>
     </table>

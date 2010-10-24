@@ -103,6 +103,7 @@
 	</xsl:call-template>
 </xsl:template>
 
+
 <!--
     Number utilities
 -->
@@ -133,6 +134,7 @@
     <xsl:param name="parent" select="."/>
     <xsl:for-each select="$parent/node()"><xsl:copy-of select="."/></xsl:for-each>
 </xsl:template>
+
 
 <xsl:template name="description">
     <xsl:param name="node" select="."/>

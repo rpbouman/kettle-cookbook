@@ -154,12 +154,174 @@
     <xsl:call-template name="description"/>
 </xsl:template>
 
-<xsl:template name="padd-cells">
-    <xsl:param name="elements"/>
-    <xsl:param name="position"/>    
-    <xsl:for-each select="$elements[position() &lt; $position]">
-        <td class="xaction-diagram-padding">&#160;</td>
+<xsl:variable name="variable-separator" select="'&lt;'"/>
+
+<xsl:template name="get-unique-variables">
+    <xsl:param name="variables"/>
+    <xsl:param name="unique-variables" select="$variable-separator"/>
+    
+    <xsl:choose>
+        <xsl:when test="$variables = $variable-separator">
+            <xsl:value-of select="$unique-variables"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:variable name="variable" select="substring-before(substring-after($variables, $variable-separator), $variable-separator)"/>
+            <xsl:variable name="delimited-variable" select="concat($variable-separator, $variable, $variable-separator)"/>
+            <xsl:variable name="new-variables" select="concat($variable-separator, substring-after($variables, $delimited-variable))"/>
+            <xsl:variable name="variable-exists" select="contains($unique-variables, $delimited-variable)"/>
+            <xsl:variable name="append-unique-variable" select="concat($unique-variables, substring-after($delimited-variable, $variable-separator))"/>
+            <xsl:variable name="new-unique-variables">
+                <xsl:choose>
+                    <xsl:when test="$variable-exists"><xsl:value-of select="$unique-variables"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$append-unique-variable"/></xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:call-template name="get-unique-variables">   
+                <xsl:with-param name="variables" select="$new-variables"/>
+                <xsl:with-param name="unique-variables" select="$new-unique-variables"/>
+            </xsl:call-template>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template name="local-variables">
+    <xsl:param name="variables"/>
+    <xsl:param name="inputs"/>
+    <xsl:param name="outputs"/>
+    <xsl:param name="resources"/>
+    <xsl:for-each select="$variables">  
+        <xsl:choose>
+            <xsl:when test="@mapping">
+                <xsl:variable name="variable" select="@mapping"/>
+                <xsl:if 
+                    test="
+                        count($inputs[local-name() = $variable]) = 0
+                    and count($outputs[local-name() = $variable]) = 0
+                    and count($resources[local-name() = $variable]) = 0
+                    "
+                >
+                    <xsl:value-of select="concat($variable-separator, $variable)"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="variable" select="local-name()"/>
+                <xsl:if 
+                    test="
+                        count($inputs[local-name() = $variable]) = 0
+                    and count($outputs[local-name() = $variable]) = 0
+                    and count($resources[local-name() = $variable]) = 0
+                    "
+                >
+                    <xsl:value-of select="concat($variable-separator, $variable)"/>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="unique-variables">
+    <xsl:param name="variables"/>
+    <xsl:param name="unique-variables" select="$variable-separator"/>
+
+    <xsl:choose>
+        <xsl:when test="$variables=$variable-separator"><xsl:value-of select="$unique-variables"/></xsl:when>
+        <xsl:otherwise>
+            <xsl:variable name="variable" select="substring-before(substring-after($variables, $variable-separator), $variable-separator)"/>
+            <xsl:variable name="delimited-variable" select="concat($variable-separator, $variable, $variable-separator)"/>
+            <xsl:call-template name="unique-variables">
+                <xsl:with-param name="variables" select="concat($variable-separator, substring-after($variables, $delimited-variable))"/>
+                <xsl:with-param name="unique-variables">
+                    <xsl:choose>
+                        <xsl:when test="contains($unique-variables, $delimited-variable)">
+                            <xsl:value-of select="$unique-variables"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="concat($unique-variables, $variable, $variable-separator)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template name="for-each-variable">
+    <xsl:param name="variables"/>
+    <xsl:param name="template" select="''"/>
+    <xsl:if test="$variables != $variable-separator">
+        <xsl:variable name="variable" select="substring-before(substring-after($variables, $variable-separator), $variable-separator)"/>
+        <xsl:variable name="delimited-variable" select="concat($variable-separator, $variable, $variable-separator)"/>
+        <xsl:variable name="new-variables" select="concat($variable-separator, substring-after($variables, $delimited-variable))"/>
+        <xsl:copy-of select="$template"/>
+        <xsl:call-template name="for-each-variable">
+            <xsl:with-param name="variables" select="$new-variables"/>
+            <xsl:with-param name="template" select="$template"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template name="variable-assignments">
+    <xsl:param name="variables"/>
+    <xsl:param name="action-parameter"/>
+    <xsl:param name="prior-assignment" select="false()"/>
+    <xsl:param name="direction"/>
+    <xsl:param name="parameters-before"/>
+    <xsl:param name="parameters-after"/>
+    
+    <xsl:if test="$variables != $variable-separator">
+        <xsl:variable name="variable" select="substring-before(substring-after($variables, $variable-separator), $variable-separator)"/>
+        <xsl:variable name="is-assigned" select="$variable = $action-parameter"/> 
+        <xsl:variable name="delimited-variable" select="concat($variable-separator, $variable, $variable-separator)"/>
+        <xsl:variable name="new-variables" select="concat($variable-separator, substring-after($variables, $delimited-variable))"/>
+        
+        <td>
+            <xsl:attribute name="class">
+                <xsl:choose>
+                    <xsl:when test="$is-assigned">
+                        <xsl:value-of select="$direction"/>
+                    </xsl:when>                                                
+                    <xsl:when test="$prior-assignment">
+                        xaction-diagram-prior-assignment
+                    </xsl:when>
+<!--                    
+                    <xsl:when 
+                        test="
+                            ($parameters-after[@mapping = $variable]
+                        or  $parameters-after[local-name() = $variable])
+                        "
+                    >
+                        xaction-diagram-padding
+                    </xsl:when>
+-->                    
+                    <xsl:otherwise>
+                        xaction-diagram-blank
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            &#160;
+        </td>
+        
+        <xsl:call-template name="variable-assignments">
+            <xsl:with-param name="variables" select="$new-variables"/>
+            <xsl:with-param name="action-parameter" select="$action-parameter"/>
+            <xsl:with-param name="prior-assignment" select="$prior-assignment or $is-assigned"/>
+            <xsl:with-param name="direction" select="$direction"/>
+            <xsl:with-param name="parameters-before" select="$parameters-before"/>
+            <xsl:with-param name="parameters-after" select="$parameters-after"/>
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template name="num-variables">
+    <xsl:param name="variables"/>
+    <xsl:variable name="variable-after-separator" select="substring-after($variables, $variable-separator)"/>
+    <xsl:variable name="removed-variable-separator">
+        <xsl:call-template name="replace">    
+            <xsl:with-param name="text" select="$variable-after-separator"/>
+            <xsl:with-param name="search" select="$variable-separator"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:value-of select="string-length($variable-after-separator) - string-length($removed-variable-separator)"/>
 </xsl:template>
 
 <xsl:template name="action-sequence-diagram">
@@ -168,12 +330,34 @@
     <xsl:variable name="resources" select="$action-sequence/resources/*"/>
     <xsl:variable name="inputs" select="$action-sequence/inputs/*"/>
     <xsl:variable name="outputs" select="$action-sequence/outputs/*"/>
-    <xsl:variable name="actions" select="$action-sequence/actions//action-definition"/>
+    <xsl:variable name="actions" select="$action-sequence/actions//*[local-name()='action-definition' or local-name()='actions']"/>
 
     <xsl:variable name="count-resources" select="count($resources)"/>
     <xsl:variable name="count-inputs" select="count($inputs)"/>
     <xsl:variable name="count-outputs" select="count($outputs)"/>
-            
+    
+    <xsl:variable name="variables" select="$actions/action-inputs/* | $actions/action-outputs/*"/>
+    <xsl:variable name="local-variables">
+        <xsl:call-template name="local-variables">
+            <xsl:with-param name="variables" select="$variables"/>
+            <xsl:with-param name="inputs" select="$inputs"/>
+            <xsl:with-param name="outputs" select="$outputs"/>
+            <xsl:with-param name="resources" select="$resources"/>
+        </xsl:call-template>
+    </xsl:variable>
+    
+    <xsl:variable name="unique-variables">
+        <xsl:call-template name="unique-variables">
+            <xsl:with-param name="variables" select="concat($local-variables, $variable-separator)"/> 
+        </xsl:call-template>
+    </xsl:variable>
+    
+    <xsl:variable name="num-unique-variables">
+        <xsl:call-template name="num-variables">
+            <xsl:with-param name="variables" select="$unique-variables"/>
+        </xsl:call-template>
+    </xsl:variable>
+
     <h2><a name="diagram">Action Sequence Diagram</a></h2>
     <table class="xaction-diagram" cellpadding="0" cellspacing="0">
         <thead>
@@ -181,106 +365,619 @@
 
                 <xsl:if test="$count-inputs &gt; 0">
                     <th class="xaction">
-                        <xsl:attribute name="colspan"><xsl:value-of select="1+ $count-inputs"/></xsl:attribute>
+                        <xsl:attribute name="colspan"><xsl:value-of select="2+ $count-inputs"/></xsl:attribute>
                         Inputs
                     </th>
                 </xsl:if>
 
                 <xsl:if test="$count-resources &gt; 0">
                     <th class="xaction">
-                        <xsl:attribute name="colspan"><xsl:value-of select="1+ $count-resources"/></xsl:attribute>
+                        <xsl:attribute name="colspan"><xsl:value-of select="2+ $count-resources"/></xsl:attribute>
                         Resources
                     </th>
                 </xsl:if>
+                
+                <xsl:if test="$count-outputs &gt; 0">
+                    <th class="xaction">
+                        <xsl:attribute name="colspan"><xsl:value-of select="2 + $count-outputs"/></xsl:attribute>
+                        Outputs
+                    </th>
+                </xsl:if>
+
+                    <th class="xaction">
+                        <xsl:attribute name="colspan"><xsl:value-of select="2 + $num-unique-variables"/></xsl:attribute>
+                        Variables
+                    </th>
 
                 <th class="xaction">
                     <xsl:attribute name="colspan"><xsl:value-of select="$max-action-depth"/></xsl:attribute>
                     Actions
                 </th>
 
-                <xsl:if test="$count-outputs &gt; 0">
-                    <th class="xaction">
-                        <xsl:attribute name="colspan"><xsl:value-of select="$count-outputs"/></xsl:attribute>
-                        Outputs
-                    </th>
-                </xsl:if>
             </tr>
         </thead>
         <tbody>
             <xsl:for-each select="$actions">
-                <xsl:variable name="local-name" select="local-name(.)"/>
+                <xsl:variable name="action-position" select="position()"/>
+                <xsl:variable name="action" select="."/>
+                <xsl:variable name="local-name" select="local-name($action)"/>
                 <xsl:variable name="depth" select="count(ancestor::*) - 1"/>
-                <xsl:variable name="preceding-siblings" select="count(preceding-sibling::*)"/>
-                <tr>
+                <xsl:variable name="action-inputs" select="action-inputs/*"/>
+                <xsl:variable name="action-outputs" select="action-outputs/*"/>
+                <xsl:variable name="rowspan" select="count($action-inputs) + count($action-outputs) + 3"/>
 
+                <xsl:variable name="actions-after" select="$actions[position() &gt; $action-position]"/>
+                <xsl:variable name="action-after-inputs" select="$actions-after/action-inputs/*"/>
+                <xsl:variable name="action-after-outputs" select="$actions-after/action-outputs/*"/>
+
+                <xsl:variable name="this-and-after-action-inputs" select="$action-after-inputs | $action-inputs"/>
+                <xsl:variable name="this-and-after-action-outputs" select="$action-after-outputs | $action-outputs"/>
+
+                <xsl:variable name="parameters-after" select="$action-after-inputs | $action-inputs | $action-after-outputs | $action-outputs"/>
+
+                <!--
+                
+                    Row 1 of action:    * add the action 
+                                        * add padding for resources, inputs, outputs and variables                    
+                
+                -->
+                <tr class="action-row">
                     <xsl:if test="$inputs">
-                        <td></td>
+                        <td class="xaction-diagram-blank">&#160;</td>
                         <xsl:for-each select="$inputs">
-                            <td class="xaction-diagram-padding">
+                            <xsl:variable name="input-name" select="local-name()"/>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when 
+                                            test="
+                                                $this-and-after-action-inputs[@mapping = $input-name]
+                                            or  $this-and-after-action-inputs[local-name() = $input-name]
+                                            "
+                                        >
+                                            xaction-diagram-padding
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
                                 &#160;
                             </td>
                         </xsl:for-each>
+                        <td class="xaction-diagram-blank">&#160;</td>
                     </xsl:if>
                     
                     <xsl:if test="$resources">
-                        <td></td>
+                        <td class="xaction-diagram-blank">&#160;</td>
                         <xsl:for-each select="$resources">
                             <td class="xaction-diagram-padding">
                                 &#160;
                             </td>
                         </xsl:for-each>
+                        <td class="xaction-diagram-blank">&#160;</td>
                     </xsl:if>
                     
-                    <xsl:if test="$depth &gt; 1">
-                        <xsl:if test="$depth &gt; 2">
-                            <td>
-                               <xsl:attribute name="colspan"><xsl:value-of select="$depth - 2"/></xsl:attribute>
-                            </td>
-                        </xsl:if>
-                        <td>
-                            <xsl:choose>
-                                <xsl:when test="../condition and $preceding-siblings = 1">
-                                    <div class="xaction-stick"></div>
-                                    <div class="xaction-if">
-                                        <code><xsl:value-of select="../condition"/></code>
-                                    </div>
-                                </xsl:when>
-                                <xsl:when test="../@loop-on">
-                                    <div class="xaction-stick"></div>
-                                    <div class="xaction-loop">
-                                        <code>foreach <xsl:value-of select="../@loop-on"/></code>
-                                    </div>
-                                </xsl:when>
-                            </xsl:choose>
-                        </td>
-                    </xsl:if>
-                    <td>
-                        <xsl:choose>
-                            <xsl:when test="preceding-sibling::action-definition">
-                                <div class="xaction-stick"></div>
-                            </xsl:when>
-                            <xsl:otherwise>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <div class="xaction-action">
-                            <div class="xaction-action-type">
-                                <xsl:value-of select="component-name/text()"/>
-                            </div>
-                            <div class="xaction-action-name">
-                                <xsl:call-template name="action-label"/>
-                            </div>
-                        </div>
-                    </td>
-
                     <xsl:if test="$outputs">
-                        <td></td>
+                        <td class="xaction-diagram-blank">&#160;</td>
                         <xsl:for-each select="$outputs">
                             <td class="xaction-diagram-padding">
                                 &#160;
                             </td>
                         </xsl:for-each>
+                        <td class="xaction-diagram-blank">&#160;</td>
                     </xsl:if>
 
+                    <xsl:if test="number($num-unique-variables) &gt; 0">
+                        <td class="xaction-diagram-blank">&#160;</td>
+                        <xsl:call-template name="for-each-variable">
+                            <xsl:with-param name="variables" select="$unique-variables"/>
+                            <xsl:with-param name="template">
+                                <td class="xaction-diagram-padding">
+                                    &#160;
+                                </td>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <td class="xaction-diagram-blank">&#160;</td>
+                    </xsl:if>
+                        
+                    <!--
+                    
+                        Indent for contents of loops or ifs
+                    
+                    -->
+                    <xsl:if test="$depth &gt; 1">
+                        <xsl:if test="$depth &gt; 2">
+                            <td>
+                               <xsl:attribute name="colspan"><xsl:value-of select="$depth - 2"/></xsl:attribute>
+                               <xsl:attribute name="rowspan"><xsl:value-of select="$rowspan"/></xsl:attribute>
+                            </td>
+                        </xsl:if>
+                        <td>
+                            <xsl:attribute name="rowspan"><xsl:value-of select="$rowspan"/></xsl:attribute>
+                        </td>
+                    </xsl:if>
+
+                    <td>
+                        <xsl:attribute name="rowspan"><xsl:value-of select="$rowspan"/></xsl:attribute>
+                        <div class="xaction-stick"></div>
+                        <xsl:choose>
+                            <xsl:when test="local-name() = 'action-definition'">
+                                <div class="xaction-action">
+                                    <div class="xaction-action-type">
+                                        <xsl:value-of select="component-name/text()"/>
+                                    </div>
+                                    <div class="xaction-action-name">
+                                        <xsl:call-template name="action-label"/>
+                                    </div>
+                                </div>
+                            </xsl:when>
+                            <xsl:when test="local-name() = 'actions'">
+                                <xsl:choose>
+                                    <xsl:when test="@loop-on">
+                                        <div class="xaction-loop">
+                                            <div class="xaction-action-type">
+                                                loop
+                                            </div>
+                                            <div class="xaction-action-name">
+                                                <xsl:value-of select="@loop-on"/>
+                                            </div>
+                                        </div>
+                                    </xsl:when>
+                                    <xsl:when test="condition">
+                                        <div class="xaction-if">
+                                            <div class="xaction-action-type">
+                                                if
+                                            </div>
+                                            <div class="xaction-action-name">
+                                                <xsl:value-of select="condition/text()"/>
+                                            </div>
+                                        </div>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:when>
+                        </xsl:choose>
+                        <div class="xaction-stick"></div>
+                    </td>
+                </tr>
+                
+                <!--
+                
+                    Rows for action inputs
+                
+                -->
+                <xsl:for-each select="$action-inputs">
+                    <xsl:variable name="action-input-position" select="position()"/>
+                    <xsl:variable name="local-following-action-inputs" select="$action-inputs[position() &gt; $action-input-position]"/>
+                    <xsl:variable name="input-param">
+                        <xsl:choose>
+                            <xsl:when test="@mapping"><xsl:value-of select="@mapping"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="local-name()"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable> 
+                    <xsl:variable name="delimited-input-param" select="concat($variable-separator, $input-param, $variable-separator)"/>
+                    <tr class="input-row">
+                        <xsl:if test="$inputs">
+                            <td class="xaction-diagram-blank">&#160;</td>
+                            <xsl:for-each select="$inputs">
+                                <xsl:variable name="input-name" select="local-name()"/>
+                                <td>
+                                    <xsl:attribute name="class">
+                                        <xsl:choose>
+                                            <xsl:when test="$input-param = local-name()">
+                                                xaction-diagram-input
+                                            </xsl:when>
+                                            <xsl:when test="preceding-sibling::*[local-name() = $input-param]">
+                                                xaction-diagram-prior-assignment
+                                            </xsl:when>
+                                            <xsl:when 
+                                                test="
+                                                    $action-after-inputs[@mapping = $input-name]
+                                                or  $action-after-inputs[local-name() = $input-name]
+                                                or  $local-following-action-inputs[local-name() = $input-name]
+                                                "
+                                            >
+                                                xaction-diagram-padding
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                xaction-diagram-blank
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:if>
+                        
+                        <xsl:if test="$resources">
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                            <xsl:for-each select="$resources">
+                                <td>
+                                    <xsl:attribute name="class">
+                                        <xsl:choose>
+                                            <xsl:when test="$input-param = local-name()">
+                                                xaction-diagram-input
+                                            </xsl:when>                                                
+                                            <xsl:when test="$inputs[local-name() = $input-param]">
+                                                xaction-diagram-prior-assignment
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                xaction-diagram-padding
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:if>
+                        
+                        <xsl:if test="$outputs">
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                            <xsl:for-each select="$outputs">
+                                <td >
+                                    <xsl:attribute name="class">
+                                        <xsl:choose>
+                                            <xsl:when test="$input-param = local-name()">
+                                                xaction-diagram-input
+                                            </xsl:when>                                                
+                                            <xsl:when test="$inputs[local-name() = $input-param]">
+                                                xaction-diagram-prior-assignment
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                xaction-diagram-padding
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:if>
+
+                        <xsl:if test="number($num-unique-variables) &gt; 0">
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when test="$inputs[local-name() = $input-param]">
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                                <xsl:value-of select="count($parameters-after)"/>
+                            </td>
+
+                            <xsl:call-template name="variable-assignments">
+                                <xsl:with-param name="variables" select="$unique-variables"/>
+                                <xsl:with-param name="action-parameter" select="$input-param"/>
+                                <xsl:with-param name="prior-assignment" select="$inputs[local-name() = $input-param]"/>
+                                <xsl:with-param name="direction" select="'xaction-diagram-input'"/>
+                                <xsl:with-param name="parameters-before"/>
+                                <xsl:with-param name="parameters-after" select="$parameters-after"/>
+                            </xsl:call-template>
+
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when 
+                                            test="
+                                                $inputs[local-name() = $input-param] 
+                                            or  contains($unique-variables, $delimited-input-param)
+                                            "
+                                        >
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:if>
+                    </tr>
+                </xsl:for-each>
+                
+                <!--
+                
+                    Row separating action inputs from action outputs
+                
+                -->
+                <tr class="middle-separator-row">
+                    <xsl:if test="$inputs">
+                        <td class="xaction-diagram-blank">
+                            &#160;
+                        </td>
+                        <xsl:for-each select="$inputs">
+                            <xsl:variable name="input-name" select="local-name()"/>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when 
+                                            test="
+                                                $action-after-inputs[@mapping = $input-name]
+                                            or  $action-after-inputs[local-name() = $input-name]
+                                            "
+                                        >
+                                            xaction-diagram-padding
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank">&#160;</td>
+                    </xsl:if>
+                    
+                    <xsl:if test="$resources">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:for-each select="$resources">
+                            <td class="xaction-diagram-padding" >
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+                    
+                    <xsl:if test="$outputs">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:for-each select="$outputs">
+                            <td class="xaction-diagram-padding" >
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+
+                    <xsl:if test="number($num-unique-variables) &gt; 0">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:call-template name="for-each-variable">
+                            <xsl:with-param name="variables" select="$unique-variables"/>
+                            <xsl:with-param name="template">
+                                <td class="xaction-diagram-padding" >
+                                    &#160;
+                                </td>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+                </tr>
+
+                <!--
+                
+                    Rows for action outputs
+                
+                -->
+                <xsl:for-each select="$action-outputs">
+                    <xsl:variable name="output-param">
+                        <xsl:choose>
+                            <xsl:when test="@mapping"><xsl:value-of select="@mapping"/></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="local-name()"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable> 
+                    <xsl:variable name="delimited-output-param" select="concat($variable-separator, $output-param, $variable-separator)"/>
+                    <tr class="output-row">
+                        <xsl:if test="$inputs">
+                            <td class="xaction-diagram-blank">&#160;</td>
+                            <xsl:for-each select="$inputs">
+                                <xsl:variable name="input-name" select="local-name()"/>
+                                <td>
+                                    <xsl:attribute name="class">
+                                        <xsl:choose>
+                                            <xsl:when 
+                                                test="
+                                                    $action-after-inputs[@mapping = $input-name]
+                                                or  $action-after-inputs[local-name() = $input-name]
+                                                "
+                                            >
+                                                xaction-diagram-padding
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                xaction-diagram-blank
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td class="xaction-diagram-blank">&#160;</td>
+                        </xsl:if>
+                        
+                        <xsl:if test="$resources">
+                            <td class="xaction-diagram-blank">&#160;</td>
+                            <xsl:for-each select="$resources">
+                                <td class="xaction-diagram-padding">
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td class="xaction-diagram-blank">&#160;</td>
+                        </xsl:if>
+                        
+                        <xsl:if test="$outputs">
+                            <td class="xaction-diagram-blank">&#160;</td>
+                            <xsl:for-each select="$outputs">
+                                <td>
+                                    <xsl:attribute name="class">
+                                        <xsl:choose>
+                                            <xsl:when test="$output-param = local-name()">
+                                                xaction-diagram-output
+                                            </xsl:when>
+                                            <xsl:when test="preceding-sibling::*[local-name() = $output-param]">
+                                                xaction-diagram-prior-assignment
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                xaction-diagram-padding
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    &#160;
+                                </td>
+                            </xsl:for-each>
+                            <td class="xaction-diagram-blank">&#160;</td>
+                        </xsl:if>
+
+                        <xsl:if test="number($num-unique-variables) &gt; 0">
+                            <td class="xaction-diagram-blank">&#160;</td>
+                            <xsl:call-template name="variable-assignments">
+                                <xsl:with-param name="variables" select="$unique-variables"/>
+                                <xsl:with-param name="action-parameter" select="$output-param"/>
+                                <xsl:with-param name="prior-assignment" select="$inputs[local-name() = $output-param]"/>
+                                <xsl:with-param name="direction" select="'xaction-diagram-output'"/>
+                            </xsl:call-template>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when 
+                                            test="
+                                                $outputs[local-name() = $output-param] 
+                                            or  contains($unique-variables, $delimited-output-param)
+                                            "
+                                        >
+                                            xaction-diagram-prior-assignment
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:if>
+                    </tr>
+                </xsl:for-each>
+
+                <!--
+                    Final spacer row.
+                -->
+                <tr class="final-row">
+                    <xsl:if test="$inputs">
+                        <td class="xaction-diagram-blank">
+                            &#160;
+                        </td>
+                        <xsl:for-each select="$inputs">
+                            <xsl:variable name="input-name" select="local-name()"/>
+                            <td>
+                                <xsl:attribute name="class">
+                                    <xsl:choose>
+                                        <xsl:when 
+                                            test="
+                                                $action-after-inputs[@mapping = $input-name]
+                                            or  $action-after-inputs[local-name() = $input-name]
+                                            "
+                                        >
+                                            xaction-diagram-padding
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            xaction-diagram-blank
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+                    
+                    <xsl:if test="$resources">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:for-each select="$resources">
+                            <td class="xaction-diagram-padding" >
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+                    
+                    <xsl:if test="$outputs">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:for-each select="$outputs">
+                            <td class="xaction-diagram-padding" >
+                                &#160;
+                            </td>
+                        </xsl:for-each>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
+
+                    <xsl:if test="number($num-unique-variables) &gt; 0">
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                        <xsl:call-template name="for-each-variable">
+                            <xsl:with-param name="variables" select="$unique-variables"/>
+                            <xsl:with-param name="template">
+                                <td class="xaction-diagram-padding" >
+                                    &#160;
+                                </td>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <td class="xaction-diagram-blank" >&#160;</td>
+                    </xsl:if>
                 </tr>
             </xsl:for-each>
         </tbody>

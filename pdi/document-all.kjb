@@ -3,8 +3,8 @@
   <name>document-all</name>
     <description/>
     <extended_description/>
-    <job_version/>
-    <job_status>0</job_status>
+    <job_version>1.0</job_version>
+    <job_status>2</job_status>
   <directory>&#47;</directory>
   <created_user>-</created_user>
   <created_date>2010&#47;10&#47;06 01:02:24.031</created_date>
@@ -49,8 +49,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>100</xloc>
-      <yloc>59</yloc>
+      <xloc>68</xloc>
+      <yloc>216</yloc>
       </entry>
     <entry>
       <name>Create ${OUTPUT_DIR} and Copy Template</name>
@@ -95,8 +95,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>250</xloc>
-      <yloc>59</yloc>
+      <xloc>218</xloc>
+      <yloc>216</yloc>
       </entry>
     <entry>
       <name>process-files.ktr</name>
@@ -123,8 +123,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>430</xloc>
-      <yloc>59</yloc>
+      <xloc>65</xloc>
+      <yloc>406</yloc>
       </entry>
     <entry>
       <name>create-output-subdir</name>
@@ -152,8 +152,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>545</xloc>
-      <yloc>59</yloc>
+      <xloc>215</xloc>
+      <yloc>406</yloc>
       </entry>
     <entry>
       <name>transform script exists?</name>
@@ -163,8 +163,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>684</xloc>
-      <yloc>59</yloc>
+      <xloc>63</xloc>
+      <yloc>586</yloc>
       </entry>
     <entry>
       <name>Success 1</name>
@@ -173,8 +173,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1024</xloc>
-      <yloc>59</yloc>
+      <xloc>63</xloc>
+      <yloc>918</yloc>
       </entry>
     <entry>
       <name>Execute transform script</name>
@@ -196,8 +196,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>807</xloc>
-      <yloc>160</yloc>
+      <xloc>348</xloc>
+      <yloc>694</yloc>
       </entry>
     <entry>
       <name>Delete transform script</name>
@@ -214,8 +214,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>939</xloc>
-      <yloc>160</yloc>
+      <xloc>348</xloc>
+      <yloc>801</yloc>
       </entry>
     <entry>
       <name>is windows?</name>
@@ -234,8 +234,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>684</xloc>
-      <yloc>160</yloc>
+      <xloc>213</xloc>
+      <yloc>586</yloc>
       </entry>
     <entry>
       <name>Make Executable</name>
@@ -257,8 +257,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>683</xloc>
-      <yloc>276</yloc>
+      <xloc>348</xloc>
+      <yloc>586</yloc>
       </entry>
   </entries>
   <hops>
@@ -363,5 +363,73 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>Phase 1: create the destination and copy all static resources.
+
+Static resources are the stylesheets, javascripts and images required to render HTML docs
+All these are stored in the template directory (this sits immediately beneath the root dir of the kettle-cookbook dir), which is always copied in its entirety to the output dir.
+
+The template dir also contains an (empty) html dir: this is the actual destination dir for the generated documentation.</note>
+      <xloc>443</xloc>
+      <yloc>196</yloc>
+      <width>827</width>
+      <heigth>85</heigth>
+    </notepad>
+    <notepad>
+      <note>Phase 2: process files and create output subdirectories:
+
+In this phase, the contents of the input dir, including its subdirectories, are scanned for files for which we generate documentation (the input files).
+This also looks for .html files residing beneath the output directory (the output files). 
+
+Output files are stored beneath the html directory in the same directory structure as their corresponding input files. 
+Output files also have the same file name as their corresponding input file, postfixed with a .html extension.
+
+This comparison of input and output files gives us 
+- inputfiles for which there is no corresponding output file. We need to generate documentation for these new input files.
+- output files for which there is no corresponding input file. Apparently, this is obsolete documentation, and this will be deleted
+- input files which have a more recent lastmodifieddate than their corresponding output file. We need to re-generate documentation for these updated inputt files.
+
+All input files and directories are written to an index.xml docment which is also stored in the output directory.
+XSLT commands for the new and updated input files are written to the transform script which is also stored in the output directory.
+The XSLT commands are always applied to index.xml.
+
+This phase also creates the required directory structure in the html director beneath the output dir.
+To do this, the process-files transformation copies the list of new directories to the result.
+The create-output-subdir runs for each result, and actually creates the subdirectory.
+</note>
+      <xloc>444</xloc>
+      <yloc>302</yloc>
+      <width>793</width>
+      <heigth>259</heigth>
+    </notepad>
+    <notepad>
+      <note>Phase 3: actually generate documentation.
+
+Actual documentation generation is done by the transform script generated in phase 2.
+If there are no new or updated files, there is nothing to do and the script may not exist.
+
+If the transform script exists, the extension of the transform script is either .bat or .sh, depending on the OS (windows or rest of the world).
+For non-windows systems, the transform script needs to be given the execute attribute in order to execute it.
+
+Finally, the transform script is actually executed, and if that finishes without errors, it is cleaned up by deleting it.
+
+This concludes the main job of the kettle-cookbook documentation generation process.</note>
+      <xloc>444</xloc>
+      <yloc>581</yloc>
+      <width>682</width>
+      <heigth>147</heigth>
+    </notepad>
+    <notepad>
+      <note>This is document-all, the main job for kettle-cookbook documentation generation
+
+This job takes 2 parameters:
+
+INPUT_DIR: the directory that contains the files (.ktr, .kjb, .xaction, .xcdf, .prpt) that you want to generate documentation for.
+OUTPUT_DIR: the directory that is to contain the generated documentation.</note>
+      <xloc>53</xloc>
+      <yloc>24</yloc>
+      <width>617</width>
+      <heigth>85</heigth>
+    </notepad>
   </notepads>
 </job>
