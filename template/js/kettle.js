@@ -6,7 +6,8 @@
 *   
 *   Copyright (C) 2010 
 *   Roland Bouman Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
-*   Chodnicki Slawomir
+*   Chodnicki Slawomir (arrows in hops)
+*   David Bouyssel, Samatar Hassan (IE8 / IE7 compatibility)
 *   
 *   This library is free software; you can redistribute it and/or modify it under 
 *   the terms of the GNU Lesser General Public License as published by the 
@@ -71,8 +72,9 @@ function alignTowardsLine(array_x, array_y, origin_x, origin_y, line_x1, line_y1
 }
 
 function drawHops(){
-    var id = "diagram",
-        jsg = new jsGraphics(id),
+    var idCanvas = "canvas",
+		id = "thediagram",
+        jsg = new jsGraphics(idCanvas),
         diagram = document.getElementById(id),
         childNodes = diagram.childNodes,
         numChildNodes = childNodes.length,
@@ -112,6 +114,7 @@ function drawHops(){
             hop = hops.item(j);
             
             to = hop.getAttribute("href");
+			to = to.substring(to.lastIndexOf("#"));
             to = decodeURIComponent(to.substring(1));
             to = document.getElementById(to);
 

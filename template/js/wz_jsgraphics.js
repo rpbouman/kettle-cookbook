@@ -1,6 +1,6 @@
 /* This notice must be untouched at all times.
 
-wz_jsgraphics.js    v. 2.33
+wz_jsgraphics.js    v. 2.36
 The latest version is available at
 http://www.walterzorn.com
 or http://www.devira.com
@@ -8,7 +8,7 @@ or http://www.walterzorn.de
 
 Copyright (c) 2002-2004 Walter Zorn. All rights reserved.
 Created 3. 11. 2002 by Walter Zorn (Web: http://www.walterzorn.com )
-Last modified: 24. 10. 2005
+Last modified: 21. 6. 2006
 
 Performance optimizations for Internet Explorer
 by Thomas Frank and John Holdsworth.
@@ -39,6 +39,11 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA,
 or see http://www.gnu.org/copyleft/lesser.html
+
+Modifications for kettle-cookbook:
+
+Roland Bouman - support for classes in mkDiv, mkDivPrt and jsGraphics.setClasses
+David Bouyssel, Samatar Hassan - changes to support IE7 & IE8
 */
 
 
@@ -70,24 +75,24 @@ function pntDoc()
 
 function pntCnvDom()
 {
-	var x = document.createRange();
+	var x = this.wnd.document.createRange();
 	x.setStartBefore(this.cnv);
 	x = x.createContextualFragment(jg_fast? this.htmRpc() : this.htm);
-	this.cnv.appendChild(x);
+	if(this.cnv) this.cnv.appendChild(x);
 	this.htm = '';
 }
 
 
 function pntCnvIe()
 {
-	this.cnv.insertAdjacentHTML("BeforeEnd", jg_fast? this.htmRpc() : this.htm);
+	if(this.cnv) this.cnv.insertAdjacentHTML("BeforeEnd", jg_fast? this.htmRpc() : this.htm);
 	this.htm = '';
 }
 
 
 function pntCnvIhtm()
 {
-	this.cnv.innerHTML += this.htm;
+	if(this.cnv) this.cnv.innerHTML += this.htm;
 	this.htm = '';
 }
 
@@ -96,7 +101,6 @@ function pntCnv()
 {
 	this.htm = '';
 }
-
 
 function mkDiv(x, y, w, h)
 {
@@ -135,7 +139,6 @@ function mkDivPrt(x, y, w, h)
         ' class="' + this.classNames + '"'+
         '><\/div>';
 }
-
 
 function mkLyr(x, y, w, h)
 {
@@ -668,8 +671,8 @@ var Stroke = new jsgStroke();
 function jsGraphics(id, wnd)
 {
 	this.setColor = new Function('arg', 'this.color = arg.toLowerCase();');
-
-    this.classNames = "";
+	
+	this.classNames = "";
 	this.setClassNames = new Function('arg', 'this.classNames = arg;');
 
 	this.setStroke = function(x)
@@ -701,7 +704,7 @@ function jsGraphics(id, wnd)
 		this.printable = arg;
 		if (jg_fast)
 		{
-			this.mkDiv = mkDivIe;
+			this.mkDiv = mkDiv;
 			this.htmRpc = arg? htmPrtRpc : htmRpc;
 		}
 		else this.mkDiv = jg_n4? mkLyr : arg? mkDivPrt : mkDiv;
@@ -899,8 +902,8 @@ text both horizontally (e.g. right) and vertically within that rectangle */
 		this.htm += '<div style="position:absolute;'+
 			'left:' + x + 'px;'+
 			'top:' + y + 'px;'+
-			'width:' +  w + ';'+
-			'height:' + h + ';">'+
+			'width:' +  w + 'px;'+
+			'height:' + h + 'px;">'+
 			'<img src="' + imgSrc + '" width="' + w + '" height="' + h + '"' + (a? (' '+a) : '') + '>'+
 			'<\/div>';
 	};
@@ -947,4 +950,3 @@ function integer_compare(x,y)
 {
 	return (x < y) ? -1 : ((x > y)*1);
 }
-

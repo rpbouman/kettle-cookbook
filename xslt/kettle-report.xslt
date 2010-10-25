@@ -10,6 +10,7 @@
 
     Copyright (C) 2010 Roland Bouman 
     Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
+    David Bouyssel, Samatar Hassan (IE8 / IE7 compatibility for diagram hops)
 
     This library is free software; you can redistribute it and/or modify it under 
     the terms of the GNU Lesser General Public License as published by the 
@@ -108,16 +109,7 @@
         <xsl:call-template name="stylesheet">
             <xsl:with-param name="name" select="'shCoreDefault'"/>
         </xsl:call-template>
-        
-    </head>
-    <body class="kettle-file" onload="drawHops()">
-        <xsl:copy-of select="$quick-links"/>
-                
-        <xsl:for-each select="$document">
-            <xsl:apply-templates/>
-        </xsl:for-each>
-        
-        <xsl:call-template name="script">
+       <xsl:call-template name="script">
             <xsl:with-param name="name" select="'wz_jsgraphics'"/>
         </xsl:call-template>
         <xsl:call-template name="script">
@@ -145,8 +137,17 @@
         <xsl:call-template name="script">
             <xsl:with-param name="name" select="'shBrushXml'"/>
         </xsl:call-template>
+                
+    </head>
+    <body class="kettle-file">
+        <xsl:copy-of select="$quick-links"/>
+                
+        <xsl:for-each select="$document">
+            <xsl:apply-templates/>
+        </xsl:for-each>
+        
         <script type="text/javascript">
-            SyntaxHighlighter.all();
+            SyntaxHighlighter.all();drawHops();
         </script>
     </body>
 </html>
@@ -770,97 +771,104 @@
         </xsl:call-template>
     </xsl:variable>
 
-    <h2><a name="diagram">Diagram</a></h2>    
-    <div class="diagram" id="diagram">
-        <xsl:attribute name="style">
-            width: <xsl:value-of select="($max-xloc - $min-xloc) + 128"/>px;
-            height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
-        </xsl:attribute>
-        <xsl:for-each select="$steps">
-            <xsl:variable name="type" select="type/text()"/>
-            <xsl:variable name="name" select="name/text()"/>
-            <xsl:variable name="xloc" select="GUI/xloc"/>
-            <xsl:variable name="yloc" select="GUI/yloc"/>
-            <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
-            <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
-            <xsl:variable name="copies" select="copies/text()"/>
-            <xsl:variable name="send-true-to" select="send_true_to/text()"/>
-            <xsl:variable name="send-false-to" select="send_false_to/text()"/>
-            <xsl:variable name="distribute" select="distribute/text() = 'Y'"/>
-            <a>
-                <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
-            </a>
-            <div>
-                <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
-                <xsl:attribute name="class">
-                    step-icon
-                    step-icon-<xsl:value-of select="$type"/>
-                    <xsl:if test="$error-handlers[target_step/text() = $name]">
-                        step-error
-                    </xsl:if>                                        
-                    <xsl:if test="$hide">
-                        step-hidden
-                    </xsl:if>
-                </xsl:attribute>                
-                <xsl:attribute name="style">
-                    left:<xsl:value-of select="$xloc"/>px;
-                    top:<xsl:value-of select="$yloc"/>px;
-                </xsl:attribute>
-                <div class="step-hops">
-                    <xsl:for-each select="$hops[from/text()=$name]">
-                        <xsl:variable name="from" select="from/text()"/>
-                        <xsl:variable name="to" select="to/text()"/>
-                        <xsl:variable name="enabled" select="enabled/text() = 'Y'"/>
-                        <a>
-                            <xsl:attribute name="class">
-                                step-hop
-                                <xsl:if 
-                                    test="
-                                        $error-handlers[
-                                            source_step/text()=$from
-                                        and target_step/text()=$to
-                                        ]
-                                    "
-                                >
-                                step-hop-error
-                                </xsl:if>
-                                <xsl:choose>
-                                    <xsl:when test="$enabled">
-                                    step-hop-enabled
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                    step-hop-disabled
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <xsl:choose>
-                                    <xsl:when test="$send-true-to = $to">step-hop-true</xsl:when>
-                                    <xsl:when test="$send-false-to = $to">step-hop-false</xsl:when>
-                                    <xsl:when test="$distribute">step-hop-distribute-data</xsl:when>
-                                    <xsl:otherwise>step-hop-copy-data</xsl:otherwise>
-                                </xsl:choose><xsl:text> </xsl:text>
-                            </xsl:attribute>
-                            <xsl:attribute name="href"><xsl:value-of select="concat('#', $to)"/></xsl:attribute>
-                        </a>
-                    </xsl:for-each>
-                </div>
-            </div>
-            <a>
-                <xsl:attribute name="class">
-                    step-label
-                    <xsl:if test="$hide">
-                        step-label-hidden
-                    </xsl:if>
-                </xsl:attribute>
-                <xsl:attribute name="href">#<xsl:value-of select="$name"/>-text</xsl:attribute>
-                <xsl:attribute name="style">
-                    top:<xsl:value-of select="$yloc + 32"/>px;
-                    left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
-                </xsl:attribute>
-                <xsl:value-of select="$name"/>
-            </a>
-        </xsl:for-each>
-		<xsl:apply-templates select="//notepads"/>
+    <h2><a name="diagram">Diagram</a></h2>  
+    <div class="diagram" id="canvas">  
+      <xsl:attribute name="style">
+          width: <xsl:value-of select="($max-xloc - $min-xloc) + 128"/>px;
+          height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
+      </xsl:attribute>    
+      <div class="diagram" id="thediagram">
+          <xsl:attribute name="style">
+              width: <xsl:value-of select="($max-xloc - $min-xloc) + 128"/>px;
+              height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
+          </xsl:attribute>
+          <xsl:for-each select="$steps">
+              <xsl:variable name="type" select="type/text()"/>
+              <xsl:variable name="name" select="name/text()"/>
+              <xsl:variable name="xloc" select="GUI/xloc"/>
+              <xsl:variable name="yloc" select="GUI/yloc"/>
+              <xsl:variable name="text-pixels" select="string-length(name) * 4"/>            
+              <xsl:variable name="hide" select="GUI/draw/text()='N'"/>
+              <xsl:variable name="copies" select="copies/text()"/>
+              <xsl:variable name="send-true-to" select="send_true_to/text()"/>
+              <xsl:variable name="send-false-to" select="send_false_to/text()"/>
+              <xsl:variable name="distribute" select="distribute/text() = 'Y'"/>
+              <a>
+                  <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
+              </a>
+              <div>
+                  <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
+                  <xsl:attribute name="class">
+                      step-icon
+                      step-icon-<xsl:value-of select="$type"/>
+                      <xsl:if test="$error-handlers[target_step/text() = $name]">
+                          step-error
+                      </xsl:if>                                        
+                      <xsl:if test="$hide">
+                          step-hidden
+                      </xsl:if>
+                  </xsl:attribute>                
+                  <xsl:attribute name="style">
+                      left:<xsl:value-of select="$xloc"/>px;
+                      top:<xsl:value-of select="$yloc"/>px;
+                  </xsl:attribute>
+                  <div class="step-hops">
+                      <xsl:for-each select="$hops[from/text()=$name]">
+                          <xsl:variable name="from" select="from/text()"/>
+                          <xsl:variable name="to" select="to/text()"/>
+                          <xsl:variable name="enabled" select="enabled/text() = 'Y'"/>
+                          <a>
+                              <xsl:attribute name="class">
+                                  step-hop
+                                  <xsl:if 
+                                      test="
+                                          $error-handlers[
+                                              source_step/text()=$from
+                                          and target_step/text()=$to
+                                          ]
+                                      "
+                                  >
+                                  step-hop-error
+                                  </xsl:if>
+                                  <xsl:choose>
+                                      <xsl:when test="$enabled">
+                                      step-hop-enabled
+                                      </xsl:when>
+                                      <xsl:otherwise>
+                                      step-hop-disabled
+                                      </xsl:otherwise>
+                                  </xsl:choose>
+                                  <xsl:choose>
+                                      <xsl:when test="$send-true-to = $to">step-hop-true</xsl:when>
+                                      <xsl:when test="$send-false-to = $to">step-hop-false</xsl:when>
+                                      <xsl:when test="$distribute">step-hop-distribute-data</xsl:when>
+                                      <xsl:otherwise>step-hop-copy-data</xsl:otherwise>
+                                  </xsl:choose><xsl:text> </xsl:text>
+                              </xsl:attribute>
+                              <xsl:attribute name="href"><xsl:value-of select="concat('#', $to)"/></xsl:attribute>
+                          </a>
+                      </xsl:for-each>
+                  </div>
+              </div>
+              <a>
+                  <xsl:attribute name="class">
+                      step-label
+                      <xsl:if test="$hide">
+                          step-label-hidden
+                      </xsl:if>
+                  </xsl:attribute>
+                  <xsl:attribute name="href">#<xsl:value-of select="$name"/>-text</xsl:attribute>
+                  <xsl:attribute name="style">
+                      top:<xsl:value-of select="$yloc + 32"/>px;
+                      left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
+                  </xsl:attribute>
+                  <xsl:value-of select="$name"/>
+              </a>
+          </xsl:for-each>
+  		<xsl:apply-templates select="//notepads"/>
+      </div>
     </div>
+    
 </xsl:template>
 <!-- =========================================================================
     KETTLE JOB
@@ -983,86 +991,92 @@
         </xsl:call-template>
     </xsl:variable>
 
-    <h2><a name="diagram">Diagram</a></h2>    
-    <div class="diagram" id="diagram">
+    <h2><a name="diagram">Diagram</a></h2> 
+    <div class="diagram" id="canvas"> 
         <xsl:attribute name="style">
             width: <xsl:value-of select="($max-xloc - $min-xloc) + 128"/>px;
             height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
-        </xsl:attribute>
-        <xsl:for-each select="$entries">
-            <xsl:variable name="type" select="type/text()"/>
-            <xsl:variable name="name" select="name/text()"/>
-            <xsl:variable name="xloc" select="xloc"/>
-            <xsl:variable name="yloc" select="yloc"/>
-            <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
-            <xsl:variable name="hide" select="draw/text()='N'"/>
-            <a>
-                <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
-            </a>
-            <div>
-                <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
-                <xsl:attribute name="class">
-					entry-icon
-                    entry-icon-<xsl:choose>
-                        <xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
-							<xsl:with-param name="text" select="$name"/>							
-						</xsl:call-template></xsl:when>
-                        <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="$hide">
-                        entry-hidden
-                    </xsl:if>
-                </xsl:attribute>                
-                <xsl:attribute name="style">
-                    left:<xsl:value-of select="$xloc"/>px;
-                    top:<xsl:value-of select="$yloc"/>px;
-                </xsl:attribute>
-                <div class="entry-hops">
-                    <xsl:for-each select="$hops[from/text()=$name]">
-                        <a>
-                            <xsl:attribute name="class">
-                                entry-hop
-                                <xsl:choose>
-                                    <xsl:when test="unconditional/text()='Y'">entry-hop-unconditional</xsl:when>
-                                    <xsl:when test="evaluation/text()='Y'">entry-hop-true</xsl:when>
-                                    <xsl:when test="evaluation/text()='N'">entry-hop-false</xsl:when>
-                                </xsl:choose>
-                            </xsl:attribute>
-                            <xsl:attribute name="href"><xsl:value-of select="concat('#', to/text())"/></xsl:attribute>
-                        </a>
-                    </xsl:for-each>
-                </div>
-            </div>
-            <a>
-				<xsl:attribute name="class">
-					entry-label
-                    <xsl:if test="$hide">
-                        entry-label-hidden
-                    </xsl:if>
-				</xsl:attribute>
-                <xsl:attribute name="style">
-                    top:<xsl:value-of select="$yloc + 32"/>px;
-                    left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
-                </xsl:attribute>
-                <xsl:attribute name="href">
-                    <xsl:choose>
-                        <xsl:when 
-                            test="
-                                $type = 'JOB'
-                            or	$type = 'TRANS'
-                            "
-                        >
-                            <xsl:call-template name="get-doc-uri-for-filename">
-                                <xsl:with-param name="step-or-job-entry" select="."/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>#<xsl:value-of select="$name"/>-text</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                <xsl:value-of select="$name"/>
-            </a>
-        </xsl:for-each>
-		<xsl:apply-templates select="//notepad"/>
+        </xsl:attribute>      
+      <div class="diagram" id="thediagram">
+          <xsl:attribute name="style">
+              width: <xsl:value-of select="($max-xloc - $min-xloc) + 128"/>px;
+              height: <xsl:value-of select="($max-yloc - $min-yloc) + 128"/>px;
+          </xsl:attribute>
+          <xsl:for-each select="$entries">
+              <xsl:variable name="type" select="type/text()"/>
+              <xsl:variable name="name" select="name/text()"/>
+              <xsl:variable name="xloc" select="xloc"/>
+              <xsl:variable name="yloc" select="yloc"/>
+              <xsl:variable name="text-pixels" select="string-length(name) * 4"/>
+              <xsl:variable name="hide" select="draw/text()='N'"/>
+              <a>
+                  <xsl:attribute name="name"><xsl:value-of select="$name"/>-icon</xsl:attribute>
+              </a>
+              <div>
+                  <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
+                  <xsl:attribute name="class">
+  					entry-icon
+                      entry-icon-<xsl:choose>
+                          <xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
+  							<xsl:with-param name="text" select="$name"/>							
+  						</xsl:call-template></xsl:when>
+                          <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
+                      </xsl:choose>
+                      <xsl:if test="$hide">
+                          entry-hidden
+                      </xsl:if>
+                  </xsl:attribute>                
+                  <xsl:attribute name="style">
+                      left:<xsl:value-of select="$xloc"/>px;
+                      top:<xsl:value-of select="$yloc"/>px;
+                  </xsl:attribute>
+                  <div class="entry-hops">
+                      <xsl:for-each select="$hops[from/text()=$name]">
+                          <a>
+                              <xsl:attribute name="class">
+                                  entry-hop
+                                  <xsl:choose>
+                                      <xsl:when test="unconditional/text()='Y'">entry-hop-unconditional</xsl:when>
+                                      <xsl:when test="evaluation/text()='Y'">entry-hop-true</xsl:when>
+                                      <xsl:when test="evaluation/text()='N'">entry-hop-false</xsl:when>
+                                  </xsl:choose>
+                              </xsl:attribute>
+                              <xsl:attribute name="href"><xsl:value-of select="concat('#', to/text())"/></xsl:attribute>
+                          </a>
+                      </xsl:for-each>
+                  </div>
+              </div>
+              <a>
+  				<xsl:attribute name="class">
+  					entry-label
+                      <xsl:if test="$hide">
+                          entry-label-hidden
+                      </xsl:if>
+  				</xsl:attribute>
+                  <xsl:attribute name="style">
+                      top:<xsl:value-of select="$yloc + 32"/>px;
+                      left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
+                  </xsl:attribute>
+                  <xsl:attribute name="href">
+                      <xsl:choose>
+                          <xsl:when 
+                              test="
+                                  $type = 'JOB'
+                              or	$type = 'TRANS'
+                              "
+                          >
+                              <xsl:call-template name="get-doc-uri-for-filename">
+                                  <xsl:with-param name="step-or-job-entry" select="."/>
+                              </xsl:call-template>
+                          </xsl:when>
+                          <xsl:otherwise>#<xsl:value-of select="$name"/>-text</xsl:otherwise>
+                      </xsl:choose>
+                  </xsl:attribute>
+                  <xsl:value-of select="$name"/>
+              </a>
+          </xsl:for-each>
+  		<xsl:apply-templates select="//notepad"/>
+      </div>
     </div>
 </xsl:template>
 
