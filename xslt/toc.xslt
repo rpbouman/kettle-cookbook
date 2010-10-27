@@ -69,27 +69,39 @@ Boston, MA 02111-1307 USA
     <xsl:param name="extension"/>    
     <xsl:param name="files" select="file[extension/text()=$extension]"/>
     
-    <xsl:if test="$caption!=''">
-        <h3><xsl:copy-of select="$caption"/></h3>
-    </xsl:if>
-    <xsl:choose>
-        <xsl:when test="$files">
-            <ul>
-                <xsl:for-each select="$files">
-                    <xsl:sort select="translate(short_filename/text(), $upper-case-alphabet, $lower-case-alphabet)"/>
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
-            </ul>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:if test="$caption!=''">
-                <p>None.</p>
-            </xsl:if>
-        </xsl:otherwise>
-    </xsl:choose>
+    <div class="folder">
+        <div class="folder-head">
+            <span class="folder-toggle" onclick="toggleTreeNode(this)">-</span>
+            <span class="folder-icon-open"></span>
+            <span class="folder-label"><xsl:copy-of select="$caption"/></span>
+        </div>
+        <div class="folder-body">
+            <xsl:choose>
+                <xsl:when test="$files">
+                    <ul>
+                        <xsl:for-each select="$files">
+                            <xsl:sort select="translate(short_filename/text(), $upper-case-alphabet, $lower-case-alphabet)"/>
+                            <xsl:apply-templates select="."/>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$caption!=''">
+                        <p>None.</p>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </div>
+
 </xsl:template>
 
 <xsl:template match="/index">
+    <div id="links">
+        <a href="frontpage.html" target="main">Home</a> |
+        <a href="about.html" target="main">About</a> |  
+        <a href="http://code.google.com/p/kettle-cookbook/" target="_blank">Project</a>
+    </div>
     <div id="tab-strip">
         <!--
         
@@ -108,6 +120,8 @@ Boston, MA 02111-1307 USA
     <div id="tab-pages">
         <div id="tab-toc-by-category-page">
             <!-- <a name="toc-by-category"></a> -->
+            <br/>
+            
             <xsl:call-template name="files">
                 <xsl:with-param name="caption" select="'Action Sequences'"/>
                 <xsl:with-param name="extension" select="'xaction'"/>
