@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>process-files</name>
+    <name>compare-files</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -59,15 +59,15 @@
     <clusterschemas>
     </clusterschemas>
   <modified_user>-</modified_user>
-  <modified_date>2010&#47;11&#47;02 21:08:34.078</modified_date>
+  <modified_date>2010&#47;11&#47;03 13:55:14.625</modified_date>
   </info>
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>compare-files.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>compare-files.ktr</from><to>dir diff</to><enabled>Y</enabled> </hop>  <hop> <from>compare-files.ktr</from><to>file diff</to><enabled>Y</enabled> </hop>  <hop> <from>compare-files.ktr</from><to>input dir</to><enabled>Y</enabled> </hop>  <hop> <from>compare-files.ktr</from><to>input file</to><enabled>Y</enabled> </hop>  <hop> <from>compare-files.ktr</from><to>output file</to><enabled>Y</enabled> </hop>  <hop> <from>input dir</from><to>create-index.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>input file</from><to>create-index.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>create-index.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>file diff</from><to>Switch &#47; Case</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>Delete file</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>Lookup input lastmodified</to><enabled>Y</enabled> </hop>  <hop> <from>input file</from><to>Lookup input lastmodified</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup input lastmodified</from><to>File updated?</to><enabled>Y</enabled> </hop>  <hop> <from>File updated?</from><to>Not updated</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case</from><to>new files</to><enabled>Y</enabled> </hop>  <hop> <from>File updated?</from><to>updated files</to><enabled>Y</enabled> </hop>  <hop> <from>updated files</from><to>files</to><enabled>Y</enabled> </hop>  <hop> <from>new files</from><to>files</to><enabled>Y</enabled> </hop>  <hop> <from>create-index.ktr</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>files</from><to>create-transform-script.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>create-transform-script.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>Get ${INPUT_DIR} and ${OUTPUT_DIR}</from><to>create-transform-script.ktr</to><enabled>Y</enabled> </hop>  <hop> <from>dir diff</from><to>new directory?</to><enabled>Y</enabled> </hop>  <hop> <from>new directory?</from><to>Not a new directory</to><enabled>Y</enabled> </hop>  <hop> <from>new directory?</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>output-dir -&gt; dir</from><to>get-files.ktr (input)</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>get-files.ktr (output)</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>output-dir -&gt; dir</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>Compare Directories</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>Compare Directories</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>Compare files</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams 1</from><to>output file extension</to><enabled>Y</enabled> </hop>  <hop> <from>output file extension</from><to>output_file_short_name -&gt; file_short_name</to><enabled>Y</enabled> </hop>  <hop> <from>output_file_short_name -&gt; file_short_name</from><to>Compare files</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>Combine Streams 2</from><to>Directories to create</to><enabled>Y</enabled> </hop>  <hop> <from>Compare files</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams 3</from><to>output files</to><enabled>Y</enabled> </hop>  <hop> <from>Compare Directories</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>Receive</to><enabled>Y</enabled> </hop>  <hop> <from>Receive</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>file separator</to><enabled>Y</enabled> </hop>  <hop> <from>file separator</from><to>output file_name_regex</to><enabled>Y</enabled> </hop>  <hop> <from>output files</from><to>file diff Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>ouput file Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>output file extension</from><to>input file Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>input dir Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>Directories to create</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>dir diff Mapping output</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Copy rows to result</name>
-    <type>RowsToResult</type>
+    <name>Combine Streams 2</name>
+    <type>JoinRows</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -75,144 +75,29 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>559</xloc>
-      <yloc>478</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Delete file</name>
-    <type>ProcessFiles</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <sourcefilenamefield>file_full_name</sourcefilenamefield>
-    <targetfilenamefield/>
-    <operation_type>delete</operation_type>
-    <addresultfilenames>N</addresultfilenames>
-    <overwritetargetfile>N</overwritetargetfile>
-    <createparentfolder>N</createparentfolder>
-    <simulate>N</simulate>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>456</xloc>
-      <yloc>407</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>766</xloc>
-      <yloc>260</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>File updated?</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>updated files</send_true_to>
-<send_false_to>Not updated</send_false_to>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main/>
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>input_file_lastmodified</leftvalue>
- <function>&gt;=</function>
- <rightvalue>file_lastmodified</rightvalue>
+ <leftvalue/>
+ <function>=</function>
+ <rightvalue/>
  </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>687</xloc>
-      <yloc>323</yloc>
+      <xloc>807</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Get ${INPUT_DIR} and ${OUTPUT_DIR}</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>N</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>output_dir</name>
-        <variable>${OUTPUT_DIR}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>input_dir</name>
-        <variable>${INPUT_DIR}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>file_separator</name>
-        <variable>${file.separator}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
-      <yloc>17</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup input lastmodified</name>
-    <type>StreamLookup</type>
+    <name>Combine streams 1</name>
+    <type>JoinRows</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -220,139 +105,164 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>input file</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>folder_relative_path</name>
-        <field>folder_relative_path</field>
-      </key>
-      <key>
-        <name>file_short_name</name>
-        <field>output_file_short_name</field>
-      </key>
-      <value>
-        <name>folder_full_name</name>
-        <rename>input_folder_full_name</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>folder_short_name</name>
-        <rename>input_folder_short_name</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>folder_parent_folder</name>
-        <rename>input_folder_parent_folder</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>folder_hidden</name>
-        <rename>input_folder_hidden</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>folder_readable</name>
-        <rename>input_folder_readable</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>folder_writeable</name>
-        <rename>input_folder_writeable</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>folder_lastmodified</name>
-        <rename>input_folder_lastmodified</rename>
-        <default/>
-        <type>Date</type>
-      </value>
-      <value>
-        <name>folder_uri</name>
-        <rename>input_folder_uri</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>folder_relative_path</name>
-        <rename>input_folder_relative_path</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>file_full_name</name>
-        <rename>input_file_full_name</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>file_short_name</name>
-        <rename>input_file_short_name</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>file_hidden</name>
-        <rename>input_file_hidden</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>file_readable</name>
-        <rename>input_file_readable</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>file_writeable</name>
-        <rename>input_file_writeable</rename>
-        <default/>
-        <type>Boolean</type>
-      </value>
-      <value>
-        <name>file_lastmodified</name>
-        <rename>input_file_lastmodified</rename>
-        <default/>
-        <type>Date</type>
-      </value>
-      <value>
-        <name>file_size</name>
-        <rename>input_file_size</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-      <value>
-        <name>file_extension</name>
-        <rename>input_file_extension</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>file_uri</name>
-        <rename>input_file_uri</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main>get-files.ktr (input)</main>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue/>
+ <function>=</function>
+ <rightvalue/>
+ </condition>
+    </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>570</xloc>
-      <yloc>323</yloc>
+      <xloc>572</xloc>
+      <yloc>449</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Not a new directory</name>
+    <name>Combine streams 3</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main>Compare files</main>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue/>
+ <function>=</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>572</xloc>
+      <yloc>517</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Compare Directories</name>
+    <type>MergeRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <keys>
+      <key>folder_relative_path</key>
+    </keys>
+    <values>
+      <value>folder_relative_path</value>
+    </values>
+<flag_field>directory_diff</flag_field>
+<reference>get-files.ktr (output)</reference>
+<compare>get-files.ktr (input)</compare>
+    <compare>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>731</xloc>
+      <yloc>99</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Compare files</name>
+    <type>MergeRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <keys>
+      <key>folder_relative_path</key>
+      <key>file_short_name</key>
+    </keys>
+    <values>
+      <value>folder_relative_path</value>
+      <value>file_short_name</value>
+    </values>
+<flag_field>file_diff</flag_field>
+<reference>get-files.ktr (output)</reference>
+<compare>output_file_short_name -&gt; file_short_name</compare>
+    <compare>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1002</xloc>
+      <yloc>449</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Directories to create</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>new_relative_path</field_name>
+<calc_type>ADD</calc_type>
+<field_a>html</field_a>
+<field_b>folder_relative_path</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>output_directory</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>new_relative_path</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>932</xloc>
+      <yloc>45</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Receive</name>
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
@@ -363,15 +273,15 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>456</xloc>
-      <yloc>558</yloc>
+      <xloc>572</xloc>
+      <yloc>374</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Not updated</name>
-    <type>Dummy</type>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -379,41 +289,19 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-     <cluster_schema/>
+    <fields>      <field>        <name>directory_diff</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>output_directory</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>785</xloc>
-      <yloc>385</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Switch &#47; Case</name>
-    <type>SwitchCase</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<fieldname>file_diff</fieldname>
-<use_contains>N</use_contains>
-<case_value_type>String</case_value_type>
-<case_value_format/>
-<case_value_decimal/>
-<case_value_group/>
-<default_target_step/>
-<cases><case><value>deleted</value>
-<target_step>Delete file</target_step>
-</case><case><value>identical</value>
-<target_step>Lookup input lastmodified</target_step>
-</case><case><value>new</value>
-<target_step>new files</target_step>
-</case></cases>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>456</xloc>
-      <yloc>323</yloc>
+      <xloc>1034</xloc>
+      <yloc>44</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -888,7 +776,75 @@
     </step>
 
   <step>
-    <name>compare-files.ktr</name>
+    <name>dir diff Mapping output</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1132</xloc>
+      <yloc>45</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>file diff Mapping output</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1131</xloc>
+      <yloc>517</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>file separator</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>file_separator</name>
+        <variable>${file.separator}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>220</xloc>
+      <yloc>172</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>get-files.ktr (input)</name>
     <type>Mapping</type>
     <description/>
     <distribute>N</distribute>
@@ -898,39 +854,29 @@
            <schema_name/>
            </partitioning>
     <trans_name/>
-    <filename>${Internal.Transformation.Filename.Directory}&#47;compare-files.ktr</filename>
+    <filename>${Internal.Transformation.Filename.Directory}&#47;get-files.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
-    <mapping>    <input_step>Get ${INPUT_DIR} and ${OUTPUT_DIR}</input_step>
-    <output_step>input_dir &#47; output_dir</output_step>
+    <mapping>    <input_step>output-dir -&gt; dir</input_step>
+    <output_step>dir input</output_step>
     <main_path>N</main_path>
     <rename_on_output>N</rename_on_output>
     <description/>
     </mapping>      </input>
       <output>
-    <mapping>    <input_step>dir diff Mapping output</input_step>
-    <output_step>dir diff</output_step>
+    <mapping>    <input_step>directories Mapping output</input_step>
+    <output_step>Compare Directories</output_step>
     <main_path>Y</main_path>
     <rename_on_output>N</rename_on_output>
     <description/>
-    </mapping>    <mapping>    <input_step>file diff Mapping output</input_step>
-    <output_step>file diff</output_step>
+    </mapping>    <mapping>    <input_step>files Mapping output</input_step>
+    <output_step>Receive</output_step>
     <main_path>Y</main_path>
     <rename_on_output>N</rename_on_output>
     <description/>
-    </mapping>    <mapping>    <input_step>input dir Mapping output</input_step>
-    <output_step>input dir</output_step>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>input file Mapping output</input_step>
-    <output_step>input file</output_step>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>ouput file Mapping output</input_step>
-    <output_step>output file</output_step>
+    </mapping>    <mapping>    <input_step>directories Mapping output</input_step>
+    <output_step>input dir Mapping output</output_step>
     <main_path>Y</main_path>
     <rename_on_output>N</rename_on_output>
     <description/>
@@ -940,180 +886,15 @@
     </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
-      <yloc>131</yloc>
+      <xloc>572</xloc>
+      <yloc>229</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>create-index.ktr</name>
+    <name>get-files.ktr (output)</name>
     <type>Mapping</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <trans_name/>
-    <filename>${Internal.Transformation.Filename.Directory}&#47;create-index.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-    <mapping>    <input_step>input dir</input_step>
-    <output_step>folder Mapping input</output_step>
-    <main_path>N</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>input file</input_step>
-    <output_step>file Mapping input</output_step>
-    <main_path>N</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>Get ${INPUT_DIR} and ${OUTPUT_DIR}</input_step>
-    <output_step>input_dir &#47; output_dir</output_step>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </input>
-      <output>
-    <mapping>    <input_step>Mapping output specification</input_step>
-    <output_step>Dummy (do nothing)</output_step>
-    <main_path>N</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </output>
-          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    </mappings>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>664</xloc>
-      <yloc>260</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>create-transform-script.ktr</name>
-    <type>Mapping</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <trans_name/>
-    <filename>${Internal.Transformation.Filename.Directory}&#47;create-transform-script.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-    <mapping>    <input_step>files</input_step>
-    <output_step>files</output_step>
-    <main_path>Y</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>Dummy (do nothing)</input_step>
-    <output_step>index.xml</output_step>
-    <main_path>N</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>    <mapping>    <input_step>Get ${INPUT_DIR} and ${OUTPUT_DIR}</input_step>
-    <output_step>input_dir &#47; output_dir</output_step>
-    <main_path>N</main_path>
-    <rename_on_output>N</rename_on_output>
-    <description/>
-    </mapping>      </input>
-      <output>
-      </output>
-          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    </mappings>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1007</xloc>
-      <yloc>260</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>dir diff</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>478</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>file diff</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>323</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>files</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>908</xloc>
-      <yloc>323</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>input dir</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>131</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>input file</name>
-    <type>Dummy</type>
     <description/>
     <distribute>N</distribute>
     <copies>1</copies>
@@ -1121,17 +902,48 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <trans_name/>
+    <filename>${Internal.Transformation.Filename.Directory}&#47;get-files.ktr</filename>
+    <directory_path/>
+    <mappings>
+      <input>
+    <mapping>    <input_step>output file_name_regex</input_step>
+    <output_step>dir input</output_step>
+    <main_path>N</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </input>
+      <output>
+    <mapping>    <input_step>directories Mapping output</input_step>
+    <output_step>Compare Directories</output_step>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>    <mapping>    <input_step>files Mapping output</input_step>
+    <output_step>Compare files</output_step>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>    <mapping>    <input_step>files Mapping output</input_step>
+    <output_step>ouput file Mapping output</output_step>
+    <main_path>Y</main_path>
+    <rename_on_output>N</rename_on_output>
+    <description/>
+    </mapping>      </output>
+          <parameters>    <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    </mappings>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>260</yloc>
+      <xloc>572</xloc>
+      <yloc>172</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>new directory?</name>
-    <type>FilterRows</type>
+    <name>input dir Mapping output</name>
+    <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1139,26 +951,307 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Copy rows to result</send_true_to>
-<send_false_to>Not a new directory</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>directory_diff</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>new</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>456</xloc>
-      <yloc>478</yloc>
+      <xloc>1132</xloc>
+      <yloc>229</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>new files</name>
+    <name>input file Mapping output</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1131</xloc>
+      <yloc>369</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>input_dir &#47; output_dir</name>
+    <type>MappingInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>input_dir</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>output_dir</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+        <select_unspecified>N</select_unspecified>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>120</xloc>
+      <yloc>172</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>ouput file Mapping output</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1132</xloc>
+      <yloc>172</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>output file extension</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>output_file_short_name</field_name>
+<calc_type>ADD</calc_type>
+<field_a>file_short_name</field_a>
+<field_b>dothtml</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>687</xloc>
+      <yloc>449</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>output file_name_regex</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>html</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>html</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>dot</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>.</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>dothtml</field_name>
+<calc_type>ADD</calc_type>
+<field_a>dot</field_a>
+<field_b>html</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>dir</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>file_name_regex_prefix</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>^.+\</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>file_name_regex_postfix</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>$</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>file_name_regex</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>file_name_regex_prefix</field_a>
+<field_b>dothtml</field_b>
+<field_c>file_name_regex_postfix</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>input_file_name_regex</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>^.+\.(ktr|kjb|prpt|xaction|xcdf)$</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>314</xloc>
+      <yloc>172</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>output files</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>new_relative_path</field_name>
+<calc_type>ADD</calc_type>
+<field_a>html</field_a>
+<field_b>folder_relative_path</field_b>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>new_directory</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>new_relative_path</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>output_file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>new_directory</field_a>
+<field_b>file_separator</field_b>
+<field_c>file_short_name</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1003</xloc>
+      <yloc>517</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>output-dir -&gt; dir</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1167,47 +1260,38 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>file_full_name</name>
-        <rename>input_file</rename>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>file_name_regex</name>
+      </remove>      <meta>        <name>input_dir</name>
+        <rename>dir</rename>
+        <type>String</type>
+        <length>65</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>input_file_name_regex</name>
+        <rename>file_name_regex</rename>
+        <type>String</type>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>file_extension</name>
-        <rename>input_file_extension</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>output_file</name>
-        <rename>output_file</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>     <cluster_schema/>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>787</xloc>
-      <yloc>451</yloc>
+      <xloc>449</xloc>
+      <yloc>229</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>output file</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>223</xloc>
-      <yloc>481</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>updated files</name>
+    <name>output_file_short_name -&gt; file_short_name</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1216,23 +1300,83 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>input_file_full_name</name>
-        <rename>input_file</rename>
+    <fields>      <field>        <name>folder_full_name</name>
+        <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>input_file_extension</name>
-        <rename>input_file_extension</rename>
+      </field>      <field>        <name>folder_short_name</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_parent_folder</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_hidden</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_readable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_writeable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_lastmodified</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_uri</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>folder_relative_path</name>
+        <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>file_full_name</name>
-        <rename>output_file</rename>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>output_file_short_name</name>
+        <rename>file_short_name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_hidden</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_readable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_writeable</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_lastmodified</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_size</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_extension</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>file_uri</name>
+        <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>784</xloc>
-      <yloc>323</yloc>
+      <xloc>855</xloc>
+      <yloc>449</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

@@ -1,9 +1,11 @@
 /**
-*   This is kettle-toc.css. This is part of kettle-cookbook.
-*   Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
-*   
+*   This is kettle-toc.css.
 *   kettle-toc.css - a cascading stylesheet file that contains markup for the table
 *   of contents (toc)
+*
+*   This is part of kettle-cookbook, a documentation generation framework for 
+*   the Pentaho Business Intelligence Suite.
+*   Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 *   
 *   Copyright (C) 2010 
 *   Roland Bouman Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
@@ -89,11 +91,11 @@ li.item-xcdf {
 
 #tab-strip {
     position:absolute;
-    top: 10px;
+    top: 40px;
 }
 #tab-pages {
     position:absolute;
-    top: 30px;
+    top: 60px;
 }
 
 .tab {

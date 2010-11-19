@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <!--
 
-    This is shared.xslt. This is part of kettle-cookbook.
-    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
-
+    This is shared.xslt.
     shared.xslt - an XSLT transformation that defines variables, parameters, templets etc
     required for each specific xslt file in kettle-cookbook.
-    This is part of kettle-cookbook, a pentaho documentation generation framework.
+    
+    This is part of kettle-cookbook, a documentation generation framework for 
+    the Pentaho Business Intelligence Suite.
+    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
     Copyright (C) 2010 Roland Bouman 
     Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/

@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <!--
 
-    This is kettle-report.xslt. This is part of kettle-cookbook.
-    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
-
+    This is kettle-report.xslt. 
     kettle-report.xslt - an XSLT transformation that generates HTML documentation
     from a Kettle (aka Pentaho Data Integration) transformation or job file.
-    This is part of kettle-cookbook, a kettle documentation generation framework.
+
+    This is part of kettle-cookbook, a documentation generation framework for 
+    the Pentaho Business Intelligence Suite.
+    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
     Copyright (C) 2010 Roland Bouman 
     Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/

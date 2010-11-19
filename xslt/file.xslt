@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <!--
 
-    This is file.xslt. This is part of kettle-cookbook.
-    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
-
+    This is file.xslt. 
     file.xslt - an XSLT transformation to work with an individual file specified by
     the parameter param_filename
+
+    This is part of kettle-cookbook, a documentation generation framework for 
+    the Pentaho Business Intelligence Suite.
+    Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
 
     Copyright (C) 2010 Roland Bouman 
     Roland.Bouman@gmail.com - http://rpbouman.blogspot.com/
@@ -39,8 +41,8 @@
 <xsl:variable name="normalized_filename" select="normalize-space($param_filename)"/>
 <xsl:variable name="file-separator" select="/index/@file_separator"/>
 
-<xsl:variable name="file" select="/index/file[filename/text() = $normalized_filename]"/>
-<xsl:variable name="relative-path" select="substring-after($file/path/text(), $input-dir)"/>
+<xsl:variable name="file" select="/index/file[@full_name = $normalized_filename]"/>
+<xsl:variable name="relative-path" select="substring-after($file/@parent_folder, $input-dir)"/>
 <!--
     This opens the document that is the real subject of the transformation.
     By transforming index.xml, we have the opportunity to query other docs
@@ -48,8 +50,8 @@
     Currently, we are not actually using that, but this is why it was built 
     this way.
 -->
-<xsl:variable name="document" select="document($file/uri/text())"/>
-<xsl:variable name="file-type" select="$file/extension/text()"/>
+<xsl:variable name="document" select="document($file/@uri)"/>
+<xsl:variable name="file-type" select="$file/@extension"/>
 
 <!--
     This gets the relattive location of the root of the documentation.

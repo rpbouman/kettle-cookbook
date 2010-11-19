@@ -104,6 +104,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <type>TRANS</type>
       <filename>${Internal.Job.Filename.Directory}&#47;process-files.ktr</filename>
       <transname/>
+      <directory/>
       <arg_from_previous>N</arg_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -146,7 +147,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <follow_abort_remote>N</follow_abort_remote>
       <parameters>        <pass_all_parameters>N</pass_all_parameters>
             <parameter>            <name>OUTPUT_SUBDIR</name>
-            <stream_name>output_subdir</stream_name>
+            <stream_name>output_directory</stream_name>
             <value/>
             </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
@@ -173,8 +174,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>63</xloc>
-      <yloc>918</yloc>
+      <xloc>348</xloc>
+      <yloc>921</yloc>
       </entry>
     <entry>
       <name>Execute transform script</name>
@@ -197,7 +198,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>348</xloc>
-      <yloc>694</yloc>
+      <yloc>731</yloc>
       </entry>
     <entry>
       <name>Delete transform script</name>
@@ -215,7 +216,7 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>348</xloc>
-      <yloc>801</yloc>
+      <yloc>822</yloc>
       </entry>
     <entry>
       <name>is windows?</name>

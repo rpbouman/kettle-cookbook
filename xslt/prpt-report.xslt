@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 
-    This is xcdf-report.xslt. 
-    xcdf-report.xslt - an XSLT transformation that generates HTML documentation
-    from a Pentaho Community Dashboard Framework dashboard definition file (xcdf).
-
+    This is prpt-report.xslt.
+    prpt-report.xslt - an XSLT transformation that generates HTML documentation
+    from a Pentaho Report (prpt).
+    
     This is part of kettle-cookbook, a documentation generation framework for 
     the Pentaho Business Intelligence Suite.
     Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
@@ -33,7 +33,7 @@
 <xsl:import href="shared.xslt"/>
 <xsl:import href="file.xslt"/>
 
-<xsl:variable name="item-type">cdf dashboard</xsl:variable>
+<xsl:variable name="item-type">Pentaho Report</xsl:variable>
 
 <xsl:template match="/">
 <html>    
@@ -53,24 +53,9 @@
     </head>
     <body>
         <xsl:for-each select="$document">
-            <xsl:apply-templates select="cdf"/>
         </xsl:for-each>
     </body>
 </html>
-</xsl:template>
-
-<xsl:template match="cdf">
-    <xsl:apply-templates select="title"/>
-    <xsl:apply-templates select="author"/>
-    <xsl:call-template name="description"/>
-</xsl:template>
-
-<xsl:template match="title">
-    <h1><xsl:copy-of select="node()"/></h1>
-</xsl:template>
-
-<xsl:template match="author">
-    <div>Author: <xsl:copy-of select="node()"/></div>
 </xsl:template>
 
 </xsl:stylesheet>
