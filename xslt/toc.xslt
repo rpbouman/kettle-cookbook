@@ -101,6 +101,8 @@
                 <xsl:with-param name="extension" select="'xcdf'"/>
             </xsl:call-template>
 
+            <xsl:call-template name="connections"/>
+            
             <xsl:call-template name="files">
                 <xsl:with-param name="caption" select="'Kettle Jobs'"/>
                 <xsl:with-param name="extension" select="'kjb'"/>
@@ -110,6 +112,8 @@
                 <xsl:with-param name="caption" select="'Kettle Transformations'"/>
                 <xsl:with-param name="extension" select="'ktr'"/>
             </xsl:call-template>
+            
+            <xsl:call-template name="schemas"/>
 
             <xsl:call-template name="files">
                 <xsl:with-param name="caption" select="'Pentaho Reports'"/>
@@ -126,12 +130,76 @@
     </div>
 </xsl:template>
 
+<xsl:template name="connections">
+    <div class="folder">
+        <div class="folder-head">
+            <span class="folder-toggle" onclick="toggleTreeNode(this)">-</span>
+            <span class="folder-icon-open"></span>
+            <span class="folder-label">Connections</span>
+        </div>
+        <div class="folder-body">
+            <xsl:choose>
+                <xsl:when test="$connections">
+                    <ul>
+                        <xsl:for-each select="$connections">
+                            <xsl:sort select="translate(@name, $upper-case-alphabet, $lower-case-alphabet)"/>
+                            <xsl:variable name="name" select="@name"/>
+                            <li class="item item-connection">
+                                <a target="main" class="item item-connection">
+                                    <xsl:attribute name="href"><xsl:value-of select="concat('connection-', $name, '.html')"/></xsl:attribute>
+                                    <xsl:value-of select="$name"/>
+                                </a>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:when>
+                <xsl:otherwise>
+                    <p>None.</p>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </div>
+</xsl:template>
+
+<xsl:template name="schemas">
+    <div class="folder">
+        <div class="folder-head">
+            <span class="folder-toggle" onclick="toggleTreeNode(this)">-</span>
+            <span class="folder-icon-open"></span>
+            <span class="folder-label">Mondrian Schemas</span>
+        </div>
+        <!--
+        
+            TODO: expand cubes and shared dimensins
+        
+        -->
+        <div class="folder-body">
+            <ul>
+                <xsl:for-each select="$files[@extension = 'xml']">                
+                    <xsl:sort select="translate(@name, $upper-case-alphabet, $lower-case-alphabet)"/>
+                    <xsl:variable name="schema" select="document(@uri)/Schema"/>
+                    <xsl:if test="$schema">
+                        <xsl:variable name="relative-path" select="substring-after(@full_name, $input-dir)"/>
+                        <xsl:variable name="name" select="$schema/@name"/>
+                        <li class="item item-schema">
+                            <a target="main" class="item item-schema">
+                                <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '.html')"/></xsl:attribute>
+                                <xsl:value-of select="$name"/>
+                            </a>
+                        </li>
+                    </xsl:if>
+                </xsl:for-each>
+            </ul>
+        </div>
+    </div>
+</xsl:template>
+
 <xsl:template match="file">
     <xsl:variable name="relative-path" select="substring-after(@full_name, $input-dir)"/>
     <li>
-        <xsl:attribute name="class">item-<xsl:value-of select="@extension"/></xsl:attribute>
+        <xsl:attribute name="class">item item-<xsl:value-of select="@extension"/></xsl:attribute>
         <a target="main">
-            <xsl:attribute name="class">item-<xsl:value-of select="@extension"/></xsl:attribute>
+            <xsl:attribute name="class">item item-<xsl:value-of select="@extension"/></xsl:attribute>
             <xsl:attribute name="href"><xsl:value-of select="concat('html', $relative-path, '.html')"/></xsl:attribute>
             <xsl:value-of select="substring-before(@short_name, concat('.', @extension))"/>
         </a>

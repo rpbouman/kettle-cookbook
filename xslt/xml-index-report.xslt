@@ -30,12 +30,9 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:import href="shared.xslt"/>
-<xsl:import href="file.xslt"/>
+<xsl:variable name="item-type">folder index file</xsl:variable>
 
-<xsl:variable name="item-type">cdf dashboard</xsl:variable>
-
-<xsl:template match="/">
+<xsl:template match="index">
 <html>
     <head>
     
@@ -47,30 +44,15 @@
         <xsl:call-template name="stylesheet">
             <xsl:with-param name="name" select="'default'"/>
         </xsl:call-template>
+
         <xsl:call-template name="stylesheet">
             <xsl:with-param name="name" select="'cdf'"/>
         </xsl:call-template>
     </head>
     <body>
-        <xsl:for-each select="$document">
-            <xsl:apply-templates select="cdf"/>
-        </xsl:for-each>
+        SCHEMA
     </body>
-</html>
-</xsl:template>
-
-<xsl:template match="cdf">
-    <xsl:apply-templates select="title"/>
-    <xsl:apply-templates select="author"/>
-    <xsl:call-template name="description"/>
-</xsl:template>
-
-<xsl:template match="title">
-    <h1><xsl:copy-of select="node()"/></h1>
-</xsl:template>
-
-<xsl:template match="author">
-    <div>Author: <xsl:copy-of select="node()"/></div>
+</html>    
 </xsl:template>
 
 </xsl:stylesheet>

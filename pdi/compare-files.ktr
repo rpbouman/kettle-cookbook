@@ -274,7 +274,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>572</xloc>
-      <yloc>374</yloc>
+      <yloc>337</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1170,7 +1170,7 @@
 </calculation>
        <calculation><field_name>input_file_name_regex</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>^.+\.(ktr|kjb|prpt|xaction|xcdf)$</field_a>
+<field_a>^.+\.(ktr|kjb|prpt|xaction|xcdf|xml)$</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>

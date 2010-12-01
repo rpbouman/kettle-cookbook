@@ -49,10 +49,26 @@
 ========================================================================== -->
 <xsl:variable name="input-dir" select="/index/@input_dir"/>
 <xsl:variable name="output-dir" select="/index/@output_dir"/>
+<xsl:variable name="file-separator" select="/index/@file_separator"/>
 
 <xsl:variable name="css-dir" select="'css/'"/>
 <xsl:variable name="js-dir" select="'js/'"/>
 <xsl:variable name="images-dir" select="'images/'"/>
+
+<xsl:variable name="output-dir-uri">
+    <xsl:variable name="output-dir-slashes">
+        <xsl:call-template name="replace-backslashes-with-slash">
+            <xsl:with-param name="text" select="$output-dir"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="trail">
+        <xsl:if test="$file-separator='\'">/</xsl:if>
+    </xsl:variable>
+    <xsl:value-of select="concat('file://', $trail, $output-dir-slashes)"/>
+</xsl:variable>
+
+<xsl:variable name="connections-file" select="concat($output-dir-uri, '/connections.xml')"/>
+<xsl:variable name="connections" select="document(concat($output-dir-uri, '/connections.xml'))/connections/connection"/>
 
 <!--
     String utilities
@@ -176,9 +192,10 @@
 
 <xsl:template name="favicon">
     <xsl:param name="name"/>
+    <xsl:param name="extension" select="png"/>
     <link rel="shortcut icon" type="image/x-icon">
         <xsl:attribute name="href">
-            <xsl:value-of select="concat($images-dir, $name, '.png')"/>
+            <xsl:value-of select="concat($images-dir, $name, '.', $extension)"/>
         </xsl:attribute>
     </link>
 </xsl:template>

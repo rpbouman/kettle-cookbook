@@ -1,0 +1,45 @@
+body {
+    background-image: url(../images/btn_ql_newanalysis.png);
+    background-position: right top;
+}
+
+h1.schema {
+    background-image: url(../images/schema24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+h2.cube {
+    background-image: url(../images/cube24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.dimension {
+    background-image: url(../images/dimension24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.dimension-usage {
+    background-image: url(../images/dimensionUsage24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.measures {
+    background-image: url(../images/measure24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.fact-table {
+    border-style: solid;
+    border-width: 1px;
+    background-color: rgb(255,255,225);
+}
+
+.fact-table-header{
+    border-bottom-style: solid;
+    border-width: 1px;
+}

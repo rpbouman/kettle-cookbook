@@ -33,44 +33,13 @@
 <xsl:import href="shared.xslt"/>
 <xsl:import href="file.xslt"/>
 
-<xsl:variable name="item-type">cdf dashboard</xsl:variable>
+<xsl:import href="xml-index-report.xslt"/>
+<xsl:import href="xml-schema-report.xslt"/>
 
 <xsl:template match="/">
-<html>
-    <head>
-    
-        <xsl:copy-of select="$meta"/>
-        <xsl:call-template name="favicon">
-            <xsl:with-param name="name" select="'cdfFileType'"/>
-        </xsl:call-template>
-
-        <xsl:call-template name="stylesheet">
-            <xsl:with-param name="name" select="'default'"/>
-        </xsl:call-template>
-        <xsl:call-template name="stylesheet">
-            <xsl:with-param name="name" select="'cdf'"/>
-        </xsl:call-template>
-    </head>
-    <body>
-        <xsl:for-each select="$document">
-            <xsl:apply-templates select="cdf"/>
-        </xsl:for-each>
-    </body>
-</html>
-</xsl:template>
-
-<xsl:template match="cdf">
-    <xsl:apply-templates select="title"/>
-    <xsl:apply-templates select="author"/>
-    <xsl:call-template name="description"/>
-</xsl:template>
-
-<xsl:template match="title">
-    <h1><xsl:copy-of select="node()"/></h1>
-</xsl:template>
-
-<xsl:template match="author">
-    <div>Author: <xsl:copy-of select="node()"/></div>
+    <xsl:for-each select="$document">
+        <xsl:apply-templates select="*"/>
+    </xsl:for-each>
 </xsl:template>
 
 </xsl:stylesheet>

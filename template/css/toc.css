@@ -30,6 +30,28 @@ body {
     background-image:none;
 }
 
+li.item {
+    height:18px;
+}
+
+a.item {
+    top:-4px;
+    position: relative;
+}
+
+li.item-schema {
+    list-style-image:url(../images/schema24.gif);
+}
+
+a.item-schema {
+    top:-8px;
+    left:-2px;
+}
+
+li.item-connection {
+    list-style-image:url(../images/CNC.png);
+}
+
 li.item-xaction {
     list-style-image:url(../images/swirl-sm.png);
 }

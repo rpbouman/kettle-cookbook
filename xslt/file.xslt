@@ -39,7 +39,6 @@
     XSLT VARIABLES
 ========================================================================== -->
 <xsl:variable name="normalized_filename" select="normalize-space($param_filename)"/>
-<xsl:variable name="file-separator" select="/index/@file_separator"/>
 
 <xsl:variable name="file" select="/index/file[@full_name = $normalized_filename]"/>
 <xsl:variable name="relative-path" select="substring-after($file/@parent_folder, $input-dir)"/>
