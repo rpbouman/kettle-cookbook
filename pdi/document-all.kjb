@@ -104,7 +104,6 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <type>TRANS</type>
       <filename>${Internal.Job.Filename.Directory}&#47;process-files.ktr</filename>
       <transname/>
-      <directory/>
       <arg_from_previous>N</arg_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>

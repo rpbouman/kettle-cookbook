@@ -15,31 +15,93 @@ h2.cube {
     padding-left: 25px;
 }
 
-.dimension {
+h2.dimension, h4.dimension, table.dimension thead tr th{
     background-image: url(../images/dimension24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
 }
 
-.dimension-usage {
+h3.dimension-usage, table.dimension-usage thead tr th {
     background-image: url(../images/dimensionUsage24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
 }
 
-.measures {
+h3.measures, table.measures tbody tr th {
     background-image: url(../images/measure24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
 }
 
-.fact-table {
+table.measures {
     border-style: solid;
     border-width: 1px;
-    background-color: rgb(255,255,225);
+    border-collapse: collapse;
+    background-color: rgb(255,255,150);
 }
 
-.fact-table-header{
-    border-bottom-style: solid;
+table.measures thead tr th {
+    background-color: transparent;
+    border-style: none solid solid none;
     border-width: 1px;
+    text-align: center;
+    font-weight: bold;
+}
+
+table.measures tbody tr td {
+    background-color: transparent;
+    border-style: none solid none none;
+    border-width: 1px;
+    padding: 0px 2px 0px 2px
+}
+
+table.measures tbody tr th {
+    background-color: transparent;
+    border-style: none solid none none;
+    border-width: 1px;
+    padding: 2px 2px 0px 25px;
+    white-space: nowrap;
+    height: 20px;
+}
+
+table.dimension , table.dimension-usage {
+    border-style: solid;
+    border-width: 1px;
+    background-color: transparent;
+    margin: 5px;
+}
+
+table.dimension thead tr th, table.dimension-usage thead tr th  {
+    background-color: transparent;
+    border-style: none solid solid none;
+    border-width: 1px;
+    font-weight: bold;
+    height: 24px;
+    white-space: nowrap;
+}
+
+table.hierarchy {
+    border-style: solid;
+    border-width: 1px;
+    margin: 5px;
+}
+
+table.hierarchy thead tr th {
+    background-color: transparent;
+    border-style: none solid solid none;
+    border-width: 1px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h5.hieararchy, table.hierarchy thead tr th {
+    background-image: url(../images/hierarchy24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.level {
+    background-image: url(../images/level24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
 }

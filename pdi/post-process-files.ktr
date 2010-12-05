@@ -53,7 +53,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>*&#47;connection</from><to>connection-key</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;connections&gt;</from><to>join connections &#47; connection</to><enabled>Y</enabled> </hop>  <hop> <from>Generate Rows</from><to>&lt;connections&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>kjb files</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>ktr files</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>xaction files</to><enabled>Y</enabled> </hop>  <hop> <from>connection-key</from><to>Sort connections</to><enabled>Y</enabled> </hop>  <hop> <from>kjb files</from><to>*&#47;connection</to><enabled>Y</enabled> </hop>  <hop> <from>ktr files</from><to>*&#47;connection</to><enabled>Y</enabled> </hop>  <hop> <from>files input specification</from><to>Switch &#47; Case on extension</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>join connection &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Sort connections</from><to>Stream lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Stream lookup</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>connection_id</from><to>&lt;connection&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Sort connections</from><to>Unique rows (HashSet)</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows (HashSet)</from><to>connection_id</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;connection&gt;</from><to>join connections &#47; connection</to><enabled>Y</enabled> </hop>  <hop> <from>connection_id</from><to>Stream lookup</to><enabled>Y</enabled> </hop>  <hop> <from>join connections &#47; connection</from><to>join connection &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>join connection &#47; file</from><to>connections.xml</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>*&#47;connection</from><to>connection-key</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;connections&gt;</from><to>join connections &#47; connection</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>kjb files</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>ktr files</to><enabled>Y</enabled> </hop>  <hop> <from>Switch &#47; Case on extension</from><to>xaction files</to><enabled>Y</enabled> </hop>  <hop> <from>connection-key</from><to>Sort connections</to><enabled>Y</enabled> </hop>  <hop> <from>kjb files</from><to>*&#47;connection</to><enabled>Y</enabled> </hop>  <hop> <from>ktr files</from><to>*&#47;connection</to><enabled>Y</enabled> </hop>  <hop> <from>files input specification</from><to>Switch &#47; Case on extension</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;file&gt;</from><to>join connection &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>Sort connections</from><to>Stream lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Stream lookup</from><to>&lt;file&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>connection_id</from><to>&lt;connection&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>Sort connections</from><to>Unique rows (HashSet)</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows (HashSet)</from><to>connection_id</to><enabled>Y</enabled> </hop>  <hop> <from>&lt;connection&gt;</from><to>join connections &#47; connection</to><enabled>Y</enabled> </hop>  <hop> <from>connection_id</from><to>Stream lookup</to><enabled>Y</enabled> </hop>  <hop> <from>join connections &#47; connection</from><to>join connection &#47; file</to><enabled>Y</enabled> </hop>  <hop> <from>join connection &#47; file</from><to>connections.xml</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>connections_file_name</to><enabled>Y</enabled> </hop>  <hop> <from>connections_file_name</from><to>&lt;connections&gt;</to><enabled>Y</enabled> </hop>  <hop> <from>connections.xml</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>files Mapping output specification</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>*&#47;connection</name>
     <type>getXMLData</type>
@@ -246,7 +246,7 @@
     <prunePath/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
+      <xloc>258</xloc>
       <yloc>252</yloc>
       <draw>Y</draw>
       </GUI>
@@ -454,8 +454,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>140</xloc>
-      <yloc>626</yloc>
+      <xloc>370</xloc>
+      <yloc>625</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -480,8 +480,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>32</xloc>
-      <yloc>628</yloc>
+      <xloc>485</xloc>
+      <yloc>629</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -653,27 +653,6 @@
     </step>
 
   <step>
-    <name>Generate Rows</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-    </fields>
-    <limit>1</limit>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>30</xloc>
-      <yloc>537</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Sort connections</name>
     <type>SortRows</type>
     <description/>
@@ -700,7 +679,42 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>258</xloc>
-      <yloc>414</yloc>
+      <yloc>413</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>connection_id</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>connection_key</name>
+        <field>connection_key</field>
+      </key>
+      <value>
+        <name>connection_id</name>
+        <rename>connection_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>258</xloc>
+      <yloc>516</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1206,6 +1220,80 @@
     </step>
 
   <step>
+    <name>Unique rows (HashSet)</name>
+    <type>UniqueRowsByHashSet</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <store_values>N</store_values>
+    <fields>      <field>        <name>connection_key</name>
+        </field>      </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>370</xloc>
+      <yloc>413</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>connection-key</name>
+    <type>Formula</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <formula><field_name>connection_key</field_name>
+<formula_string>&quot;name=&quot; &amp; [connection_name] &amp; &quot;;server=&quot; &amp; [connection_server] &amp; &quot;;type=&quot; &amp; [connection_type] &amp; &quot;;access=&quot; &amp; [connection_access] &amp; &quot;;database=&quot; &amp; [connection_database] &amp; &quot;;port=&quot; &amp; [connection_port] &amp; &quot;;username=&quot; &amp; [connection_username] &amp; &quot;;password=&quot; &amp; [connection_password] &amp; &quot;;servername=&quot; &amp; [connection_servername] &amp; &quot;;data_tablespace=&quot; &amp; [connection_data_tablespace] &amp; &quot;;index_tablespace=&quot; &amp; [connection_index_tablespace]
+</formula_string>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<replace_field/>
+</formula>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>258</xloc>
+      <yloc>333</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>connection_id</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>connection_id</valuename>
+      <use_database>N</use_database>
+      <connection/>
+      <schema/>
+      <seqname>SEQ_</seqname>
+      <use_counter>Y</use_counter>
+      <counter_name/>
+      <start_at>1</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>370</xloc>
+      <yloc>516</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>connections.xml</name>
     <type>TextFileOutput</type>
     <description/>
@@ -1224,13 +1312,13 @@
     <compression>None</compression>
     <encoding>UTF-8</encoding>
     <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
+    <fileNameInField>Y</fileNameInField>
+    <fileNameField>input_file</fileNameField>
     <file>
       <name>${OUTPUT_DIR}&#47;connections</name>
       <is_command>N</is_command>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>xml</extention>
+      <extention/>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
@@ -1261,32 +1349,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>258</xloc>
       <yloc>924</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>connection-key</name>
-    <type>Formula</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-       <formula><field_name>connection_key</field_name>
-<formula_string>&quot;name=&quot; &amp; [connection_name] &amp; &quot;;server=&quot; &amp; [connection_server] &amp; &quot;;type=&quot; &amp; [connection_type] &amp; &quot;;access=&quot; &amp; [connection_access] &amp; &quot;;database=&quot; &amp; [connection_database] &amp; &quot;;port=&quot; &amp; [connection_port] &amp; &quot;;username=&quot; &amp; [connection_username] &amp; &quot;;password=&quot; &amp; [connection_password] &amp; &quot;;servername=&quot; &amp; [connection_servername] &amp; &quot;;data_tablespace=&quot; &amp; [connection_data_tablespace] &amp; &quot;;index_tablespace=&quot; &amp; [connection_index_tablespace]
-</formula_string>
-<value_type>String</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<replace_field/>
-</formula>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
-      <yloc>333</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1470,8 +1532,8 @@
     <omitXMLHeader>N</omitXMLHeader>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>142</xloc>
-      <yloc>722</yloc>
+      <xloc>372</xloc>
+      <yloc>721</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1488,7 +1550,7 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>253</xloc>
+      <xloc>258</xloc>
       <yloc>181</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1531,36 +1593,8 @@
     </step>
 
   <step>
-    <name>connection_id</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>N</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <valuename>connection_id</valuename>
-      <use_database>N</use_database>
-      <connection/>
-      <schema/>
-      <seqname>SEQ_</seqname>
-      <use_counter>Y</use_counter>
-      <counter_name/>
-      <start_at>1</start_at>
-      <increment_by>1</increment_by>
-      <max_value>999999999</max_value>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>140</xloc>
-      <yloc>517</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Stream lookup</name>
-    <type>StreamLookup</type>
+    <name>input_dir &#47; output_dir</name>
+    <type>MappingInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1568,34 +1602,38 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>connection_id</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>connection_key</name>
-        <field>connection_key</field>
-      </key>
-      <value>
-        <name>connection_id</name>
-        <rename>connection_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <fields>
+      <field>
+        <name>input_dir</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>output_dir</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>file_separator</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+        <select_unspecified>N</select_unspecified>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>258</xloc>
-      <yloc>517</yloc>
+      <xloc>765</xloc>
+      <yloc>7</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Unique rows (HashSet)</name>
-    <type>UniqueRowsByHashSet</type>
+    <name>connections_file_name</name>
+    <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1603,12 +1641,143 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <store_values>N</store_values>
-    <fields>      <field>        <name>connection_key</name>
-        </field>      </fields>     <cluster_schema/>
+       <calculation><field_name>connections.xml</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>connections.xml</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>input_file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>connections.xml</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>connections.html</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>connections.html</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>output_file</field_name>
+<calc_type>ADD3</calc_type>
+<field_a>output_dir</field_a>
+<field_b>file_separator</field_b>
+<field_c>connections.html</field_c>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>index-full-file-name</field_name>
+<calc_type>COPY_FIELD</calc_type>
+<field_a>input_file</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>xslt_name</field_name>
+<calc_type>CONSTANT</calc_type>
+<field_a>connections.xslt</field_a>
+<field_b/>
+<field_c/>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>140</xloc>
-      <yloc>414</yloc>
+      <xloc>487</xloc>
+      <yloc>520</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>input_file</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>output_file</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>xslt_name</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>255</xloc>
+      <yloc>1015</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>files Mapping output specification</name>
+    <type>MappingOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>458</xloc>
+      <yloc>1043</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
