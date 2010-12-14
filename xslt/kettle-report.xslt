@@ -858,7 +858,20 @@
                           step-label-hidden
                       </xsl:if>
                   </xsl:attribute>
-                  <xsl:attribute name="href">#<xsl:value-of select="$name"/>-text</xsl:attribute>
+                  <xsl:attribute name="href">
+                      <xsl:choose>
+                          <xsl:when 
+                              test="
+                                  $type = 'Mapping'
+                              "
+                          >
+                              <xsl:call-template name="get-doc-uri-for-filename">
+                                  <xsl:with-param name="step-or-job-entry" select="."/>
+                              </xsl:call-template>
+                          </xsl:when>
+                          <xsl:otherwise>#<xsl:value-of select="$name"/>-text</xsl:otherwise>
+                      </xsl:choose>
+                  </xsl:attribute>
                   <xsl:attribute name="style">
                       top:<xsl:value-of select="$yloc + 32"/>px;
                       left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;                    
