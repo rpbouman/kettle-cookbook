@@ -21,7 +21,7 @@ h2.dimension, h4.dimension, table.dimension thead tr th{
     padding-left: 25px;
 }
 
-h3.dimension-usage, table.dimension-usage thead tr th {
+h4.dimension-usage, table.dimension-usage thead tr th {
     background-image: url(../images/dimensionUsage24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
@@ -37,7 +37,6 @@ table.measures {
     border-style: solid;
     border-width: 1px;
     border-collapse: collapse;
-    background-color: rgb(255,255,150);
 }
 
 table.measures thead tr th {
@@ -46,11 +45,12 @@ table.measures thead tr th {
     border-width: 1px;
     text-align: center;
     font-weight: bold;
+    background-color: rgb(255,255,150);
 }
 
 table.measures tbody tr td {
     background-color: transparent;
-    border-style: none solid none none;
+    border-style: none dotted none none;
     border-width: 1px;
     padding: 0px 2px 0px 2px
 }
@@ -64,6 +64,19 @@ table.measures tbody tr th {
     height: 20px;
 }
 
+td.bottom  table{
+    float: left;
+}
+
+td.top table  {
+    float: right;
+    bottom:0px;
+}
+
+td.left table{
+    margin-left: auto;
+}
+
 table.dimension , table.dimension-usage {
     border-style: solid;
     border-width: 1px;
@@ -73,25 +86,30 @@ table.dimension , table.dimension-usage {
 
 table.dimension thead tr th, table.dimension-usage thead tr th  {
     background-color: transparent;
-    border-style: none solid solid none;
+    border-style: none none solid none;
+    border-color: black;
     border-width: 1px;
     font-weight: bold;
     height: 24px;
     white-space: nowrap;
+    background-color: rgb(0,230,255);
+    color: white;
 }
 
 table.hierarchy {
-    border-style: solid;
+    border-style: dotted;
+    border-color: black;
     border-width: 1px;
     margin: 5px;
 }
 
 table.hierarchy thead tr th {
     background-color: transparent;
-    border-style: none solid solid none;
+    border-style: none none dotted none;
     border-width: 1px;
-    text-align: center;
+    text-align: left;
     font-weight: bold;
+    color: black;
 }
 
 h5.hieararchy, table.hierarchy thead tr th {
@@ -104,4 +122,13 @@ h5.hieararchy, table.hierarchy thead tr th {
     background-image: url(../images/level24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
+    white-space: nowrap;
+}
+
+table.diagram  tbody tr td.dimensions, td.hierarchy{
+    vertical-align: top;
+}
+
+td.top {
+    vertical-align: bottom !important;
 }

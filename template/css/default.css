@@ -68,13 +68,13 @@ p, ul, ol, div, table {
 }
 
 a:link , a:visited  {
-    text-decoration: none;
-    color: black;
+    text-decoration: underline;
+    color: blue;
 }
 
 a:hover {
     text-decoration: underline;
-    color: blue;
+    color: red;
 }
 
 li {
