@@ -110,6 +110,15 @@
         <xsl:call-template name="stylesheet">
             <xsl:with-param name="name" select="'shCoreDefault'"/>
         </xsl:call-template>
+                
+    </head>
+    <body class="kettle-file">
+        <xsl:copy-of select="$quick-links"/>
+                
+        <xsl:for-each select="$document">
+            <xsl:apply-templates/>
+        </xsl:for-each>
+        
        <xsl:call-template name="script">
             <xsl:with-param name="name" select="'wz_jsgraphics'"/>
         </xsl:call-template>
@@ -138,15 +147,7 @@
         <xsl:call-template name="script">
             <xsl:with-param name="name" select="'shBrushXml'"/>
         </xsl:call-template>
-                
-    </head>
-    <body class="kettle-file">
-        <xsl:copy-of select="$quick-links"/>
-                
-        <xsl:for-each select="$document">
-            <xsl:apply-templates/>
-        </xsl:for-each>
-        
+
         <script type="text/javascript">
             SyntaxHighlighter.all();drawHops();
         </script>

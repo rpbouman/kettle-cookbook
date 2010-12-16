@@ -27,10 +27,18 @@ h4.dimension-usage, table.dimension-usage thead tr th {
     padding-left: 25px;
 }
 
-h3.measures, table.measures tbody tr th {
+h3.measures, table.measures tbody tr th.Measure, h4.Measure {
     background-image: url(../images/measure24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
+    height: 25px;
+}
+
+table.measures tbody tr th.CalculatedMember, h4.CalculatedMember {
+    background-image: url(../images/calculatedMember24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    height: 25px;
 }
 
 table.measures {
@@ -112,10 +120,11 @@ table.hierarchy thead tr th {
     color: black;
 }
 
-h5.hieararchy, table.hierarchy thead tr th {
+h6.hierarchy, h3.hierarchy, table.hierarchy thead tr th {
     background-image: url(../images/hierarchy24.gif);
     background-repeat: no-repeat;
     padding-left: 25px;
+    height: 25px;
 }
 
 .level {
