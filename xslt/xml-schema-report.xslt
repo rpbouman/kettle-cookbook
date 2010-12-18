@@ -47,10 +47,12 @@
 </xsl:template>
 
 <xsl:template match="Schema">
+    <xsl:variable name="name" select="@name"/>
 <html>
     <head>
     
         <xsl:copy-of select="$meta"/>
+        <title><xsl:value-of select="$name"/> Mondrian Schema Documentation</title>
         <xsl:call-template name="favicon">
             <xsl:with-param name="name" select="'schema24'"/>
             <xsl:with-param name="extension" select="'gif'"/>
@@ -71,15 +73,16 @@
         
     </head>
     <body>
-        <h1 class="schema"><xsl:value-of select="@name"/></h1>
+        <h1 class="schema"><xsl:value-of select="$name"/></h1>
         <p>Location: <code><xsl:value-of select="$param_filename"/></code>.</p>
+        <xsl:call-template name="full-xml-source">
+            <xsl:with-param name="caption">XML Source</xsl:with-param>
+            <xsl:with-param name="node" select="$document/*"/>
+        </xsl:call-template>
+        <xsl:call-template name="schema-overview-diagram"/>
         <xsl:apply-templates select="Cube"/>
         <xsl:apply-templates select="Dimension"/>
         
-        <xsl:call-template name="full-xml-source">
-            <xsl:with-param name="caption"><h2>XML Source</h2></xsl:with-param>
-            <xsl:with-param name="node" select="$document/*"/>
-        </xsl:call-template>
         
         <xsl:call-template name="script">
             <xsl:with-param name="name" select="'toc'"/>
@@ -103,6 +106,122 @@
         
     </body>
 </html>    
+</xsl:template>
+
+<xsl:template name="schema-overview-diagram">
+    <xsl:param name="schema" select="."/>
+    <xsl:variable name="dimensions" select="$schema/Dimension"/>
+    <xsl:variable name="cubes" select="$schema/Cube"/>
+    <xsl:variable name="vcubes" select="$schema/VirtualCube"/>
+    <h2>Schema Overview</h2>
+    <table class="schema" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="schema">
+                    <xsl:value-of select="@name"/>
+                </th>
+                <th class="caption">
+                    <xsl:attribute name="colspan">
+                        <xsl:value-of select="count($cubes)"/>
+                    </xsl:attribute>
+                    Cubes:
+                </th>
+                <xsl:if test="$vcubes">
+                    <th class="caption">
+                        <xsl:attribute name="colspan">
+                            <xsl:value-of select="count($vcubes)"/>
+                        </xsl:attribute>
+                        Virtual Cubes:
+                    </th>
+                </xsl:if>
+            </tr>
+        </thead>
+        <tbody class="cubes">
+            <tr>
+                <th class="caption">Shared Dimensions:</th>
+                <xsl:for-each select="$cubes">
+                    <xsl:sort select="@name"/>
+                    <xsl:variable name="cube-name" select="@name"/>
+                    <th class="cube">
+                        <a>
+                            <xsl:attribute name="href">#cube-<xsl:value-of select="$cube-name"/></xsl:attribute>
+                            <xsl:value-of select="$cube-name"/>
+                        </a>
+                    </th>
+                </xsl:for-each>
+            </tr>
+            <xsl:for-each select="$vcubes">
+                <xsl:sort select="@name"/>
+                <xsl:variable name="vcube" select="."/>
+                <xsl:variable name="vcube-name" select="@name"/>
+                <tr>
+                    <td>
+                    </td>
+                    <xsl:for-each select="$cubes">
+                        <xsl:sort select="@name"/>
+                        <xsl:variable name="cube" select="."/>
+                        <xsl:variable name="cube-name" select="@name"/>
+                        <td>
+                            <xsl:if test="$vcube[*/@cubeName = $cube-name]">
+                                <xsl:attribute name="class">
+                                    cube-usage
+                                </xsl:attribute>
+                            </xsl:if>
+                        </td>
+                    </xsl:for-each>
+                    <xsl:if test="position() != 1">
+                        <td>
+                            <xsl:attribute name="colspan">
+                                <xsl:value-of select="position() - 1"/>
+                            </xsl:attribute>
+                        </td>
+                    </xsl:if>
+                    <th class="vcube">
+                        <a>
+                            <xsl:attribute name="href">#vcube-<xsl:value-of select="$vcube-name"/></xsl:attribute>
+                            <xsl:value-of select="$vcube-name"/>
+                        </a>
+                    </th>
+                </tr>
+            </xsl:for-each>            
+        </tbody>
+        <tbody class="dimensions">
+            <xsl:for-each select="$dimensions">
+                <xsl:sort select="@name"/>
+                <xsl:variable name="dimension-name" select="@name"/>
+                <xsl:variable name="dimension" select="."/>
+                <tr>
+                    <th>
+                        <a>
+                            <xsl:attribute name="href">#shared-dimension-<xsl:value-of select="$dimension-name"/></xsl:attribute>
+                            <xsl:call-template name="caption"/>
+                        </a>
+                    </th>
+                    <xsl:for-each select="$cubes">
+                        <xsl:variable name="cube" select="."/>
+                        <td>
+                            <xsl:for-each select="DimensionUsage[@source = $dimension-name]">
+                                <xsl:attribute name="class">
+                                    dimension-usage
+                                </xsl:attribute>
+                                <xsl:if test="@name != @source"><xsl:value-of select="$dimension-name"/></xsl:if>
+                            </xsl:for-each>
+                        </td>
+                    </xsl:for-each>                    
+                    <xsl:for-each select="$vcubes">
+                        <xsl:variable name="vcube" select="."/>
+                        <td>
+                            <xsl:if test="VirtualCubeDimension[@name = $dimension-name and count(@cubeName) = 0]">
+                                <xsl:attribute name="class">
+                                    dimension-usage
+                                </xsl:attribute>
+                            </xsl:if>
+                        </td>
+                    </xsl:for-each>
+                </tr>
+            </xsl:for-each>
+        </tbody>
+    </table>
 </xsl:template>
 
 <xsl:template name="full-xml-source">
@@ -129,12 +248,12 @@
     <a>
         <xsl:attribute name="name">cube-<xsl:value-of select="$name"/></xsl:attribute>
     </a>
-    <h2 class="cube"><xsl:value-of select="$caption"/></h2>
+    <h2 class="cube">The <xsl:value-of select="$caption"/> cube</h2>
     <p>
         This cube is based on the fact table <code><xsl:value-of select="Table/@name"/></code>.
     </p>
     <xsl:call-template name="cube-diagram"/>
-    <h3 class="dimension">Dimensions</h3>
+    <h3 class="dimension">Dimensions in the <xsl:value-of select="$caption"/> cube</h3>
     <xsl:choose>
         <xsl:when test="$dimensions">
             <xsl:for-each select="$dimensions">
@@ -147,7 +266,7 @@
             This probably means that this cube still requires some design efforts.
         </xsl:otherwise>
     </xsl:choose>
-    <h3 class="measures">Measures and Calculated Members</h3>    
+    <h3 class="measures">Measures and Calculated Members in the <xsl:value-of select="$caption"/> cube</h3>    
     <xsl:choose>
         <xsl:when test="$measures">
             <p>
@@ -206,7 +325,7 @@
         <xsl:call-template name="caption"/>
     </xsl:variable>
     <xsl:choose>
-        <xsl:when test="local-name(..)='Schema'">            
+        <xsl:when test="local-name(..)='Schema'">
             <h2 class="dimension shared-dimension">
                 <a>
                     <xsl:attribute name="name">shared-dimension-<xsl:value-of select="$name"/></xsl:attribute>
@@ -247,7 +366,7 @@
             </xsl:choose>
             <h3>Hierarchies</h3>
             <xsl:for-each select="Hierarchy">
-                <xsl:variable name="caption"><xsl:call-template name="caption"/></xsl:variable>
+                <xsl:variable name="caption">The <xsl:call-template name="caption"/> hierarchy</xsl:variable>
                 <xsl:variable name="hierarchy-caption">
                     <xsl:choose>
                         <xsl:when test="$caption!=''"><xsl:value-of select="$caption"/></xsl:when>
@@ -270,7 +389,7 @@
                         <xsl:otherwise><xsl:value-of select="$dimension-caption"/></xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <h6 class="hierarchy"><xsl:value-of select="$hierarchy-caption"/></h6>
+                <h6 class="hierarchy">The <xsl:value-of select="$hierarchy-caption"/> hierarchy</h6>
                 <xsl:apply-templates select="."/>
             </xsl:for-each>
         </xsl:when>
@@ -281,11 +400,21 @@
     <xsl:variable name="levels" select="Level"/>
     <xsl:choose>
         <xsl:when test="$levels">
+            <p>This hierarchy defines the following levels:</p>
+            <ul>
+                <xsl:apply-templates/>
+            </ul>
         </xsl:when>
         <xsl:otherwise>
             <p>This hierarchy does not define any levels. This probably means the hierarchy is under construction.</p>
         </xsl:otherwise>
     </xsl:choose>
+</xsl:template>
+
+<xsl:template match="Hierarchy/Level">
+    <li>
+        <b><xsl:call-template name="caption"/></b>
+    </li>
 </xsl:template>
 
 <xsl:template name="dimension">
@@ -335,21 +464,23 @@
                         <table class="hierarchy">
                             <thead>
                                 <tr>
-                                    <th colspan="100%">
+                                    <th>
                                         <xsl:value-of select="$hierarchy-caption"/>
-                                        <xsl:choose> 
-                                            <xsl:when test="Table">
-                                                (<xsl:for-each select="Table">
-                                                    <xsl:call-template name="tablename"/>
-                                                </xsl:for-each>)
-                                            </xsl:when>
-                                            <xsl:when test="Join">
-                                                (<xsl:for-each select=".//Table">
-                                                    <xsl:if test="position() != 1">, </xsl:if>
-                                                    <xsl:call-template name="tablename"/>
-                                                </xsl:for-each>)
-                                            </xsl:when>
-                                        </xsl:choose>
+                                        <!--
+                                            <xsl:choose> 
+                                                <xsl:when test="Table">
+                                                    (<xsl:for-each select="Table">
+                                                        <xsl:call-template name="tablename"/>
+                                                    </xsl:for-each>)
+                                                </xsl:when>
+                                                <xsl:when test="Join">
+                                                    (<xsl:for-each select=".//Table">
+                                                        <xsl:if test="position() != 1">, </xsl:if>
+                                                        <xsl:call-template name="tablename"/>
+                                                    </xsl:for-each>)
+                                                </xsl:when>
+                                            </xsl:choose>
+                                        -->
                                     </th>
                                 </tr>
                                 <xsl:if test="@hasAll='true'">
@@ -369,7 +500,9 @@
                                     <tr>
                                         <td class="level">
                                             <xsl:value-of select="@name"/>
-                                            (<code><xsl:if test="@table"><xsl:value-of select="@table"/>.</xsl:if><xsl:value-of select="@column"/></code>)
+                                            <!--
+                                                (<code><xsl:if test="@table"><xsl:value-of select="@table"/>.</xsl:if><xsl:value-of select="@column"/></code>)
+                                            -->
                                         </td>                                                            
                                     </tr>
                                 </xsl:for-each>
@@ -404,7 +537,7 @@
     <xsl:variable name="left-dimensions" select="$dimensions[position() &gt; 3 * $num-dimensions div 4]"/>
 
     <h3>Multidimensional Model</h3>
-    <table class="diagram" cellpadding="0" cellspacing="0" border="1">
+    <table class="diagram" cellpadding="0" cellspacing="0" >
         <tbody>
             <tr>
                 <td>
@@ -433,9 +566,6 @@
                                             <xsl:call-template name="tablename"/>
                                         </xsl:for-each>
                                     </th>
-                                </tr>
-                                <tr>
-                                    <th>Member</th>
                                 </tr>
                             </thead>
                             <tbody>

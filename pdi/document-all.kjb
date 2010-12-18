@@ -49,8 +49,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>68</xloc>
-      <yloc>216</yloc>
+      <xloc>54</xloc>
+      <yloc>134</yloc>
       </entry>
     <entry>
       <name>Create ${OUTPUT_DIR} and Copy Template</name>
@@ -95,8 +95,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>218</xloc>
-      <yloc>216</yloc>
+      <xloc>293</xloc>
+      <yloc>229</yloc>
       </entry>
     <entry>
       <name>process-files.ktr</name>
@@ -260,17 +260,37 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <xloc>348</xloc>
       <yloc>586</yloc>
       </entry>
+    <entry>
+      <name>substitute-variables-in-parameters.ktr</name>
+      <description>Transformation</description>
+      <type>TRANS</type>
+      <filename>${Internal.Job.Filename.Directory}&#47;substitute-variables-in-parameters.ktr</filename>
+      <transname/>
+      <directory/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>244</xloc>
+      <yloc>134</yloc>
+      </entry>
   </entries>
   <hops>
-    <hop>
-      <from>START</from>
-      <to>Create ${OUTPUT_DIR} and Copy Template</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>process-files.ktr</from>
       <to>create-output-subdir</to>
@@ -361,6 +381,24 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>START</from>
+      <to>substitute-variables-in-parameters.ktr</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>substitute-variables-in-parameters.ktr</from>
+      <to>Create ${OUTPUT_DIR} and Copy Template</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
     <notepad>
@@ -370,10 +408,10 @@ Static resources are the stylesheets, javascripts and images required to render 
 All these are stored in the template directory (this sits immediately beneath the root dir of the kettle-cookbook dir), which is always copied in its entirety to the output dir.
 
 The template dir also contains an (empty) html dir: this is the actual destination dir for the generated documentation.</note>
-      <xloc>443</xloc>
-      <yloc>196</yloc>
-      <width>827</width>
-      <heigth>85</heigth>
+      <xloc>442</xloc>
+      <yloc>172</yloc>
+      <width>901</width>
+      <heigth>91</heigth>
     </notepad>
     <notepad>
       <note>Phase 2: process files and create output subdirectories:
@@ -397,10 +435,10 @@ This phase also creates the required directory structure in the html director be
 To do this, the process-files transformation copies the list of new directories to the result.
 The create-output-subdir runs for each result, and actually creates the subdirectory.
 </note>
-      <xloc>444</xloc>
-      <yloc>302</yloc>
-      <width>793</width>
-      <heigth>259</heigth>
+      <xloc>443</xloc>
+      <yloc>279</yloc>
+      <width>865</width>
+      <heigth>282</heigth>
     </notepad>
     <notepad>
       <note>Phase 3: actually generate documentation.
@@ -414,10 +452,10 @@ For non-windows systems, the transform script needs to be given the execute attr
 Finally, the transform script is actually executed, and if that finishes without errors, it is cleaned up by deleting it.
 
 This concludes the main job of the kettle-cookbook documentation generation process.</note>
-      <xloc>444</xloc>
-      <yloc>581</yloc>
-      <width>682</width>
-      <heigth>147</heigth>
+      <xloc>443</xloc>
+      <yloc>578</yloc>
+      <width>743</width>
+      <heigth>159</heigth>
     </notepad>
     <notepad>
       <note>This is document-all, the main job for kettle-cookbook documentation generation
@@ -426,10 +464,10 @@ This job takes 2 parameters:
 
 INPUT_DIR: the directory that contains the files (.ktr, .kjb, .xaction, .xcdf, .prpt) that you want to generate documentation for.
 OUTPUT_DIR: the directory that is to contain the generated documentation.</note>
-      <xloc>53</xloc>
-      <yloc>24</yloc>
-      <width>617</width>
-      <heigth>85</heigth>
+      <xloc>5</xloc>
+      <yloc>11</yloc>
+      <width>672</width>
+      <heigth>91</heigth>
     </notepad>
   </notepads>
 </job>

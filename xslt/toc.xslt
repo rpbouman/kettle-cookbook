@@ -256,7 +256,15 @@
 <xsl:template name="folder-files">
     <xsl:param name="folder"/>
     <xsl:call-template name="file-list">
-        <xsl:with-param name="files" select="$files[@parent_folder = $folder]"/>
+        <xsl:with-param 
+            name="files" 
+            select="
+                $files[
+                    @parent_folder = $folder 
+                and @short_name != 'index.xml'
+                ]
+            "
+        />
     </xsl:call-template>
 </xsl:template>
 

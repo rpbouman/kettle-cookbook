@@ -34,6 +34,56 @@ h3.measures, table.measures tbody tr th.Measure, h4.Measure {
     height: 25px;
 }
 
+table.schema {
+    border-collapse: collapse;
+}
+
+table.schema th {
+    background-color: transparent;
+    height: 25px;
+    text-align: left;
+    padding: 2px;
+}
+
+table.schema th.caption {
+    font-weight: bold;
+}
+
+table.schema thead tr th.schema {
+    background-image: url(../images/schema24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+table.schema tbody.dimensions tr th {
+    background-image: url(../images/dimension24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+table.schema tbody.dimensions tr td.dimension-usage {
+    background-image: url(../images/dimensionUsage24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+table.schema tbody.cubes tr th.cube {
+    background-image: url(../images/cube24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+table.schema tbody.cubes tr td.cube-usage {
+    background-image: url(../images/cubeUsage24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+table.schema tbody.cubes tr th.vcube {
+    background-image: url(../images/vcube24.gif);
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
 table.measures tbody tr th.CalculatedMember, h4.CalculatedMember {
     background-image: url(../images/calculatedMember24.gif);
     background-repeat: no-repeat;
@@ -44,6 +94,7 @@ table.measures tbody tr th.CalculatedMember, h4.CalculatedMember {
 table.measures {
     border-style: solid;
     border-width: 1px;
+    border-color: black;
     border-collapse: collapse;
 }
 
@@ -74,11 +125,13 @@ table.measures tbody tr th {
 
 td.bottom  table{
     float: left;
+    white-space: nowrap;
 }
 
 td.top table  {
     float: right;
     bottom:0px;
+    white-space: nowrap;
 }
 
 td.left table{
@@ -88,8 +141,10 @@ td.left table{
 table.dimension , table.dimension-usage {
     border-style: solid;
     border-width: 1px;
+    border-color: black;
     background-color: transparent;
     margin: 5px;
+    width: 0%;
 }
 
 table.dimension thead tr th, table.dimension-usage thead tr th  {
@@ -104,11 +159,16 @@ table.dimension thead tr th, table.dimension-usage thead tr th  {
     color: white;
 }
 
+td.hierarchy {
+    width: 0%;
+}
+
 table.hierarchy {
     border-style: dotted;
     border-color: black;
     border-width: 1px;
     margin: 5px;
+    width: 0%;
 }
 
 table.hierarchy thead tr th {
@@ -132,6 +192,10 @@ h6.hierarchy, h3.hierarchy, table.hierarchy thead tr th {
     background-repeat: no-repeat;
     padding-left: 25px;
     white-space: nowrap;
+}
+
+li.level {
+/* TODO */
 }
 
 table.diagram  tbody tr td.dimensions, td.hierarchy{
