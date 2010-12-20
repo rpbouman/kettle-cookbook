@@ -35,39 +35,39 @@
 <xsl:import href="file.xslt"/>
 
 <xsl:variable name="item-type">
-	<xsl:choose>
-		<xsl:when test="$file-type = 'kjb'">job</xsl:when>
-		<xsl:when test="$file-type = 'ktr'">transformation</xsl:when>
-		<xsl:otherwise>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+        <xsl:when test="$file-type = 'kjb'">job</xsl:when>
+        <xsl:when test="$file-type = 'ktr'">transformation</xsl:when>
+        <xsl:otherwise>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:variable>
 
 <xsl:variable name="steps-or-job-entries">
-	<xsl:choose>
-		<xsl:when test="$file-type = 'kjb'">Job Entries</xsl:when>
-		<xsl:when test="$file-type = 'ktr'">Steps</xsl:when>
-		<xsl:otherwise>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+        <xsl:when test="$file-type = 'kjb'">Job Entries</xsl:when>
+        <xsl:when test="$file-type = 'ktr'">Steps</xsl:when>
+        <xsl:otherwise>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:variable>
 
 <xsl:variable name="step-or-job-entry">
-	<xsl:choose>
-		<xsl:when test="$file-type = 'ktr'">job entry</xsl:when>
-		<xsl:when test="$file-type = 'ktr'">step</xsl:when>
-		<xsl:otherwise>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+        <xsl:when test="$file-type = 'ktr'">job entry</xsl:when>
+        <xsl:when test="$file-type = 'ktr'">step</xsl:when>
+        <xsl:otherwise>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:variable>
 
 <xsl:variable name="quick-links">
     <div class="quicklinks">
         <a href="#diagram">Diagram</a>
     |   <a>
-			<xsl:attribute name="href">#<xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
-			<xsl:value-of select="$steps-or-job-entries"/>
-		</a>
+            <xsl:attribute name="href">#<xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+            <xsl:value-of select="$steps-or-job-entries"/>
+        </a>
     |   <a href="#parameters">Parameters</a>
     |   <a href="#variables">Variables</a>
     |   <a href="#connections">Database Connections</a>
@@ -206,32 +206,32 @@
 ========================================================================== -->
 
 <xsl:template name="replace-dir-variables-with-doc-dir">
-	<xsl:param name="text"/>	
-	<xsl:call-template name="replace">
-		<xsl:with-param name="text"><xsl:call-template 
-			name="replace-backslashes-with-slash"
-		>
-			<xsl:with-param name="text" select="$text"/>
-		</xsl:call-template></xsl:with-param>
-		<xsl:with-param name="search">${<xsl:choose>
-			<xsl:when test="$item-type='job'">Internal.Job.Filename.Directory</xsl:when>
-			<xsl:when test="$item-type='transformation'">Internal.Transformation.Filename.Directory</xsl:when>
-		</xsl:choose>}/</xsl:with-param>
-		<xsl:with-param name="replace" select="''"/>
-	</xsl:call-template>
+    <xsl:param name="text"/>    
+    <xsl:call-template name="replace">
+        <xsl:with-param name="text"><xsl:call-template 
+            name="replace-backslashes-with-slash"
+        >
+            <xsl:with-param name="text" select="$text"/>
+        </xsl:call-template></xsl:with-param>
+        <xsl:with-param name="search">${<xsl:choose>
+            <xsl:when test="$item-type='job'">Internal.Job.Filename.Directory</xsl:when>
+            <xsl:when test="$item-type='transformation'">Internal.Transformation.Filename.Directory</xsl:when>
+        </xsl:choose>}/</xsl:with-param>
+        <xsl:with-param name="replace" select="''"/>
+    </xsl:call-template>
 </xsl:template>
 
 <xsl:template name="get-doc-uri-for-filename">
-	<xsl:param name="step-or-job-entry"/>
-	<xsl:variable name="type" select="local-name($step-or-job-entry)"/>
-	<xsl:variable name="filename" select="concat($step-or-job-entry/filename/text(), '.html')"/>
-	<xsl:call-template name="replace-dir-variables-with-doc-dir">
-		<xsl:with-param name="text" select="$filename"/>
-		<xsl:with-param name="var-ref">${<xsl:choose>
-				<xsl:when test="$type='entry'">Internal.Job.Filename.Directory</xsl:when>
-				<xsl:when test="$type='step'">Internal.Transformation.Filename.Directory</xsl:when>
-			</xsl:choose>}</xsl:with-param>
-	</xsl:call-template>	
+    <xsl:param name="step-or-job-entry"/>
+    <xsl:variable name="type" select="local-name($step-or-job-entry)"/>
+    <xsl:variable name="filename" select="concat($step-or-job-entry/filename/text(), '.html')"/>
+    <xsl:call-template name="replace-dir-variables-with-doc-dir">
+        <xsl:with-param name="text" select="$filename"/>
+        <xsl:with-param name="var-ref">${<xsl:choose>
+                <xsl:when test="$type='entry'">Internal.Job.Filename.Directory</xsl:when>
+                <xsl:when test="$type='step'">Internal.Transformation.Filename.Directory</xsl:when>
+            </xsl:choose>}</xsl:with-param>
+    </xsl:call-template>    
 </xsl:template>
 
 
@@ -409,34 +409,34 @@
             </th>
             <td>
             </td>
-			<td>
-				<xsl:for-each select="/*/connection//*[contains(text(),concat('${',$var,'}'))]">
-					<xsl:if test="position()&gt;1">, </xsl:if>
-					<xsl:value-of select="name"/>
-				</xsl:for-each>
-			</td>
-			<td>
-				<xsl:choose>
-					<xsl:when test="$item-type = 'job'">
-						<xsl:for-each select="/*/entries/entry[.//*[contains(text(), concat('${', $var, '}'))]]">
-							<xsl:if test="position()&gt;1">, </xsl:if>
-							<a>
-								<xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
-								<xsl:value-of select="name"/>
-							</a>
-						</xsl:for-each>
-					</xsl:when>
-					<xsl:when test="$item-type = 'transformation'">
-						<xsl:for-each select="/*/step[.//*[contains(text(), concat('${', $var, '}'))]]">
-							<xsl:if test="position()&gt;1">, </xsl:if>
-							<a>
-								<xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
-								<xsl:value-of select="name"/>
-							</a>
-						</xsl:for-each>
-					</xsl:when>
-				</xsl:choose>
-			</td>
+            <td>
+                <xsl:for-each select="/*/connection//*[contains(text(),concat('${',$var,'}'))]">
+                    <xsl:if test="position()&gt;1">, </xsl:if>
+                    <xsl:value-of select="name"/>
+                </xsl:for-each>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="$item-type = 'job'">
+                        <xsl:for-each select="/*/entries/entry[.//*[contains(text(), concat('${', $var, '}'))]]">
+                            <xsl:if test="position()&gt;1">, </xsl:if>
+                            <a>
+                                <xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
+                                <xsl:value-of select="name"/>
+                            </a>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="$item-type = 'transformation'">
+                        <xsl:for-each select="/*/step[.//*[contains(text(), concat('${', $var, '}'))]]">
+                            <xsl:if test="position()&gt;1">, </xsl:if>
+                            <a>
+                                <xsl:attribute name="href">#<xsl:value-of select="name"/></xsl:attribute>
+                                <xsl:value-of select="name"/>
+                            </a>
+                        </xsl:for-each>
+                    </xsl:when>
+                </xsl:choose>
+            </td>
         </tr>
     </xsl:if>
     <xsl:if test="string-length($var)!=0">
@@ -467,8 +467,8 @@
                         <th>Value</th>
                         <th>Connections</th>
                         <th>
-							<xsl:value-of select="$steps-or-job-entries"/>
-						</th>
+                            <xsl:value-of select="$steps-or-job-entries"/>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -486,59 +486,59 @@
 ========================================================================== -->
 
 <xsl:template match="notepad">
-	<div class="note">
-		<xsl:attribute name="style">
-			left: <xsl:value-of select="xloc"/>px;
-			top: <xsl:value-of select="yloc"/>px;
-			width: <xsl:value-of select="width"/>px;
-			height: <xsl:value-of select="height"/>px;
-			font-family: <xsl:value-of select="fontname"/>;
-			font-size: <xsl:value-of select="fontsize"/>;
-			<xsl:if test="fontbold/text()='Y'">font-weight: bold;</xsl:if>
-			<xsl:if test="fontitalic/text()='Y'">font-style: italic;</xsl:if>
-			color: rgb(<xsl:value-of select="fontcolorred"/>
-					,<xsl:value-of select="fontcolorgreen"/>
-					,<xsl:value-of select="fontcolorblue"/>);
-			background-color: rgb(<xsl:value-of select="backgroundcolorred"/>
-					,<xsl:value-of select="backgroundcolorgreen"/>
-					,<xsl:value-of select="backgroundcolorblue"/>);
-			border-color: rgb(<xsl:value-of select="bordercolorred"/>
-					,<xsl:value-of select="bordercolorgreen"/>
-					,<xsl:value-of select="bordercolorblue"/>);
-		</xsl:attribute>
-		<xsl:value-of select="note"/>
-	</div>
+    <div class="note">
+        <xsl:attribute name="style">
+            left: <xsl:value-of select="xloc"/>px;
+            top: <xsl:value-of select="yloc"/>px;
+            width: <xsl:value-of select="width"/>px;
+            height: <xsl:value-of select="height"/>px;
+            font-family: <xsl:value-of select="fontname"/>;
+            font-size: <xsl:value-of select="fontsize"/>;
+            <xsl:if test="fontbold/text()='Y'">font-weight: bold;</xsl:if>
+            <xsl:if test="fontitalic/text()='Y'">font-style: italic;</xsl:if>
+            color: rgb(<xsl:value-of select="fontcolorred"/>
+                    ,<xsl:value-of select="fontcolorgreen"/>
+                    ,<xsl:value-of select="fontcolorblue"/>);
+            background-color: rgb(<xsl:value-of select="backgroundcolorred"/>
+                    ,<xsl:value-of select="backgroundcolorgreen"/>
+                    ,<xsl:value-of select="backgroundcolorblue"/>);
+            border-color: rgb(<xsl:value-of select="bordercolorred"/>
+                    ,<xsl:value-of select="bordercolorgreen"/>
+                    ,<xsl:value-of select="bordercolorblue"/>);
+        </xsl:attribute>
+        <xsl:value-of select="note"/>
+    </div>
 </xsl:template>
 <!-- =========================================================================
     Code
 ========================================================================== -->
 <xsl:template match="sql[text()][../type/text()!='MondrianInput']">
-	<h4>SQL</h4>
-	<pre class="brush: sql;"><xsl:value-of select="text()"/></pre>
+    <h4>SQL</h4>
+    <pre class="brush: sql;"><xsl:value-of select="text()"/></pre>
 </xsl:template>
 
 <xsl:template match="sql[text()][../type/text()='MondrianInput']">
-	<h4>MDX</h4>
-	<pre class="brush: mdx;"><xsl:value-of select="text()"/></pre>
+    <h4>MDX</h4>
+    <pre class="brush: mdx;"><xsl:value-of select="text()"/></pre>
 </xsl:template>
 
 <xsl:template match="jsScripts">
-	<xsl:apply-templates select="jsScript"/>
+    <xsl:apply-templates select="jsScript"/>
 </xsl:template>
 
 <xsl:template match="jsScript">
-	<h5><xsl:value-of select="jsScript_name"/></h5>
-	<pre class="brush: js;"><xsl:value-of select="jsScript_script/text()"/></pre>
+    <h5><xsl:value-of select="jsScript_name"/></h5>
+    <pre class="brush: js;"><xsl:value-of select="jsScript_script/text()"/></pre>
 </xsl:template>
 
 <xsl:template match="definitions[../type='UserDefinedJavaClass']">
-	<h4>Java Class Source Code</h4>
-	<xsl:apply-templates select="definition"/>
+    <h4>Java Class Source Code</h4>
+    <xsl:apply-templates select="definition"/>
 </xsl:template>
 
 <xsl:template match="step[type='UserDefinedJavaClass']/definitions/definition">
-	<h5><xsl:value-of select="class_name"/></h5>
-	<pre class="brush: java;"><xsl:value-of select="class_source/text()"/></pre>
+    <h5><xsl:value-of select="class_name"/></h5>
+    <pre class="brush: java;"><xsl:value-of select="class_source/text()"/></pre>
 </xsl:template>
 
 <!-- =========================================================================
@@ -551,13 +551,13 @@
     <xsl:call-template name="high-level-data-flow-diagram"/>    
     <xsl:call-template name="transformation-diagram"/>    
     <xsl:call-template name="variables"/>
-	<xsl:call-template name="database-connections"/>
+    <xsl:call-template name="database-connections"/>
     <h2>Flat Files</h2>
     <p>
         t.b.d.
     </p>
-	<xsl:call-template name="transformation-steps"/>
-	<xsl:call-template name="transformation-dependencies"/>
+    <xsl:call-template name="transformation-steps"/>
+    <xsl:call-template name="transformation-dependencies"/>
 </xsl:template>
 
 <xsl:template name="fields-overview">
@@ -677,45 +677,45 @@
 </xsl:template>
 
 <xsl:template name="transformation-steps">
-	<h2>
-		<a>
-			<xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
-			<xsl:value-of select="$steps-or-job-entries"/>
-		</a>
-	</h2>
-	<xsl:apply-templates select="step[GUI/draw/text()!='N']"/>
+    <h2>
+        <a>
+            <xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+            <xsl:value-of select="$steps-or-job-entries"/>
+        </a>
+    </h2>
+    <xsl:apply-templates select="step[GUI/draw/text()!='N']"/>
 </xsl:template>
 
 <xsl:template name="transformation-dependencies">
-	<h2><a name="dependencies">Transformation Uses</a></h2>
-	<p>t.b.d</p>
+    <h2><a name="dependencies">Transformation Uses</a></h2>
+    <p>t.b.d</p>
 
-	<h2><a name="reverse-dependencies">Transformation Used By</a></h2>
-	<p>t.b.d</p>
+    <h2><a name="reverse-dependencies">Transformation Used By</a></h2>
+    <p>t.b.d</p>
 </xsl:template>
 
 <xsl:template match="step[GUI/draw/text()!='N']">
-	<xsl:variable name="name" select="name/text()"/>
+    <xsl:variable name="name" select="name/text()"/>
     <br/>
-	<div>
-		<xsl:attribute name="class">
-			step-icon
-			step-icon-<xsl:value-of select="type"/>
-		</xsl:attribute>
-	</div>
-	<h3 class="step-heading">
+    <div>
+        <xsl:attribute name="class">
+            step-icon
+            step-icon-<xsl:value-of select="type"/>
+        </xsl:attribute>
+    </div>
+    <h3 class="step-heading">
         <a>
             <xsl:attribute name="name"><xsl:value-of select="$name"/>-text</xsl:attribute>
             <xsl:attribute name="href">#<xsl:value-of select="$name"/>-icon</xsl:attribute>
             <xsl:value-of select="$name"/>
         </a>
-	</h3>
-	<xsl:call-template name="description">
-		<xsl:with-param name="type" select="$step-or-job-entry"/>
-	</xsl:call-template>
-	<xsl:apply-templates select="sql"/>
-	<xsl:apply-templates select="jsScripts"/>
-	<xsl:apply-templates select="definitions"/>
+    </h3>
+    <xsl:call-template name="description">
+        <xsl:with-param name="type" select="$step-or-job-entry"/>
+    </xsl:call-template>
+    <xsl:apply-templates select="sql"/>
+    <xsl:apply-templates select="jsScripts"/>
+    <xsl:apply-templates select="definitions"/>
     <xsl:apply-templates select="fields"/>
 </xsl:template>
 
@@ -889,7 +889,7 @@
                   <xsl:value-of select="$name"/>
               </a>
           </xsl:for-each>
-  		<xsl:apply-templates select="//notepads"/>
+          <xsl:apply-templates select="//notepads"/>
       </div>
     </div>
     
@@ -941,54 +941,54 @@
     <xsl:apply-templates select="parameters"/>
     <xsl:call-template name="job-diagram"/>
     <xsl:call-template name="variables"/>
-	<xsl:call-template name="database-connections"/>
-	<xsl:call-template name="job-entries"/>
-	<xsl:call-template name="job-dependencies"/>
+    <xsl:call-template name="database-connections"/>
+    <xsl:call-template name="job-entries"/>
+    <xsl:call-template name="job-dependencies"/>
 </xsl:template>
 
 <xsl:template name="job-dependencies">
-	<h2><a name="dependencies">Job Uses</a></h2>
-	<p>t.b.d</p>
+    <h2><a name="dependencies">Job Uses</a></h2>
+    <p>t.b.d</p>
 
-	<h2><a name="reverse-dependencies">Job Used By</a></h2>	
-	<p>t.b.d</p>
+    <h2><a name="reverse-dependencies">Job Used By</a></h2>    
+    <p>t.b.d</p>
 </xsl:template>
 
 <xsl:template name="job-entries">
-	<h2>
-		<a>
-			<xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
-			<xsl:value-of select="$steps-or-job-entries"/>
-		</a>
-	</h2>
-	<xsl:apply-templates select="entries/entry"/>
+    <h2>
+        <a>
+            <xsl:attribute name="name"><xsl:value-of select="$steps-or-job-entries"/></xsl:attribute>
+            <xsl:value-of select="$steps-or-job-entries"/>
+        </a>
+    </h2>
+    <xsl:apply-templates select="entries/entry"/>
 </xsl:template>
 
 <xsl:template match="entry[draw!='N']">
-	<xsl:variable name="name" select="name/text()"/>
-	<xsl:variable name="type" select="type/text()"/>
-	<div>
-		<xsl:attribute name="class">
-			entry-icon
-			entry-icon-<xsl:choose>
-				<xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
-					<xsl:with-param name="text" select="$name"/>							
-				</xsl:call-template></xsl:when>
-				<xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
-			</xsl:choose>
-		</xsl:attribute>
-	</div>
-	<h3 class="entry-heading">
+    <xsl:variable name="name" select="name/text()"/>
+    <xsl:variable name="type" select="type/text()"/>
+    <div>
+        <xsl:attribute name="class">
+            entry-icon
+            entry-icon-<xsl:choose>
+                <xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
+                    <xsl:with-param name="text" select="$name"/>                            
+                </xsl:call-template></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+    </div>
+    <h3 class="entry-heading">
         <a>
             <xsl:attribute name="name"><xsl:value-of select="$name"/>-text</xsl:attribute>
             <xsl:attribute name="href">#<xsl:value-of select="$name"/>-icon</xsl:attribute>
             <xsl:value-of select="$name"/>
         </a>
     </h3>
-	<xsl:call-template name="description">
-		<xsl:with-param name="type" select="'job entry'"/>
-	</xsl:call-template>
-	<xsl:apply-templates select="sql"/>
+    <xsl:call-template name="description">
+        <xsl:with-param name="type" select="'job entry'"/>
+    </xsl:call-template>
+    <xsl:apply-templates select="sql"/>
 </xsl:template>
 
 <xsl:template name="job-diagram">
@@ -1048,11 +1048,11 @@
               <div>
                   <xsl:attribute name="id"><xsl:value-of select="$name"/></xsl:attribute>
                   <xsl:attribute name="class">
-  					entry-icon
+                      entry-icon
                       entry-icon-<xsl:choose>
                           <xsl:when test="$type='SPECIAL'"><xsl:call-template name="upper-case">
-  							<xsl:with-param name="text" select="$name"/>							
-  						</xsl:call-template></xsl:when>
+                              <xsl:with-param name="text" select="$name"/>                            
+                          </xsl:call-template></xsl:when>
                           <xsl:otherwise><xsl:value-of select="$type"/></xsl:otherwise>
                       </xsl:choose>
                       <xsl:if test="$hide">
@@ -1080,12 +1080,12 @@
                   </div>
               </div>
               <a>
-  				<xsl:attribute name="class">
-  					entry-label
+                  <xsl:attribute name="class">
+                      entry-label
                       <xsl:if test="$hide">
                           entry-label-hidden
                       </xsl:if>
-  				</xsl:attribute>
+                  </xsl:attribute>
                   <xsl:attribute name="style">
                       top:<xsl:value-of select="$yloc + 32"/>px;
                       left:<xsl:value-of select="$xloc - ($text-pixels div 3)"/>px;
@@ -1095,7 +1095,7 @@
                           <xsl:when 
                               test="
                                   $type = 'JOB'
-                              or	$type = 'TRANS'
+                              or    $type = 'TRANS'
                               "
                           >
                               <xsl:call-template name="get-doc-uri-for-filename">
@@ -1108,7 +1108,7 @@
                   <xsl:value-of select="$name"/>
               </a>
           </xsl:for-each>
-  		<xsl:apply-templates select="//notepad"/>
+          <xsl:apply-templates select="//notepad"/>
       </div>
     </div>
 </xsl:template>
