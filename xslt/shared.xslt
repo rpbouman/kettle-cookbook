@@ -61,9 +61,7 @@
             <xsl:with-param name="text" select="$output-dir"/>
         </xsl:call-template>
     </xsl:variable>
-    <xsl:variable name="trail">
-        <xsl:if test="$file-separator='\'">/</xsl:if>
-    </xsl:variable>
+    <xsl:variable name="trail">/</xsl:variable>
     <xsl:value-of select="concat('file://', $trail, $output-dir-slashes)"/>
 </xsl:variable>
 

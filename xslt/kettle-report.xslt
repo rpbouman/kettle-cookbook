@@ -557,6 +557,7 @@
         t.b.d.
     </p>
 	<xsl:call-template name="transformation-steps"/>
+	<xsl:call-template name="transformation-dependencies"/>
 </xsl:template>
 
 <xsl:template name="fields-overview">
@@ -683,6 +684,14 @@
 		</a>
 	</h2>
 	<xsl:apply-templates select="step[GUI/draw/text()!='N']"/>
+</xsl:template>
+
+<xsl:template name="transformation-dependencies">
+	<h2><a name="dependencies">Transformation Uses</a></h2>
+	<p>t.b.d</p>
+
+	<h2><a name="reverse-dependencies">Transformation Used By</a></h2>
+	<p>t.b.d</p>
 </xsl:template>
 
 <xsl:template match="step[GUI/draw/text()!='N']">
@@ -934,6 +943,15 @@
     <xsl:call-template name="variables"/>
 	<xsl:call-template name="database-connections"/>
 	<xsl:call-template name="job-entries"/>
+	<xsl:call-template name="job-dependencies"/>
+</xsl:template>
+
+<xsl:template name="job-dependencies">
+	<h2><a name="dependencies">Job Uses</a></h2>
+	<p>t.b.d</p>
+
+	<h2><a name="reverse-dependencies">Job Used By</a></h2>	
+	<p>t.b.d</p>
 </xsl:template>
 
 <xsl:template name="job-entries">

@@ -13,12 +13,12 @@
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Servers\biserver-ce-3.5.2.stable\biserver-ce\pentaho-solutions</default_value>
+            <default_value>/home/roland/kettle-cookbook/pdi</default_value>
             <description>null</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
-            <default_value>D:\tmp\kettle-cookbook-doc</default_value>
+            <default_value>/home/roland/kettle-cookbook/docs</default_value>
             <description>null</description>
         </parameter>
     </parameters>
@@ -266,7 +266,6 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <type>TRANS</type>
       <filename>${Internal.Job.Filename.Directory}&#47;substitute-variables-in-parameters.ktr</filename>
       <transname/>
-      <directory/>
       <arg_from_previous>N</arg_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -410,8 +409,8 @@ All these are stored in the template directory (this sits immediately beneath th
 The template dir also contains an (empty) html dir: this is the actual destination dir for the generated documentation.</note>
       <xloc>442</xloc>
       <yloc>172</yloc>
-      <width>901</width>
-      <heigth>91</heigth>
+      <width>1122</width>
+      <heigth>112</heigth>
     </notepad>
     <notepad>
       <note>Phase 2: process files and create output subdirectories:
@@ -437,8 +436,8 @@ The create-output-subdir runs for each result, and actually creates the subdirec
 </note>
       <xloc>443</xloc>
       <yloc>279</yloc>
-      <width>865</width>
-      <heigth>282</heigth>
+      <width>1062</width>
+      <heigth>367</heigth>
     </notepad>
     <notepad>
       <note>Phase 3: actually generate documentation.
@@ -454,8 +453,8 @@ Finally, the transform script is actually executed, and if that finishes without
 This concludes the main job of the kettle-cookbook documentation generation process.</note>
       <xloc>443</xloc>
       <yloc>578</yloc>
-      <width>743</width>
-      <heigth>159</heigth>
+      <width>914</width>
+      <heigth>197</heigth>
     </notepad>
     <notepad>
       <note>This is document-all, the main job for kettle-cookbook documentation generation
@@ -466,8 +465,8 @@ INPUT_DIR: the directory that contains the files (.ktr, .kjb, .xaction, .xcdf, .
 OUTPUT_DIR: the directory that is to contain the generated documentation.</note>
       <xloc>5</xloc>
       <yloc>11</yloc>
-      <width>672</width>
-      <heigth>91</heigth>
+      <width>822</width>
+      <heigth>112</heigth>
     </notepad>
   </notepads>
 </job>
