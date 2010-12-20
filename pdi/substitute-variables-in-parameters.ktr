@@ -66,6 +66,139 @@
   <order>
   <hop> <from>Get Variables</from><to>Replace Variables in parameters</to><enabled>Y</enabled> </hop>  <hop> <from>Replace Variables in parameters</from><to>Set Variables</to><enabled>Y</enabled> </hop>  </order>
   <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>input_dir</name>
+        <variable>${INPUT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>output_dir</name>
+        <variable>${OUTPUT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>60</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Replace Variables in parameters</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+function replace_variables(text){
+    var re = &#47;\$\{([^\}]+)\}|%%([^%]+)%%&#47;g,
+        match, from = 0,
+        variable_name, variable_value, 
+        replaced_text = &quot;&quot;
+    ;
+
+    while ((match = re.exec(text)) !== null) {
+        variable_name  = match[1] ? match[1] : match[2];
+        variable_value = getVariable(variable_name, &quot;&quot;);
+        replaced_text += text.substring(from, match.index);
+        replaced_text += variable_value;
+        from = from + match.index + match[0].length;
+    }
+    replaced_text += text.substring(from, text.length);
+    return replaced_text;
+}
+
+var replaced_input_dir = replace_variables(input_dir);
+var replaced_output_dir = replace_variables(output_dir);
+</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>replaced_input_dir</name>
+        <rename>replaced_input_dir</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>replaced_output_dir</name>
+        <rename>replaced_output_dir</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>241</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Variables</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>replaced_input_dir</field_name>
+        <variable_name>INPUT_DIR</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>replaced_output_dir</field_name>
+        <variable_name>OUTPUT_DIR</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>446</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Table output</name>
     <type>TableOutput</type>
     <description/>
@@ -531,139 +664,6 @@
       <xloc>1068</xloc>
       <yloc>106</yloc>
       <draw>N</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Variables</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>input_dir</name>
-        <variable>${INPUT_DIR}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>output_dir</name>
-        <variable>${OUTPUT_DIR}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>60</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Replace Variables in parameters</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#47;&#47;Script here
-
-function replace_variable(text){
-    var re = &#47;\$\{([^\}]+)\}|%%([^%]+)%%&#47;g,
-        match, from = 0,
-        variable_name, variable_value, 
-        replaced_text = &quot;&quot;
-    ;
-
-    while ((match = re.exec(text)) !== null) {
-        variable_name  = match[1] ? match[1] : match[2];
-        variable_value = getVariable(variable_name, &quot;&quot;);
-        replaced_text += text.substring(from, match.index);
-        replaced_text += variable_value;
-        from = from + match.index + match[0].length;
-    }
-    replaced_text += text.substring(from, text.length);
-    return replaced_text;
-}
-
-var replaced_input_dir = replace_variable(input_dir);
-var replaced_output_dir = replace_variable(output_dir);
-</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>replaced_input_dir</name>
-        <rename>replaced_input_dir</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>replaced_output_dir</name>
-        <rename>replaced_output_dir</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>257</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set Variables</name>
-    <type>SetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <field_name>replaced_input_dir</field_name>
-        <variable_name>INPUT_DIR</variable_name>
-        <variable_type>ROOT_JOB</variable_type>
-        <default_value/>
-        </field>
-      <field>
-        <field_name>replaced_output_dir</field_name>
-        <variable_name>OUTPUT_DIR</variable_name>
-        <variable_type>ROOT_JOB</variable_type>
-        <default_value/>
-        </field>
-      </fields>
-    <use_formatting>Y</use_formatting>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>446</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
       </GUI>
     </step>
 
