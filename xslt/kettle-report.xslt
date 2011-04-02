@@ -54,7 +54,7 @@
 
 <xsl:variable name="step-or-job-entry">
     <xsl:choose>
-        <xsl:when test="$file-type = 'ktr'">job entry</xsl:when>
+        <xsl:when test="$file-type = 'kjb'">job entry</xsl:when>
         <xsl:when test="$file-type = 'ktr'">step</xsl:when>
         <xsl:otherwise>
         </xsl:otherwise>
