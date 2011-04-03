@@ -53,7 +53,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>get runtime info</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>command lines &#47; scripts</from><to>Combine streams</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>join streams</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>join streams</to><enabled>Y</enabled> </hop>  <hop> <from>join streams</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Join Rows (cartesian product) 2</from><to>command lines &#47; scripts</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams</from><to>Calculator</to><enabled>Y</enabled> </hop>  <hop> <from>Calculator</from><to>transform script</to><enabled>Y</enabled> </hop>  <hop> <from>index.xml</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>command lines &#47; scripts</from><to>IS_WINDOWS, FULL_TRANSFORM_SCRIPT</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>file_separator</to><enabled>Y</enabled> </hop>  <hop> <from>file_separator</from><to>html dir</to><enabled>Y</enabled> </hop>  <hop> <from>html dir</from><to>toc</to><enabled>Y</enabled> </hop>  <hop> <from>toc</from><to>saxon lines </to><enabled>Y</enabled> </hop>  <hop> <from>html dir</from><to>frontpage</to><enabled>Y</enabled> </hop>  <hop> <from>frontpage</from><to>saxon lines </to><enabled>Y</enabled> </hop>  <hop> <from>saxon lines </from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Join streams 2</from><to>Combine streams</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Join streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>files</from><to>Join streams 2</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Get Saxon Jar</from><to>filename -&gt; saxon.jar</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.bat</to><enabled>Y</enabled> </hop>  <hop> <from>is windows?</from><to>.sh</to><enabled>Y</enabled> </hop>  <hop> <from>match windows</from><to>is windows?</to><enabled>Y</enabled> </hop>  <hop> <from>get runtime info</from><to>match windows</to><enabled>Y</enabled> </hop>  <hop> <from>command lines &#47; scripts</from><to>Combine streams</to><enabled>Y</enabled> </hop>  <hop> <from>filename -&gt; saxon.jar</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>.sh</from><to>join streams</to><enabled>Y</enabled> </hop>  <hop> <from>.bat</from><to>join streams</to><enabled>Y</enabled> </hop>  <hop> <from>join streams</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Join Rows (cartesian product) 2</from><to>command lines &#47; scripts</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams</from><to>Calculator</to><enabled>Y</enabled> </hop>  <hop> <from>Calculator</from><to>transform script</to><enabled>Y</enabled> </hop>  <hop> <from>index.xml</from><to>Join Rows (cartesian product) 2</to><enabled>Y</enabled> </hop>  <hop> <from>command lines &#47; scripts</from><to>IS_WINDOWS, FULL_TRANSFORM_SCRIPT</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>file_separator</to><enabled>Y</enabled> </hop>  <hop> <from>file_separator</from><to>html dir</to><enabled>Y</enabled> </hop>  <hop> <from>html dir</from><to>toc</to><enabled>Y</enabled> </hop>  <hop> <from>toc</from><to>saxon lines </to><enabled>Y</enabled> </hop>  <hop> <from>html dir</from><to>frontpage</to><enabled>Y</enabled> </hop>  <hop> <from>frontpage</from><to>saxon lines </to><enabled>Y</enabled> </hop>  <hop> <from>saxon lines </from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Join streams 2</from><to>Combine streams</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Join streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>files</from><to>Join streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>Get Saxon Jar</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>.bat</name>
     <type>Constant</type>
@@ -296,8 +296,8 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>934</xloc>
-      <yloc>380</yloc>
+      <xloc>938</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -326,8 +326,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>820</xloc>
-      <yloc>380</yloc>
+      <xloc>824</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -347,20 +347,20 @@
     </filter>
     <rownum>N</rownum>
     <isaddresult>Y</isaddresult>
-    <filefield>N</filefield>
+    <filefield>Y</filefield>
     <rownum_field/>
-    <filename_Field/>
+    <filename_Field>saxon</filename_Field>
     <wildcard_Field/>
     <limit>0</limit>
     <file>
-      <name>.&#47;libext</name>
-      <filemask>saxon.*\.jar</filemask>
+      <name/>
+      <filemask/>
       <file_required/>
     </file>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>125</xloc>
-      <yloc>77</yloc>
+      <xloc>266</xloc>
+      <yloc>269</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -440,8 +440,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>709</xloc>
-      <yloc>380</yloc>
+      <xloc>713</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -475,8 +475,8 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>709</xloc>
-      <yloc>259</yloc>
+      <xloc>713</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1015,8 +1015,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>273</xloc>
-      <yloc>259</yloc>
+      <xloc>277</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1038,8 +1038,8 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>236</xloc>
-      <yloc>77</yloc>
+      <xloc>377</xloc>
+      <yloc>269</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1077,8 +1077,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>125</xloc>
-      <yloc>380</yloc>
+      <xloc>129</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1108,8 +1108,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>467</xloc>
-      <yloc>313</yloc>
+      <xloc>471</xloc>
+      <yloc>454</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1250,8 +1250,8 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>366</xloc>
-      <yloc>259</yloc>
+      <xloc>370</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1302,6 +1302,12 @@
       </field>
       <field>
         <name>output_dir</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>saxon</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1461,8 +1467,8 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>587</xloc>
-      <yloc>259</yloc>
+      <xloc>591</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1492,8 +1498,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>465</xloc>
-      <yloc>259</yloc>
+      <xloc>469</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1636,8 +1642,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1040</xloc>
-      <yloc>380</yloc>
+      <xloc>1044</xloc>
+      <yloc>521</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

@@ -18,6 +18,11 @@
             <default_value>D:\tmp\kettle-cookbook-doc</default_value>
             <description>null</description>
         </parameter>
+        <parameter>
+            <name>SAXON</name>
+            <default_value>./libext/saxon8.jar</default_value>
+            <description></description>
+        </parameter>
     </parameters>
     <log>
       <read/>
@@ -192,6 +197,18 @@
       <field>
         <name>file_separator</name>
         <variable>${file.separator}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>saxon</name>
+        <variable>${SAXON}</variable>
         <type>String</type>
         <format/>
         <currency/>

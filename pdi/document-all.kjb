@@ -14,12 +14,17 @@
         <parameter>
             <name>INPUT_DIR</name>
             <default_value>/home/roland/kettle-cookbook/pdi</default_value>
-            <description>null</description>
+            <description>Directory where the BI content (ktr, kjb, xaction etc.) files reside</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
             <default_value>/home/roland/kettle-cookbook/docs</default_value>
-            <description>null</description>
+            <description>Directory where you want the documentation to be placed</description>
+        </parameter>
+        <parameter>
+            <name>SAXON</name>
+            <default_value>./libext/saxon8.jar</default_value>
+            <description>Location of the saxon lib. Default location assumes you're running kettle from it's home directory.</description>
         </parameter>
     </parameters>
     <slaveservers>
