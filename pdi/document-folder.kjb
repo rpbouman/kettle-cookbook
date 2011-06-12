@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job>
+  <name>document-all</name>
+    <description/>
+    <extended_description/>
+    <job_version>1.0</job_version>
+    <job_status>2</job_status>
+  <directory>&#47;</directory>
+  <created_user>-</created_user>
+  <created_date>2010&#47;10&#47;06 01:02:24.031</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2010&#47;10&#47;06 01:02:24.031</modified_date>
+    <parameters>
+        <parameter>
+            <name>INPUT_DIR</name>
+            <default_value>/home/roland/kettle-cookbook/pdi</default_value>
+            <description>Directory where the BI content (ktr, kjb, xaction etc.) files reside</description>
+        </parameter>
+        <parameter>
+            <name>OUTPUT_DIR</name>
+            <default_value>/home/roland/kettle-cookbook/docs</default_value>
+            <description>Directory where you want the documentation to be placed</description>
+        </parameter>
+        <parameter>
+            <name>SAXON</name>
+            <default_value>./libext/saxon8.jar</default_value>
+            <description>Location of the saxon lib. Default location assumes you're running kettle from it's home directory.</description>
+        </parameter>
+    </parameters>
+    <slaveservers>
+    </slaveservers>
+  <logconnection/>
+  <logtable/>
+  <size_limit_lines/>
+   <use_batchid>N</use_batchid>
+   <pass_batchid>N</pass_batchid>
+   <use_logfield>N</use_logfield>
+   <shared_objects_file/>
+  <entries>
+    <entry>
+      <name>START</name>
+      <description>Special entries</description>
+      <type>SPECIAL</type>
+      <start>Y</start>
+      <dummy>N</dummy>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <hour>12</hour>
+      <minutes>0</minutes>
+      <weekDay>1</weekDay>
+      <DayOfMonth>1</DayOfMonth>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>54</xloc>
+      <yloc>134</yloc>
+      </entry>
+    <entry>
+      <name>Create ${OUTPUT_DIR} and Copy Template</name>
+      <description>This job entry copies the static resources such as css and javascript files and images to the output directory.
+These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;img&gt; tags in the generated HTML documentation.</description>
+      <type>COPY_FILES</type>
+      <copy_empty_folders>Y</copy_empty_folders>
+      <arg_from_previous>N</arg_from_previous>
+      <overwrite_files>Y</overwrite_files>
+      <include_subfolders>N</include_subfolders>
+      <remove_source_files>N</remove_source_files>
+      <add_result_filesname>N</add_result_filesname>
+      <destination_is_a_file>N</destination_is_a_file>
+      <create_destination_folder>Y</create_destination_folder>
+      <fields>
+        <field>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}</destination_filefolder>
+          <wildcard>.+</wildcard>
+        </field>
+        <field>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template&#47;css</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}&#47;css</destination_filefolder>
+          <wildcard>.+</wildcard>
+        </field>
+        <field>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template&#47;js</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}&#47;js</destination_filefolder>
+          <wildcard>.+</wildcard>
+        </field>
+        <field>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template&#47;images</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}&#47;images</destination_filefolder>
+          <wildcard>.+</wildcard>
+        </field>
+        <field>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template&#47;html</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}&#47;html</destination_filefolder>
+          <wildcard>.+</wildcard>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>293</xloc>
+      <yloc>229</yloc>
+      </entry>
+    <entry>
+      <name>process-files.ktr</name>
+      <description>Transformation</description>
+      <type>TRANS</type>
+      <filename>${Internal.Job.Filename.Directory}&#47;process-files.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>65</xloc>
+      <yloc>406</yloc>
+      </entry>
+    <entry>
+      <name>create-output-subdir</name>
+      <description>Job</description>
+      <type>JOB</type>
+      <filename>${Internal.Job.Filename.Directory}&#47;create-output-subdir.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>Y</params_from_previous>
+      <exec_per_row>Y</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <parameters>        <pass_all_parameters>N</pass_all_parameters>
+            <parameter>            <name>OUTPUT_SUBDIR</name>
+            <stream_name>output_directory</stream_name>
+            <value/>
+            </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>215</xloc>
+      <yloc>406</yloc>
+      </entry>
+    <entry>
+      <name>transform script exists?</name>
+      <description>File Exists</description>
+      <type>FILE_EXISTS</type>
+      <filename>${FULL_TRANSFORM_SCRIPT}</filename>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>63</xloc>
+      <yloc>586</yloc>
+      </entry>
+    <entry>
+      <name>Success 1</name>
+      <description>Success</description>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>348</xloc>
+      <yloc>921</yloc>
+      </entry>
+    <entry>
+      <name>Execute transform script</name>
+      <description>Shell</description>
+      <type>SHELL</type>
+      <filename>${FULL_TRANSFORM_SCRIPT}</filename>
+      <work_directory/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>N</insertScript>
+      <script>transform</script>
+      <loglevel>Nothing</loglevel>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>348</xloc>
+      <yloc>731</yloc>
+      </entry>
+    <entry>
+      <name>Delete transform script</name>
+      <description>Delete files</description>
+      <type>DELETE_FILES</type>
+      <arg_from_previous>N</arg_from_previous>
+      <include_subfolders>N</include_subfolders>
+      <fields>
+        <field>
+          <name>${FULL_TRANSFORM_SCRIPT}</name>
+          <filemask/>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>348</xloc>
+      <yloc>822</yloc>
+      </entry>
+    <entry>
+      <name>is windows?</name>
+      <description>Simple evaluation</description>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>${IS_WINDOWS}</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>213</xloc>
+      <yloc>586</yloc>
+      </entry>
+    <entry>
+      <name>Make Executable</name>
+      <description>Shell</description>
+      <type>SHELL</type>
+      <filename/>
+      <work_directory/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>Y</insertScript>
+      <script>chmod ug+x ${FULL_TRANSFORM_SCRIPT}</script>
+      <loglevel>Nothing</loglevel>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>348</xloc>
+      <yloc>586</yloc>
+      </entry>
+    <entry>
+      <name>substitute-variables-in-parameters.ktr</name>
+      <description>Transformation</description>
+      <type>TRANS</type>
+      <filename>${Internal.Job.Filename.Directory}&#47;substitute-variables-in-parameters.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>244</xloc>
+      <yloc>134</yloc>
+      </entry>
+  </entries>
+  <hops>
+    <hop>
+      <from>process-files.ktr</from>
+      <to>create-output-subdir</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create ${OUTPUT_DIR} and Copy Template</from>
+      <to>process-files.ktr</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>transform script exists?</from>
+      <to>Success 1</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Execute transform script</from>
+      <to>Delete transform script</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete transform script</from>
+      <to>Success 1</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>transform script exists?</from>
+      <to>is windows?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>is windows?</from>
+      <to>Execute transform script</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>is windows?</from>
+      <to>Make Executable</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Make Executable</from>
+      <to>Execute transform script</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>create-output-subdir</from>
+      <to>transform script exists?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>substitute-variables-in-parameters.ktr</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>substitute-variables-in-parameters.ktr</from>
+      <to>Create ${OUTPUT_DIR} and Copy Template</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+    <notepad>
+      <note>Phase 1: create the destination and copy all static resources.
+
+Static resources are the stylesheets, javascripts and images required to render HTML docs
+All these are stored in the template directory (this sits immediately beneath the root dir of the kettle-cookbook dir), which is always copied in its entirety to the output dir.
+
+The template dir also contains an (empty) html dir: this is the actual destination dir for the generated documentation.</note>
+      <xloc>442</xloc>
+      <yloc>172</yloc>
+      <width>1122</width>
+      <heigth>112</heigth>
+    </notepad>
+    <notepad>
+      <note>Phase 2: process files and create output subdirectories:
+
+In this phase, the contents of the input dir, including its subdirectories, are scanned for files for which we generate documentation (the input files).
+This also looks for .html files residing beneath the output directory (the output files). 
+
+Output files are stored beneath the html directory in the same directory structure as their corresponding input files. 
+Output files also have the same file name as their corresponding input file, postfixed with a .html extension.
+
+This comparison of input and output files gives us 
+- inputfiles for which there is no corresponding output file. We need to generate documentation for these new input files.
+- output files for which there is no corresponding input file. Apparently, this is obsolete documentation, and this will be deleted
+- input files which have a more recent lastmodifieddate than their corresponding output file. We need to re-generate documentation for these updated inputt files.
+
+All input files and directories are written to an index.xml docment which is also stored in the output directory.
+XSLT commands for the new and updated input files are written to the transform script which is also stored in the output directory.
+The XSLT commands are always applied to index.xml.
+
+This phase also creates the required directory structure in the html director beneath the output dir.
+To do this, the process-files transformation copies the list of new directories to the result.
+The create-output-subdir runs for each result, and actually creates the subdirectory.
+</note>
+      <xloc>443</xloc>
+      <yloc>279</yloc>
+      <width>1062</width>
+      <heigth>367</heigth>
+    </notepad>
+    <notepad>
+      <note>Phase 3: actually generate documentation.
+
+Actual documentation generation is done by the transform script generated in phase 2.
+If there are no new or updated files, there is nothing to do and the script may not exist.
+
+If the transform script exists, the extension of the transform script is either .bat or .sh, depending on the OS (windows or rest of the world).
+For non-windows systems, the transform script needs to be given the execute attribute in order to execute it.
+
+Finally, the transform script is actually executed, and if that finishes without errors, it is cleaned up by deleting it.
+
+This concludes the main job of the kettle-cookbook documentation generation process.</note>
+      <xloc>443</xloc>
+      <yloc>578</yloc>
+      <width>914</width>
+      <heigth>197</heigth>
+    </notepad>
+    <notepad>
+      <note>This is document-all, the main job for kettle-cookbook documentation generation
+
+This job takes 2 parameters:
+
+INPUT_DIR: the directory that contains the files (.ktr, .kjb, .xaction, .xcdf, .prpt) that you want to generate documentation for.
+OUTPUT_DIR: the directory that is to contain the generated documentation.</note>
+      <xloc>5</xloc>
+      <yloc>11</yloc>
+      <width>822</width>
+      <heigth>112</heigth>
+    </notepad>
+  </notepads>
+</job>
