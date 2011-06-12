@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>document-all</name>
+  <name>document-folder</name>
     <description/>
     <extended_description/>
     <job_version>1.0</job_version>
@@ -462,7 +462,7 @@ This concludes the main job of the kettle-cookbook documentation generation proc
       <heigth>197</heigth>
     </notepad>
     <notepad>
-      <note>This is document-all, the main job for kettle-cookbook documentation generation
+      <note>This is document-folder. This job generates documentation for a folder of pentaho bi-content.
 
 This job takes 2 parameters:
 
@@ -470,8 +470,8 @@ INPUT_DIR: the directory that contains the files (.ktr, .kjb, .xaction, .xcdf, .
 OUTPUT_DIR: the directory that is to contain the generated documentation.</note>
       <xloc>5</xloc>
       <yloc>11</yloc>
-      <width>822</width>
-      <heigth>112</heigth>
+      <width>672</width>
+      <heigth>91</heigth>
     </notepad>
   </notepads>
 </job>
