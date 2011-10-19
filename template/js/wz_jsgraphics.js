@@ -104,13 +104,14 @@ function pntCnv()
 
 function mkDiv(x, y, w, h)
 {
+
 	this.htm += '<div style="position:absolute;'+
 		'left:' + x + 'px;'+
 		'top:' + y + 'px;'+
 		'width:' + w + 'px;'+
 		'height:' + h + 'px;'+
+		'z-index:-10;'+
 		'clip:rect(0,'+w+'px,'+h+'px,0);'+
-//		'background-color:' + this.color +
 		(!jg_moz? ';overflow:hidden' : '')+
 		';"'+
         ' class="' + this.classNames + '"'+
@@ -670,10 +671,18 @@ var Stroke = new jsgStroke();
 
 function jsGraphics(id, wnd)
 {
-	this.setColor = new Function('arg', 'this.color = arg.toLowerCase();');
+//	this.setColor = new Function('arg', 'this.color = arg.toLowerCase();');
+	this.color = "black";
+	this.setColor = function(arg){
+		this.color = arg.toLowerCase();
+	};
 	
 	this.classNames = "";
-	this.setClassNames = new Function('arg', 'this.classNames = arg;');
+	//this.setClassNames = new Function('arg', 'this.classNames = arg;');
+
+	this.setClassNames = function(arg){
+		this.classNames = arg;
+	};
 
 	this.setStroke = function(x)
 	{

@@ -71,7 +71,13 @@ function alignTowardsLine(array_x, array_y, origin_x, origin_y, line_x1, line_y1
 	
 }
 
+// function log(txt){
+// 	var d = document.getElementById("logdiv");
+// 	d.innerHTML += txt+"<br/>"
+// }
+
 function drawHops(){
+	
     var idCanvas = "canvas",
 		id = "thediagram",
         jsg = new jsGraphics(idCanvas),
@@ -104,12 +110,14 @@ function drawHops(){
         ) {
             continue;
         }
-        
 		x1 = parseInt(from.style.left, 10) + offset;
 		y1 = parseInt(from.style.top, 10)  + offset;
+
         hops = from.getElementsByTagName("DIV").item(0);
         hops = hops.getElementsByTagName("A");
-        numHops = hops.length;
+		
+		numHops = hops.length;
+
         for (j = 0; j < numHops; j++){
             hop = hops.item(j);
             
@@ -123,7 +131,9 @@ function drawHops(){
 			y2 = parseInt(to.style.top, 10) + offset;
             yDiff = y2 - y1;
 
-            jsg.setClassNames(hop.getAttribute("class"));
+            className = hop.className;
+
+            jsg.setClassNames(className);
             jsg.drawLine(x1, y1, x2, y2);
 			
 			// calculate placement the way from source to target
@@ -145,8 +155,7 @@ function drawHops(){
 			
 			var aligned = alignTowardsLine(polygon_x, polygon_y, xMid, yMid, x1, y1, x2, y2);
 			jsg.fillPolygon(aligned.array_x, aligned.array_y);
-    
-            className = hop.className;
+			    
             if (regexpStepHopTrue.test(className) ) {
                 hopIcon = "hop-true-icon";
             }
@@ -176,4 +185,5 @@ function drawHops(){
         }
     }
     jsg.paint();
+
 }
