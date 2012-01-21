@@ -49,6 +49,10 @@ body.kettle-file {
     padding: 2px;
 }
 
+.description, .extended-description {
+    font-family: sans-serif;
+}
+
 .hop-true-icon {
     position:absolute;
     width: 16px;

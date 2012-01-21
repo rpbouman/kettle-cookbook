@@ -75,20 +75,20 @@
 <xsl:variable name="upper-case-alphabet" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
 
 <xsl:template name="lower-case">
-	<xsl:param name="text"/>
-	<xsl:value-of select="translate($text, $upper-case-alphabet, $lower-case-alphabet)"/>
+    <xsl:param name="text"/>
+    <xsl:value-of select="translate($text, $upper-case-alphabet, $lower-case-alphabet)"/>
 </xsl:template>
 
 <xsl:template name="upper-case">
-	<xsl:param name="text"/>
-	<xsl:value-of select="translate($text, $lower-case-alphabet, $upper-case-alphabet)"/>
+    <xsl:param name="text"/>
+    <xsl:value-of select="translate($text, $lower-case-alphabet, $upper-case-alphabet)"/>
 </xsl:template>
 
 <xsl:template name="replace">
-	<xsl:param name="text"/>
-	<xsl:param name="search"/>
-	<xsl:param name="replace" select="''"/>
-	<xsl:choose>
+    <xsl:param name="text"/>
+    <xsl:param name="search"/>
+    <xsl:param name="replace" select="''"/>
+    <xsl:choose>
 		<xsl:when test="contains($text, $search)">
 			<xsl:call-template name="replace">
 				<xsl:with-param 
@@ -155,7 +155,7 @@
     <xsl:param name="node" select="."/>
     <xsl:param name="type" select="$item-type"/>
     <xsl:for-each select="$node">
-<pre><xsl:choose>
+<pre class="description"><xsl:choose>
     <xsl:when test="$node/description[text()]">
         <xsl:value-of select="$node/description"/>
     </xsl:when>
@@ -164,7 +164,7 @@
     </xsl:otherwise>
 </xsl:choose></pre>
         <xsl:if test="$node/extended_description[text()]">
-<pre><xsl:value-of select="$node/extended_description"/></pre>
+<pre class="extended-description"><xsl:value-of select="$node/extended_description"/></pre>
         </xsl:if>
     </xsl:for-each>
 </xsl:template>
