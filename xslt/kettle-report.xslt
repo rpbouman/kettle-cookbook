@@ -486,7 +486,7 @@
 ========================================================================== -->
 
 <xsl:template match="notepad">
-    <div class="note">
+    <pre class="note">
         <xsl:attribute name="style">
             left: <xsl:value-of select="xloc"/>px;
             top: <xsl:value-of select="yloc"/>px;
@@ -507,7 +507,7 @@
                     ,<xsl:value-of select="bordercolorblue"/>);
         </xsl:attribute>
         <xsl:value-of select="note"/>
-    </div>
+    </pre>
 </xsl:template>
 <!-- =========================================================================
     Code

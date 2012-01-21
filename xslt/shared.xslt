@@ -155,20 +155,16 @@
     <xsl:param name="node" select="."/>
     <xsl:param name="type" select="$item-type"/>
     <xsl:for-each select="$node">
-        <p>
-            <xsl:choose>
-                <xsl:when test="$node/description[text()]">
-                    <xsl:value-of select="$node/description"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    This <xsl:value-of select="$type"/> does not have a description.
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
+<pre><xsl:choose>
+    <xsl:when test="$node/description[text()]">
+        <xsl:value-of select="$node/description"/>
+    </xsl:when>
+    <xsl:otherwise>
+        This <xsl:value-of select="$type"/> does not have a description.
+    </xsl:otherwise>
+</xsl:choose></pre>
         <xsl:if test="$node/extended_description[text()]">
-            <p>
-                <xsl:value-of select="$node/extended_description"/>
-            </p>
+<pre><xsl:value-of select="$node/extended_description"/></pre>
         </xsl:if>
     </xsl:for-each>
 </xsl:template>
