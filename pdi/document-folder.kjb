@@ -84,8 +84,8 @@ These static resources are referenced by &lt;script&gt;, &lt;link&gt; and &lt;im
       <create_destination_folder>Y</create_destination_folder>
       <fields>
         <field>
-          <source_filefolder>&#47;home&#47;rbouman&#47;projects&#47;kettle-cookbook&#47;template</source_filefolder>
-          <destination_filefolder>&#47;home&#47;rbouman&#47;projects&#47;kettle-cookbook&#47;docs</destination_filefolder>
+          <source_filefolder>${Internal.Job.Filename.Directory}&#47;..&#47;template</source_filefolder>
+          <destination_filefolder>${OUTPUT_DIR}</destination_filefolder>
           <wildcard>.+</wildcard>
         </field>
       </fields>
