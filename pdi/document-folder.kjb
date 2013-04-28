@@ -418,12 +418,12 @@ Static resources are the stylesheets, javascripts and images required to render 
 All these are stored in the template directory (this sits immediately beneath the root dir of the kettle-cookbook dir), which is always copied in its entirety to the output dir.
 
 The template dir also contains an (empty) html dir: this is the actual destination dir for the generated documentation.</note>
-      <xloc>442</xloc>
-      <yloc>172</yloc>
-      <width>1122</width>
-      <heigth>112</heigth>
-      <fontname/>
-      <fontsize>-1</fontsize>
+      <xloc>440</xloc>
+      <yloc>170</yloc>
+      <width>978</width>
+      <heigth>100</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
@@ -459,12 +459,12 @@ This phase also creates the required directory structure in the html director be
 To do this, the process-files transformation copies the list of new directories to the result.
 The create-output-subdir runs for each result, and actually creates the subdirectory.
 </note>
-      <xloc>443</xloc>
-      <yloc>279</yloc>
-      <width>1062</width>
-      <heigth>367</heigth>
-      <fontname/>
-      <fontsize>-1</fontsize>
+      <xloc>440</xloc>
+      <yloc>290</yloc>
+      <width>938</width>
+      <heigth>309</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
@@ -490,12 +490,12 @@ For non-windows systems, the transform script needs to be given the execute attr
 Finally, the transform script is actually executed, and if that finishes without errors, it is cleaned up by deleting it.
 
 This concludes the main job of the kettle-cookbook documentation generation process.</note>
-      <xloc>443</xloc>
-      <yloc>578</yloc>
-      <width>914</width>
-      <heigth>197</heigth>
-      <fontname/>
-      <fontsize>-1</fontsize>
+      <xloc>440</xloc>
+      <yloc>620</yloc>
+      <width>807</width>
+      <heigth>174</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>

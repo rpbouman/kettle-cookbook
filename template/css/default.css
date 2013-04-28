@@ -67,12 +67,12 @@ p, ul, ol, div, table {
     font-size: 10pt;
 }
 
-a:link , a:visited  {
+a:link, a:visited  {
     text-decoration: underline;
     color: blue;
 }
 
-a:hover {
+a[href]:hover {
     text-decoration: underline;
     color: red;
 }

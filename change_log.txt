@@ -1,0 +1,57 @@
+This file lists changes done ontop of r79
+
+xslt/Kettle_Report.xslt
+   - added imported io_steps.xslt
+   - unconditionally display connections (<xsl:if test="$usages"> removed)
+   - fixed some bugs
+       - removed some un-used code
+       - some incorrect XPaths
+       - connections now reported as links
+       - steps in highlevel flow diagram now reported as links
+       - info section for transformations was missing
+       - Highlevel flow diagram now contains links to steps
+       - outcommented flat files (not yet supported)
+   - improved reporting of steps:
+       - steps separated with horizontal lines
+       - steps now report hops (to/from) in a separate sub-section
+       - mappings (ETL Metadata Injection), lookups, database tables
+         (this solves most of issue 37), all tabs of 'Select Values' step
+       
+xslt/files.xslt
+   - define variable 'modified_date' based on file property 
+
+xslt/shared.xslt
+   - template description changed 
+     - maintain formatting with <pre>
+     - different font if 'no description'
+
+xslt/toc.xslt
+   - outcommented yet unsupported sections
+
+document-folder.kjb
+   - none
+
+process-files.ktr
+   - added (but disabled) flow for full re-build (instead of 'make')
+
+template/index.html
+   - space reserved for frame on left adapted
+
+template/default.css
+   - a:hover constrained to [href]
+
+template/kettle.css
+   - changed font for .description, .extended-description to courier (blue)
+
+template/kettle.css, job.css
+   - created with constructor job
+
+template/images
+   - updated to kettle 4.4.0
+   
+constructor/*
+   - used to adapt kettle-cookbook to new versions of kettle
+     (see job descritption of Create_Files.kjb for details)
+   - contains sub-dir ./AllOperators with a bunch of jobs and transformations
+     simply instantiating all operators - helps visualizing what the constructor
+     misses (namely, plug-ins)

@@ -51,6 +51,7 @@
 -->
 <xsl:variable name="document" select="document($file/@uri)"/>
 <xsl:variable name="file-type" select="$file/@extension"/>
+<xsl:variable name="modified_date" select="$file/@lastmodified"/>
 
 <!--
     This gets the relattive location of the root of the documentation.

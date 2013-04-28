@@ -47,10 +47,13 @@ body.kettle-file {
     font-family: sans-serif;
     font-size: 8pt;
     padding: 2px;
+    white-space: pre;
 }
 
 .description, .extended-description {
-    font-family: sans-serif;
+    font-family:courier;
+    font-size:9pt;
+    color:blue
 }
 
 .hop-true-icon {
