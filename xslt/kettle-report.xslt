@@ -571,6 +571,10 @@
         <pre class="brush: js;"><xsl:value-of select="jsScript_script/text()"/></pre>
     </xsl:template>
 
+    <xsl:template match="script">
+        <pre class="brush: js;"><xsl:value-of select="text()"/></pre>
+    </xsl:template>
+	
     <xsl:template match="definitions[../type='UserDefinedJavaClass']">
         <h4>Java Class Source Code</h4>
         <xsl:apply-templates select="definition"/>
@@ -773,6 +777,7 @@
         </xsl:call-template>
         <xsl:apply-templates select="sql"/>
         <xsl:apply-templates select="jsScripts"/>
+        <xsl:apply-templates select="script"/>
         <xsl:apply-templates select="definitions"/>
         <xsl:if test="descendant-or-self::table">
             <h4>Database</h4>

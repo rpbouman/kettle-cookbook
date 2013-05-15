@@ -636,7 +636,11 @@
     
                /* Scripting */
             
-        .step-icon-ScriptValueMod,ScriptValue{
+        .step-icon-ScriptValueMod{
+           background-image: url(../images/SCR_mod.png);
+        }
+
+        .step-icon-ScriptValue{
            background-image: url(../images/SCR_mod.png);
         }
     
