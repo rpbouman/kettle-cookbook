@@ -118,8 +118,26 @@
     </xsl:template>
     
     <xsl:template match="step">
-        .step-icon-<xsl:value-of select="@id"/>{
-           background-image: url(../images/<xsl:value-of select="tokenize(iconfile/text(), '/')[last()]"/>);
+       <xsl:variable name="iconfile">
+          <xsl:value-of select="iconfile"/>
+       </xsl:variable>
+       <xsl:for-each select="tokenize(@id, ',')">
+          <xsl:call-template name="step_icon">
+             <xsl:with-param name="step_name">
+                <xsl:value-of select="."/>
+             </xsl:with-param>
+             <xsl:with-param name="iconfile">
+                <xsl:value-of select="$iconfile"/>
+             </xsl:with-param>
+          </xsl:call-template>
+       </xsl:for-each>
+    </xsl:template>   
+     
+    <xsl:template name="step_icon">
+       <xsl:param name="step_name"/>
+       <xsl:param name="iconfile"/>
+        .step-icon-<xsl:value-of select="$step_name"/>{
+           background-image: url(../images/<xsl:value-of select="tokenize($iconfile/text(), '/')[last()]"/>);
         }
     </xsl:template>
 </xsl:stylesheet>

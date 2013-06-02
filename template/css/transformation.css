@@ -144,7 +144,11 @@
            background-image: url(../images/OBL.png);
         }
     
-        .step-icon-TeraFast,TeraFastPlugin{
+        .step-icon-TeraFast{
+           background-image: url(../images/BulkIn.png);
+        }
+    
+        .step-icon-TeraFastPlugin{
            background-image: url(../images/BulkIn.png);
         }
     
@@ -639,7 +643,7 @@
         .step-icon-ScriptValueMod{
            background-image: url(../images/SCR_mod.png);
         }
-
+    
         .step-icon-ScriptValue{
            background-image: url(../images/SCR_mod.png);
         }
@@ -736,7 +740,11 @@
            background-image: url(../images/NRM.png);
         }
     
-        .step-icon-Flattener,Flatterner{
+        .step-icon-Flattener{
+           background-image: url(../images/FLA.png);
+        }
+    
+        .step-icon-Flatterner{
            background-image: url(../images/FLA.png);
         }
     

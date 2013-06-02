@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    version="2.0">
-    <xsl:output method="text"/>
-    <xsl:strip-space elements="*"/>
-    <xsl:template match="/">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+   <xsl:output method="text"/>
+   <xsl:strip-space elements="*"/>
+   <xsl:template match="/"
+         >
        /**
        *   This is job.css. This is part of kettle-cookbook.
        *   Kettle-cookbook is distributed on http://code.google.com/p/kettle-cookbook/
@@ -106,18 +106,41 @@
           background-image: url(../images/DUM.png);
        }
        
-        <xsl:for-each select="job-entries/job-entry">
-            <xsl:sort select="category"/>
-            <xsl:if test="not(preceding-sibling::job-entry/category/text()[last()] = category/text())">
-               /* <xsl:value-of select="tokenize(category/text(), '\.')[last()]"/> */
+        <xsl:for-each
+         select="job-entries/job-entry">
+         <xsl:sort select="category"/>
+         <xsl:if test="not(preceding-sibling::job-entry/category/text()[last()] = category/text())"
+               >
+               /* <xsl:value-of select="tokenize(category/text(), '\.')[last()]"
+            /> */
             </xsl:if>
-            <xsl:apply-templates select="."/>
-        </xsl:for-each>
-    </xsl:template>
-    
-    <xsl:template match="job-entry">
-        .entry-icon-<xsl:value-of select="@id"/>{
-           background-image: url(../images/<xsl:value-of select="tokenize(iconfile/text(), '/')[last()]"/>);
-        }
-    </xsl:template>
+         <xsl:apply-templates select="."/>
+      </xsl:for-each>
+   </xsl:template>
+
+   <xsl:template match="job-entry">
+      <xsl:variable name="iconfile">
+         <xsl:value-of select="iconfile"/>
+      </xsl:variable>
+      <xsl:for-each select="tokenize(@id, ',')">
+         <xsl:call-template name="job_icon">
+            <xsl:with-param name="job_name">
+               <xsl:value-of select="."/>
+            </xsl:with-param>
+            <xsl:with-param name="iconfile">
+               <xsl:value-of select="$iconfile"/>
+            </xsl:with-param>
+         </xsl:call-template>
+      </xsl:for-each>
+   </xsl:template>
+
+   <xsl:template name="job_icon">
+      <xsl:param name="job_name"/>
+      <xsl:param name="iconfile"/>
+      .entry-icon-<xsl:value-of select="$job_name"/>{
+        background-image: url(../images/<xsl:value-of select="tokenize($iconfile/text(), '/')[last()]"/>);
+      }
+   </xsl:template>
+
+
 </xsl:stylesheet>
