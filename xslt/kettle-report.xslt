@@ -234,7 +234,27 @@
     <xsl:template name="get-doc-uri-for-filename">
         <xsl:param name="step-or-job-entry"/>
         <xsl:variable name="type" select="local-name($step-or-job-entry)"/>
-        <xsl:variable name="filename" select="concat($step-or-job-entry/filename/text(), '.html')"/>
+ 
+         <xsl:variable name="filename">
+            <xsl:choose>
+                <xsl:when test="$step-or-job-entry/filename/text()">
+                    <xsl:value-of select="concat($step-or-job-entry/filename/text(), '.html')"/>
+                </xsl:when>
+                <!-- this is to support repository based etl -->
+                <xsl:otherwise>
+                    <xsl:variable name="prefix" select="concat($documentation-root, '/html', $step-or-job-entry/directory/text(), '/')"/>
+                    <xsl:choose>
+                        <xsl:when test="$step-or-job-entry/type/text()='TRANS'">
+                            <xsl:value-of select="concat($prefix, $step-or-job-entry/transname/text(), '.ktr.html')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="concat($prefix, $step-or-job-entry/jobname/text(), '.kjb.html')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
         <xsl:call-template name="replace-dir-variables-with-doc-dir">
             <xsl:with-param name="text" select="$filename"/>
         </xsl:call-template>

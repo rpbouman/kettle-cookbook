@@ -9,14 +9,18 @@ Kettle-cookbook is open source (LGPL), and is available from
 google code: http://code.google.com/p/kettle-cookbook/
 
 Kettle-cookbook is itself built as a Kettle solution. 
-To use kettle-cookbook, you have to run the document-all.kjb kettle
-job located in the pdi directory. The job accepts two parameters:
+To use kettle-cookbook, you have to run the pdi/document-folder.kjb kettle
+job located in the pdi directory. The job accepts 3 parameters:
 
 INPUT_DIR: the directory containing the .ktr/.kjb files
-OUTPUT_DIR: the directory where the generated documentation will be 
-stored.
+OUTPUT_DIR: the directory where the generated documentation will be stored.
+SAXON: the path to the location of the saxon jar used to process the xslt
 
-You can run the document-all.kjb from the kettle IDE spoon, or run
+This can also process repository based ETLs. It requires that the repository
+be filesystem based. If you have an Enterprise repository you can export it
+the import it into a local filesystem based repository.
+
+You can run the pdi/document-folder.kjb from the kettle IDE spoon, or run
 it from the command line using the kitchen tool. For more detailed
 instructions, see the wiki pages on the google code project:
 
