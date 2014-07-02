@@ -181,6 +181,36 @@
     
 </xsl:template>
 
+<xsl:template name="transdescription">
+    <xsl:param name="node" select="."/>
+    <xsl:param name="type" select="$item-type"/>
+    <xsl:for-each select="$node">
+        <xsl:choose>
+            <xsl:when test="$node/info/description[text()]">
+                <pre>
+                    <p class="description">
+                        <xsl:value-of select="$node/info/description"/>
+                    </p>
+                    </pre>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    This <xsl:value-of select="$type"/> does not have a description.
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="$node/info/extended_description[text()]">
+            <pre>
+                <p style="font-family:courier;font-size:9pt;color:blue">
+                    <xsl:value-of select="$node/info/extended_description"/>
+                </p>
+                </pre>
+        </xsl:if>
+    </xsl:for-each>
+    
+    
+</xsl:template>
+
 <xsl:variable name="meta">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />

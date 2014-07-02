@@ -624,6 +624,7 @@
             <xsl:with-param name="version" select="info/trans_version"/>
             <xsl:with-param name="status" select="info/trans_status/text()"/>
         </xsl:call-template>
+        <xsl:call-template name="transdescription"/>
 
 
         <xsl:apply-templates select="info/parameters"/>
