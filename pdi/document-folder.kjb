@@ -21,11 +21,6 @@
             <default_value>&#47;home&#47;rbouman&#47;projects&#47;kettle-cookbook&#47;docs</default_value>
             <description>Directory where you want the documentation to be placed</description>
         </parameter>
-        <parameter>
-            <name>SAXON</name>
-            <default_value>.&#47;libext&#47;saxon9.jar</default_value>
-            <description>Location of the saxon lib. Default location assumes you&apos;re running kettle from it&apos;s home directory.</description>
-        </parameter>
     </parameters>
     <slaveservers>
     </slaveservers>
