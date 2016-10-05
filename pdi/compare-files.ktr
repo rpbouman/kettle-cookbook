@@ -5,33 +5,50 @@
     <description/>
     <extended_description/>
     <trans_version/>
+    <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#47;</directory>
+    <directory>&#x2f;</directory>
     <parameters>
         <parameter>
             <name>INPUT_DIR</name>
-            <default_value>D:\Servers\biserver-ce-3.5.2.stable\biserver-ce\pentaho-solutions</default_value>
+            <default_value>D&#x3a;&#x5c;Servers&#x5c;biserver-ce-3.5.2.stable&#x5c;biserver-ce&#x5c;pentaho-solutions</default_value>
             <description>null</description>
         </parameter>
         <parameter>
             <name>OUTPUT_DIR</name>
-            <default_value>D:\tmp\kettle-cookbook-doc</default_value>
+            <default_value>D&#x3a;&#x5c;tmp&#x5c;kettle-cookbook-doc</default_value>
             <description>null</description>
         </parameter>
     </parameters>
     <log>
-      <read/>
-      <write/>
-      <input/>
-      <output/>
-      <update/>
-      <rejected/>
-      <connection/>
-      <table/>
-      <step_performance_table/>
-      <use_batchid>Y</use_batchid>
-      <use_logfield>N</use_logfield>
-      <size_limit_lines/>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>N</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>N</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+<metrics-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field><field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field><field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field><field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field><field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field><field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field></metrics-log-table>
     </log>
     <maxdate>
       <connection/>
@@ -50,32 +67,97 @@
     <shared_objects_file/>
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit/>
     <dependencies>
     </dependencies>
     <partitionschemas>
     </partitionschemas>
     <slaveservers>
+         <slaveserver><name>slave3</name><hostname>localhost</hostname><port>8083</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>slave2</name><hostname>localhost</hostname><port>8082</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>slave1</name><hostname>localhost</hostname><port>8081</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>slave3-8083</name><hostname>localhost</hostname><port>8083</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>master1</name><hostname>localhost</hostname><port>8080</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>slave2-8082</name><hostname>localhost</hostname><port>8082</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>slave1-8081</name><hostname>localhost</hostname><port>8081</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>N</master><sslMode>N</sslMode></slaveserver>
+         <slaveserver><name>master</name><hostname>localhost</hostname><port>8080</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master><sslMode>N</sslMode></slaveserver>
     </slaveservers>
     <clusterschemas>
+        <clusterschema>
+          <name>dynamic_cluster</name>
+          <base_port>40010</base_port>
+          <sockets_buffer_size>2000</sockets_buffer_size>
+          <sockets_flush_interval>5000</sockets_flush_interval>
+          <sockets_compressed>Y</sockets_compressed>
+          <dynamic>Y</dynamic>
+          <slaveservers>
+            <name>master1</name>
+          </slaveservers>
+        </clusterschema>
+        <clusterschema>
+          <name>cluster_schema</name>
+          <base_port>40000</base_port>
+          <sockets_buffer_size>2000</sockets_buffer_size>
+          <sockets_flush_interval>5000</sockets_flush_interval>
+          <sockets_compressed>Y</sockets_compressed>
+          <dynamic>N</dynamic>
+          <slaveservers>
+            <name>slave3-8083</name>
+            <name>slave2-8082</name>
+            <name>slave1-8081</name>
+            <name>master1</name>
+          </slaveservers>
+        </clusterschema>
     </clusterschemas>
+  <created_user/>
+  <created_date>2016&#x2f;10&#x2f;05 13&#x3a;19&#x3a;57.103</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2010&#47;11&#47;03 13:55:14.625</modified_date>
+  <modified_date>2010&#x2f;11&#x2f;03 13&#x3a;55&#x3a;14.625</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
-  <hop> <from>output-dir -&gt; dir</from><to>get-files.ktr (input)</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>get-files.ktr (output)</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>output-dir -&gt; dir</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>Compare Directories</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>Compare Directories</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>Compare files</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams 1</from><to>output file extension</to><enabled>Y</enabled> </hop>  <hop> <from>output file extension</from><to>output_file_short_name -&gt; file_short_name</to><enabled>Y</enabled> </hop>  <hop> <from>output_file_short_name -&gt; file_short_name</from><to>Compare files</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>Combine Streams 2</from><to>Directories to create</to><enabled>Y</enabled> </hop>  <hop> <from>Compare files</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>  <hop> <from>Combine streams 3</from><to>output files</to><enabled>Y</enabled> </hop>  <hop> <from>Compare Directories</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>  <hop> <from>output file_name_regex</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>Receive</to><enabled>Y</enabled> </hop>  <hop> <from>Receive</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>  <hop> <from>input_dir &#47; output_dir</from><to>file separator</to><enabled>Y</enabled> </hop>  <hop> <from>file separator</from><to>output file_name_regex</to><enabled>Y</enabled> </hop>  <hop> <from>output files</from><to>file diff Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (output)</from><to>ouput file Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>output file extension</from><to>input file Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>get-files.ktr (input)</from><to>input dir Mapping output</to><enabled>Y</enabled> </hop>  <hop> <from>Directories to create</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>dir diff Mapping output</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>output-dir -&#x3e; dir</from><to>get-files.ktr &#x28;input&#x29;</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file_name_regex</from><to>get-files.ktr &#x28;output&#x29;</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file_name_regex</from><to>output-dir -&#x3e; dir</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;output&#x29;</from><to>Compare Directories</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;input&#x29;</from><to>Compare Directories</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;output&#x29;</from><to>Compare files</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file_name_regex</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>
+  <hop> <from>Combine streams 1</from><to>output file extension</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file extension</from><to>output_file_short_name -&#x3e; file_short_name</to><enabled>Y</enabled> </hop>
+  <hop> <from>output_file_short_name -&#x3e; file_short_name</from><to>Compare files</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file_name_regex</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Combine Streams 2</from><to>Directories to create</to><enabled>Y</enabled> </hop>
+  <hop> <from>Compare files</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Combine streams 3</from><to>output files</to><enabled>Y</enabled> </hop>
+  <hop> <from>Compare Directories</from><to>Combine Streams 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file_name_regex</from><to>Combine streams 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;input&#x29;</from><to>Receive</to><enabled>Y</enabled> </hop>
+  <hop> <from>Receive</from><to>Combine streams 1</to><enabled>Y</enabled> </hop>
+  <hop> <from>input_dir &#x2f; output_dir</from><to>file separator</to><enabled>Y</enabled> </hop>
+  <hop> <from>file separator</from><to>output file_name_regex</to><enabled>Y</enabled> </hop>
+  <hop> <from>output files</from><to>file diff Mapping output</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;output&#x29;</from><to>ouput file Mapping output</to><enabled>Y</enabled> </hop>
+  <hop> <from>output file extension</from><to>input file Mapping output</to><enabled>Y</enabled> </hop>
+  <hop> <from>get-files.ktr &#x28;input&#x29;</from><to>input dir Mapping output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Directories to create</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>dir diff Mapping output</to><enabled>Y</enabled> </hop>
+  </order>
   <step>
     <name>Combine Streams 2</name>
     <type>JoinRows</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
       <prefix>out</prefix>
       <cache_size>500</cache_size>
       <main/>
@@ -83,7 +165,7 @@
 <condition>
  <negated>N</negated>
  <leftvalue/>
- <function>=</function>
+ <function>&#x3d;</function>
  <rightvalue/>
  </condition>
     </compare>
@@ -100,20 +182,21 @@
     <type>JoinRows</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
       <prefix>out</prefix>
       <cache_size>500</cache_size>
-      <main>get-files.ktr (input)</main>
+      <main>get-files.ktr &#x28;input&#x29;</main>
     <compare>
 <condition>
  <negated>N</negated>
  <leftvalue/>
- <function>=</function>
+ <function>&#x3d;</function>
  <rightvalue/>
  </condition>
     </compare>
@@ -130,12 +213,13 @@
     <type>JoinRows</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
       <prefix>out</prefix>
       <cache_size>500</cache_size>
       <main>Compare files</main>
@@ -143,7 +227,7 @@
 <condition>
  <negated>N</negated>
  <leftvalue/>
- <function>=</function>
+ <function>&#x3d;</function>
  <rightvalue/>
  </condition>
     </compare>
@@ -160,6 +244,7 @@
     <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -172,8 +257,8 @@
       <value>folder_relative_path</value>
     </values>
 <flag_field>directory_diff</flag_field>
-<reference>get-files.ktr (output)</reference>
-<compare>get-files.ktr (input)</compare>
+<reference>get-files.ktr &#x28;output&#x29;</reference>
+<compare>get-files.ktr &#x28;input&#x29;</compare>
     <compare>
     </compare>
      <cluster_schema/>
@@ -189,6 +274,7 @@
     <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -203,8 +289,8 @@
       <value>file_short_name</value>
     </values>
 <flag_field>file_diff</flag_field>
-<reference>get-files.ktr (output)</reference>
-<compare>output_file_short_name -&gt; file_short_name</compare>
+<reference>get-files.ktr &#x28;output&#x29;</reference>
+<compare>output_file_short_name -&#x3e; file_short_name</compare>
     <compare>
     </compare>
      <cluster_schema/>
@@ -220,6 +306,7 @@
     <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -266,6 +353,7 @@
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -284,6 +372,7 @@
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -311,6 +400,7 @@
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -780,6 +870,7 @@
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -798,6 +889,7 @@
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -816,6 +908,7 @@
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -824,7 +917,7 @@
     <fields>
       <field>
         <name>file_separator</name>
-        <variable>${file.separator}</variable>
+        <variable>&#x24;&#x7b;file.separator&#x7d;</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -844,21 +937,24 @@
     </step>
 
   <step>
-    <name>get-files.ktr (input)</name>
+    <name>get-files.ktr &#x28;input&#x29;</name>
     <type>Mapping</type>
     <description/>
     <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
     <trans_name/>
-    <filename>${Internal.Transformation.Filename.Directory}&#47;get-files.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;get-files.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
-    <mapping>    <input_step>output-dir -&gt; dir</input_step>
+    <mapping>    <input_step>output-dir -&#x3e; dir</input_step>
     <output_step>dir input</output_step>
     <main_path>N</main_path>
     <rename_on_output>N</rename_on_output>
@@ -884,6 +980,8 @@
           <parameters>    <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>Y</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>572</xloc>
@@ -893,17 +991,20 @@
     </step>
 
   <step>
-    <name>get-files.ktr (output)</name>
+    <name>get-files.ktr &#x28;output&#x29;</name>
     <type>Mapping</type>
     <description/>
     <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <specification_method>filename</specification_method>
+    <trans_object_id/>
     <trans_name/>
-    <filename>${Internal.Transformation.Filename.Directory}&#47;get-files.ktr</filename>
+    <filename>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;get-files.ktr</filename>
     <directory_path/>
     <mappings>
       <input>
@@ -933,6 +1034,8 @@
           <parameters>    <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     </mappings>
+    <allow_multiple_input>N</allow_multiple_input>
+    <allow_multiple_output>Y</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>572</xloc>
@@ -946,6 +1049,7 @@
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -964,6 +1068,7 @@
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -978,10 +1083,11 @@
     </step>
 
   <step>
-    <name>input_dir &#47; output_dir</name>
+    <name>input_dir &#x2f; output_dir</name>
     <type>MappingInput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1015,6 +1121,7 @@
     <type>MappingOutput</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1033,6 +1140,7 @@
     <type>Calculator</type>
     <description/>
     <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1065,6 +1173,7 @@
     <type>Calculator</type>
     <description/>
     <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1128,7 +1237,7 @@
 </calculation>
        <calculation><field_name>file_name_regex_prefix</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>^.+\</field_a>
+<field_a>&#x5e;.&#x2b;&#x5c;</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>
@@ -1142,7 +1251,7 @@
 </calculation>
        <calculation><field_name>file_name_regex_postfix</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>$</field_a>
+<field_a>&#x24;</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>
@@ -1170,7 +1279,7 @@
 </calculation>
        <calculation><field_name>input_file_name_regex</field_name>
 <calc_type>CONSTANT</calc_type>
-<field_a>^.+\.(ktr|kjb|prpt|xaction|xcdf|xml)$</field_a>
+<field_a>&#x5e;.&#x2b;&#x5c;.&#x28;ktr&#x7c;kjb&#x7c;prpt&#x7c;xaction&#x7c;xcdf&#x7c;xml&#x29;&#x24;</field_a>
 <field_b/>
 <field_c/>
 <value_type>String</value_type>
@@ -1195,6 +1304,7 @@
     <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1251,10 +1361,11 @@
     </step>
 
   <step>
-    <name>output-dir -&gt; dir</name>
+    <name>output-dir -&#x3e; dir</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1262,12 +1373,18 @@
            </partitioning>
     <fields>        <select_unspecified>N</select_unspecified>
       <remove>        <name>file_name_regex</name>
+      </remove>      <remove>        <name>dir</name>
       </remove>      <meta>        <name>input_dir</name>
         <rename>dir</rename>
         <type>String</type>
         <length>65</length>
         <precision>-2</precision>
         <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
         <decimal_symbol/>
         <grouping_symbol/>
         <currency_symbol/>
@@ -1278,6 +1395,11 @@
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
         <decimal_symbol/>
         <grouping_symbol/>
         <currency_symbol/>
@@ -1291,10 +1413,11 @@
     </step>
 
   <step>
-    <name>output_file_short_name -&gt; file_short_name</name>
+    <name>output_file_short_name -&#x3e; file_short_name</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -1386,4 +1509,5 @@
    <slave-step-copy-partition-distribution>
 </slave-step-copy-partition-distribution>
    <slave_transformation>N</slave_transformation>
+
 </transformation>
